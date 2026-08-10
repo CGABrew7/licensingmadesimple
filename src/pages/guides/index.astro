@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const guides = [
+  { slug: "first-business-license", title: "Getting Your First Business License", desc: "A plain-English walkthrough of what you need, where to get it, and how long it takes." },
+  { slug: "multi-state", title: "Multi-State Licensing Explained", desc: "Why every state is different, how to manage multiple licenses, and when to get help." },
+  { slug: "what-happens-if-you-skip-it", title: "What Happens If You Skip Licensing", desc: "The real consequences of operating without proper licenses: fines, shutdowns, and liability." }
+];
+---
+
+<Layout title="Guides — LicensingMadeSimple" description="Plain-English guides to business licensing.">
+  <section class="page-hero">
+    <div class="container">
+      <h1>Licensing Guides</h1>
+      <p>Everything you need to know, without the jargon.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 720px;">
+      {guides.map(g => (
+        <a href={`/guides/${g.slug}`} style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:16px;text-decoration:none;color:var(--text);transition:box-shadow 0.2s;">
+          <h3 style="font-size:1.1rem;margin-bottom:6px;">{g.title}</h3>
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">{g.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,48 @@
+{
+  "categories": [
+    {
+      "id": "starting-a-business",
+      "label": "Starting a Business",
+      "description": "First-time business licenses, registrations, and permits",
+      "types": [
+        { "id": "general-business", "name": "General Business License", "timeline": "1-4 weeks", "complexity": "Simple", "cost": "$200 - $800" },
+        { "id": "restaurant", "name": "Restaurant / Food Service", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$500 - $1,800" },
+        { "id": "contractor", "name": "Contractor License", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$500 - $1,500" },
+        { "id": "real-estate", "name": "Real Estate Broker", "timeline": "2-6 weeks", "complexity": "Moderate", "cost": "$400 - $1,200" },
+        { "id": "auto-dealer", "name": "Auto Dealer License", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$600 - $2,000" },
+        { "id": "home-health", "name": "Home Health Agency", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,000 - $3,000" }
+      ]
+    },
+    {
+      "id": "financial-services",
+      "label": "Financial Services",
+      "description": "Lending, money transmission, debt collection, and other financial licenses",
+      "types": [
+        { "id": "consumer-lender", "name": "Consumer Lender", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,500 - $4,000" },
+        { "id": "mortgage-lender", "name": "Mortgage Lender/Broker", "timeline": "6-24 weeks", "complexity": "Complex", "cost": "$2,000 - $5,000" },
+        { "id": "money-transmitter", "name": "Money Transmitter", "timeline": "8-52 weeks", "complexity": "Very Complex", "cost": "$3,000 - $7,000" },
+        { "id": "collection-agency", "name": "Collection Agency", "timeline": "3-12 weeks", "complexity": "Complex", "cost": "$1,200 - $3,000" },
+        { "id": "payday-lender", "name": "Payday / Small Dollar Lender", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,500 - $4,500" },
+        { "id": "debt-buyer", "name": "Debt Buyer", "timeline": "3-12 weeks", "complexity": "Complex", "cost": "$1,200 - $3,500" },
+        { "id": "cryptocurrency", "name": "Cryptocurrency License", "timeline": "8-52 weeks", "complexity": "Very Complex", "cost": "$3,500 - $8,000" }
+      ]
+    },
+    {
+      "id": "insurance-professional",
+      "label": "Insurance & Professional",
+      "description": "Insurance adjusters, professional licenses, and specialty permits",
+      "types": [
+        { "id": "insurance-adjuster", "name": "Insurance Adjuster", "timeline": "1-6 weeks", "complexity": "Simple", "cost": "$300 - $900" }
+      ]
+    }
+  ],
+  "states": [
+    "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware",
+    "Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky",
+    "Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi",
+    "Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico",
+    "New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania",
+    "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont",
+    "Virginia","Washington","West Virginia","Wisconsin","Wyoming"
+  ]
+}
