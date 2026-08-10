@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description?: string; }
+const { title, description = "Business licensing made simple. Answer 3 questions, get your personalized licensing roadmap. No jargon, no confusion." } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Licensing<span>MadeSimple</span></a>
+      <div class="nav-links">
+        <a href="/guides">Guides</a>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/#wizard" class="nav-cta">Get Your Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <slot />
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" style="color: white;">Licensing<span>MadeSimple</span></a>
+          <p>We make business licensing simple. Answer a few questions, get your personalized roadmap, and let experts handle the rest.</p>
+        </div>
+        <div>
+          <h4>Guides</h4>
+          <a href="/guides">All Guides</a>
+          <a href="/guides/first-business-license">Your First License</a>
+          <a href="/guides/multi-state">Multi-State Licensing</a>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Contact</a>
+          <a href="/about">About</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="/privacy">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 LicensingMadeSimple. All rights reserved.</span>
+        <span>Licensing services by <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
