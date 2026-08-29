@@ -1,4 +1,4 @@
-import { states, getState, type StateRecord } from "../data/states";
+import { regions, states, getState, type StateRecord } from "../data/states";
 import {
   adjacentLicenseTypes,
   coreLicenseTypes,
@@ -7,12 +7,12 @@ import {
   type LicenseSlug,
   type LicenseType,
 } from "../data/license-types";
-import { getStateLicense, type StateLicenseFact } from "../data/state-licenses";
+import { getFactsForLicense, getFactsForState, getStateLicense, type StateLicenseFact } from "../data/state-licenses";
 
 export const SITE_URL = "https://licensingmadesimple.com";
 export const CORNERSTONE_URL = "https://cornerstonelicensing.com";
 
-export { states, getState, licenseTypes, coreLicenseTypes, adjacentLicenseTypes, getLicenseType, getStateLicense };
+export { regions, states, getState, licenseTypes, coreLicenseTypes, adjacentLicenseTypes, getLicenseType, getStateLicense, getFactsForLicense, getFactsForState };
 export type { StateRecord, LicenseType, LicenseSlug, StateLicenseFact };
 
 export const coreSlugs = coreLicenseTypes.map((t) => t.slug);
