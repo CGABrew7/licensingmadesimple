@@ -3,12 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import LicenseWizard from '../components/LicenseWizard.jsx';
 
 const faqs = [
-  { q: "Do I need a business license?", a: "Almost certainly. If you're operating a business in the United States, you need at least a general business license in most cities and counties. Some industries (financial services, healthcare, construction, food service) require additional specialized licenses at the state level." },
-  { q: "How long does licensing take?", a: "It depends on the license type. Simple business licenses: 1-4 weeks. Trade licenses (contractor, real estate): 2-8 weeks. Financial services licenses: 4-52 weeks. Use our <a href='#wizard'>roadmap wizard</a> to see the typical timeline for your situation." },
-  { q: "What does it cost?", a: "Two costs to plan for: the service fee (what you pay a licensing professional to prepare and file your application) and the government filing fee (what the state charges). Service fees range from $200-$8,000 depending on complexity. Government fees vary by state. You get exact numbers before committing." },
-  { q: "Can't I just do it myself?", a: "You can. But licensing is detail work. One wrong form, one missing document, one incorrect fee, and your application gets sent back. That means weeks of delays. Professional preparers have a 97% first-submission approval rate because they've done this hundreds of thousands of times. Most people find the time savings alone are worth the service fee." },
-  { q: "What about multi-state licensing?", a: "Multi-state is where professional help pays for itself fastest. Every state has different forms, different fees, different requirements, and different deadlines. A specialist coordinates all of it and tracks every deadline. Most multi-state clients save 60-80% of the time they'd spend doing it themselves." },
-  { q: "Who actually files my application?", a: "All applications through LicensingMadeSimple are prepared and filed by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a> — 28 years in business, 525,000+ filings, 99.995% on-time submission rate. One dedicated specialist handles your application from start to finish." }
+  { q: "Do I need a business license?", a: "Most cities and counties require a general business license. Financial services, healthcare, construction, and food service almost always need a state license on top of that. Use the <a href='#wizard'>roadmap wizard</a> or the <a href='/directory'>directory</a> to see which desk applies." },
+  { q: "How long does licensing take?", a: "This site does not quote processing times. Each agency sets its own review clock. For timelines, use <a href='https://fastlicense.com' target='_blank' rel='noopener'>fastlicense.com</a>." },
+  { q: "What does it cost?", a: "This site does not quote service fees or government fee bands. Confirm the current fee on the agency checklist. To compare providers and costs, use <a href='https://licensestore.com' target='_blank' rel='noopener'>licensestore.com</a>." },
+  { q: "Can't I just do it myself?", a: "Yes. The agency will take a complete application from the applicant. <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a> prepares and files if you want that done for you." },
+  { q: "What about multi-state licensing?", a: "There is no national license for these verticals. File in each state where the customer, borrower, or debtor lives. The <a href='/states'>state directory</a> names the agency for each core license." },
+  { q: "Who actually files my application?", a: "Filings arranged through this site are prepared and submitted by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a>. This site’s job is who needs the license and where to file it." }
 ];
 ---
 
@@ -50,7 +50,7 @@ const faqs = [
   <section class="section section-alt" id="wizard-section">
     <div class="container">
       <h2 class="section-title">Your Licensing Roadmap</h2>
-      <p class="section-sub">3 questions. No jargon. Your personalized plan in 30 seconds.</p>
+      <p class="section-sub">3 questions. No jargon. The license type and the usual filing desk.</p>
       <LicenseWizard client:load />
     </div>
   </section>
@@ -101,12 +101,12 @@ const faqs = [
         <div class="card">
           <div style="font-size:2rem; margin-bottom:12px;">1</div>
           <h3>Tell us what you need</h3>
-          <p>Use the roadmap wizard or contact us. We need your business type, state(s), and timeline. That's it. We figure out the rest.</p>
+          <p>Use the roadmap wizard or the directory. We need your business type and state(s). The site names the agency; Cornerstone can file.</p>
         </div>
         <div class="card">
           <div style="font-size:2rem; margin-bottom:12px;">2</div>
-          <h3>We handle everything</h3>
-          <p>Your dedicated specialist prepares the application, assembles documents, files with the state, and handles any follow-up. Average prep time: 3 business days.</p>
+          <h3>The application is filed</h3>
+          <p>Your specialist prepares the application, assembles documents, files with the agency or NMLS, and answers deficiency letters. This site does not quote prep or review times.</p>
         </div>
         <div class="card">
           <div style="font-size:2rem; margin-bottom:12px;">3</div>
@@ -124,22 +124,14 @@ const faqs = [
       <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 560px; margin: 0 auto 28px;">
         All licensing work is handled by Cornerstone Licensing, one of the most experienced licensing firms in the United States.
       </p>
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
-        <div class="card" style="text-align: center; padding: 20px;">
-          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);">525K+</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">Filings completed</div>
+      <div class="card-grid lms-core-grid" style="text-align: left; max-width: 640px; margin: 0 auto;">
+        <div class="card">
+          <h3>Who files</h3>
+          <p>Applications arranged here are prepared and submitted by <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>. We do not reprint their filing counts or approval rates.</p>
         </div>
-        <div class="card" style="text-align: center; padding: 20px;">
-          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);">28</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">Years experience</div>
-        </div>
-        <div class="card" style="text-align: center; padding: 20px;">
-          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);">97%</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">First-try approval</div>
-        </div>
-        <div class="card" style="text-align: center; padding: 20px;">
-          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);">50</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">States covered</div>
+        <div class="card">
+          <h3>Where we cover</h3>
+          <p>The directory lists official agencies in all 50 states for the four core verticals. Confirm every checklist on the regulator’s site before you apply.</p>
         </div>
       </div>
     </div>

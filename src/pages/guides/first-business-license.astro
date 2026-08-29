@@ -2,35 +2,41 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Getting Your First Business License — LicensingMadeSimple" description="A plain-English guide to getting your first business license.">
+<Layout title="Getting Your First Business License — LicensingMadeSimple" description="Who typically needs a first business license, and which desk takes the filing.">
   <section class="page-hero">
     <div class="container">
       <h1>Getting Your First Business License</h1>
-      <p>What you need, where to get it, and how long it takes.</p>
+      <p>What you need, and where to file it.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container article" style="max-width: 720px;">
-      <h2>Do You Need One?</h2>
-      <p>Almost certainly yes. Most cities and counties require a general business license to operate any type of business. Some industries require additional state-level licenses on top of that. Operating without required licenses can result in fines, forced closure, and personal liability.</p>
+      <h2>Do you need one?</h2>
+      <p>Most cities and counties require a general business license to operate. Some industries also need a state license. Financial services, healthcare, construction, and food service almost always have a state desk on top of the local one. Operating without a required license can mean fines, a cease-and-desist, or unenforceable contracts.</p>
 
-      <h2>What Kind Do You Need?</h2>
-      <p>Start with your local city or county. They'll tell you whether you need a general business license (most businesses do). Then check your state's requirements for your specific industry. Regulated industries like financial services, healthcare, construction, and food service almost always require state-level licenses.</p>
-      <p>Not sure what applies to you? Use our <a href="/#wizard">roadmap wizard</a> for a quick assessment.</p>
+      <h2>What kind, and where to file</h2>
+      <p>Start with the city or county where the business sits. That office issues the general business license or tells you it is a county filing. Then check the state agency for your industry:</p>
+      <ul>
+        <li>Collection / ARM — collection board, banking department, or secretary of state; some states issue no license. See the <a href="/directory/collection">collection directory</a>.</li>
+        <li>Consumer or commercial lending — banking, DFI, or consumer-credit agency, usually on NMLS. See the <a href="/directory/lending">lending directory</a>.</li>
+        <li>Money transmission — FinCEN MSB registration plus a state money-transmitter license on NMLS. See the <a href="/directory/money-transmitters">money-transmitter directory</a>.</li>
+        <li>Mortgage — state mortgage regulator through NMLS. See the <a href="/directory/mortgage">mortgage directory</a>.</li>
+        <li>Contractors — state contractor board and/or the city or county. See the <a href="/directory/contractors">contractor overview</a>.</li>
+        <li>Insurance producers and adjusters — state department of insurance, usually through NIPR. See the <a href="/directory/insurance">insurance overview</a>.</li>
+      </ul>
+      <p>Not sure which vertical you are in? Use the <a href="/#wizard">roadmap wizard</a>, then open the matching state page.</p>
 
-      <h2>What It Takes</h2>
-      <p>The requirements vary, but most business licenses involve filling out an application form with your business details, paying a government filing fee (ranges from $25 to several thousand dollars depending on the license type), providing proof of business formation (articles of incorporation, LLC documents, etc.), passing a background check (for regulated industries), and posting a surety bond (for some license types).</p>
-      <p>The complexity ranges from "fill out one form and pay $50" for a simple city business license to "prepare a 50-page application package with financial statements, business plans, and $500K in bonds" for something like a money transmitter license.</p>
+      <h2>What the agency usually asks for</h2>
+      <p>A complete filing typically includes the application form, formation documents, control-person or owner disclosures, and — for many financial licenses — a surety bond and a registered agent. Money-transmitter applications also need a BSA/AML program and FinCEN registration. This site does not quote filing fees or bond amounts; those are on the agency checklist.</p>
 
-      <h2>How Long It Takes</h2>
-      <p>Simple business licenses: 1-4 weeks. Trade licenses (contractor, real estate): 2-8 weeks. Financial services licenses: 1-12 months. The biggest variable isn't the state's processing time. It's how long it takes to prepare a clean application. Incomplete or incorrect applications get sent back, adding weeks of delay each time.</p>
+      <h2>How long it takes</h2>
+      <p>This site does not quote processing times. The agency’s review clock, and any deficiency letter, decides the calendar. For timelines, use <a href="https://fastlicense.com" target="_blank" rel="noopener">fastlicense.com</a>. For provider and cost comparison, use <a href="https://licensestore.com" target="_blank" rel="noopener">licensestore.com</a>.</p>
 
-      <h2>The DIY vs. Professional Choice</h2>
-      <p>You can do this yourself. But here's the tradeoff: professionals who've done hundreds of thousands of filings have a 97% first-submission approval rate. DIY applicants see significantly more rejection and correction cycles, each adding 2-4 weeks of delay.</p>
-      <p>The math usually works like this: your time spent researching requirements, finding forms, filling out applications, and handling corrections is worth more than the professional service fee. That's especially true for multi-state licensing, where you'd multiply the research and paperwork across every state.</p>
+      <h2>DIY or a filer</h2>
+      <p>You can file yourself. The agency will accept a complete application from the applicant. If you want the package assembled and submitted, <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a> does that work. We do not reprint approval-rate or speed claims here.</p>
 
-      <p>Ready to get started? <a href="/#wizard">Get your personalized roadmap</a> in 30 seconds.</p>
+      <p>Next: <a href="/#wizard">roadmap wizard</a> or the <a href="/states">state index</a>.</p>
     </div>
   </section>
 </Layout>
@@ -38,5 +44,6 @@ import Layout from '../../layouts/Layout.astro';
 <style>
   .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
   .article h2:first-child { margin-top: 0; }
-  .article p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
+  .article p, .article li { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
+  .article ul { margin: 0 0 14px 20px; }
 </style>

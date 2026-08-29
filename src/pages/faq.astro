@@ -2,22 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 
 const faqs = [
-  { q: "Do I need a business license?", a: "Almost certainly. Most cities/counties require a general business license, and many industries require additional state licenses. Use our <a href='/#wizard'>roadmap wizard</a> to find out what applies to your situation." },
-  { q: "How long does it take?", a: "Simple licenses: 1-4 weeks. Moderate (contractor, restaurant): 2-8 weeks. Complex (financial services): 1-12 months. The biggest variable is application quality — clean applications get approved faster." },
-  { q: "What does it cost?", a: "Service fees range from $200-$8,000 depending on complexity. Government filing fees vary by state. You get exact numbers before committing to anything." },
-  { q: "Can I do it myself?", a: "Yes, but professionals have a 97% first-submission approval rate vs. significantly higher rejection rates for DIY applications. Each rejection adds 2-4 weeks of delay. For most people, the time savings alone justify the service fee." },
-  { q: "What about multiple states?", a: "Multi-state licensing is where professional help adds the most value. A specialist coordinates filings across all states and tracks every deadline. Most multi-state clients save 60-80% of the time they'd spend doing it themselves." },
-  { q: "Who does the actual work?", a: "All applications are prepared and filed by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a> — 28 years in business, 525,000+ filings, 99.995% on-time rate. One specialist handles your case from start to finish." },
-  { q: "What's included?", a: "Application preparation, document assembly, filing, status tracking, deficiency response, and approval confirmation. Surety bond procurement is included for licenses that require bonds. Government filing fees are quoted separately." },
-  { q: "Do you handle renewals?", a: "Yes. All renewal deadlines are tracked automatically. Your specialist files renewals proactively so your licenses never lapse." }
+  { q: "Do I need a business license?", a: "Most cities and counties require a general business license. Many industries also need a state license. Financial-services work (collection, lending, money transmission, mortgage) is licensed state by state. Use the <a href='/#wizard'>roadmap wizard</a> or the <a href='/directory'>directory</a> to see who typically needs which filing." },
+  { q: "Who needs a state financial-services license?", a: "Third-party collectors and many debt buyers; companies that make consumer loans above a state’s trigger; businesses that transmit customer funds or sell payment instruments; and firms that originate, broker, or service residential mortgages. Banks and credit unions lending under a charter are usually exempt from the non-depository license. Confirm the exact category with the agency." },
+  { q: "Where do I file?", a: "With the state agency that issues that license — often a banking department, DFI, collection board, or secretary of state. Mortgage, many lender, and most money-transmitter applications go through <a href='/guides/nmls'>NMLS</a>. Collection is mixed: some states use NMLS, some a board, and some issue no statewide collection license. Open the <a href='/states'>state index</a> for the desk." },
+  { q: "How long does it take?", a: "This site does not quote processing times. Each agency sets its own review clock, and a deficiency letter resets it. For timelines, use <a href='https://fastlicense.com' target='_blank' rel='noopener'>fastlicense.com</a>." },
+  { q: "What does it cost?", a: "This site does not quote service fees or government fee bands. Confirm the current filing fee and any required surety bond on the agency’s checklist. To compare providers and costs, use <a href='https://licensestore.com' target='_blank' rel='noopener'>licensestore.com</a>." },
+  { q: "Can I do it myself?", a: "Yes. The agency will take a complete application from the applicant. The work is assembling the right authority, control-person disclosures, and any bond the statute requires. <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a> prepares and files if you want that done for you." },
+  { q: "What about multiple states?", a: "There is no national license for these verticals. You file in each state where the customer, borrower, or debtor lives — not only where your office sits. The <a href='/states'>state directory</a> lists the agency for each core license." },
+  { q: "Who does the actual work?", a: "Filings arranged through this site are prepared and submitted by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a>. This site’s job is to name who needs the license and which desk takes the application." },
+  { q: "What's included if Cornerstone files?", a: "Application preparation, document assembly, filing with the agency or NMLS, deficiency response, and renewal tracking. If the statute requires a surety bond, they place it. Government fees are paid to the agency, not set on this site." },
+  { q: "Do you handle renewals?", a: "Cornerstone tracks renewal dates and files renewals so a license does not lapse. Confirm each state’s renewal calendar on the regulator’s site." }
 ];
 ---
 
-<Layout title="FAQ — LicensingMadeSimple" description="Common questions about business licensing.">
+<Layout title="FAQ — LicensingMadeSimple" description="Who needs a U.S. business or financial-services license, and which agency takes the filing.">
   <section class="page-hero">
     <div class="container">
       <h1>Common Questions</h1>
-      <p>Quick answers about licensing.</p>
+      <p>Who needs the license, and where it is filed.</p>
     </div>
   </section>
 
@@ -35,8 +37,8 @@ const faqs = [
   <section class="cta-band">
     <div class="container">
       <h2>Still Have Questions?</h2>
-      <p>Contact us or use the licensing wizard.</p>
-      <a href="/contact">Contact Us</a>
+      <p>Open the directory, or talk with Cornerstone about a filing.</p>
+      <a href="/directory">Open the directory</a>
     </div>
   </section>
 </Layout>

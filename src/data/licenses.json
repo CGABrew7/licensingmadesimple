@@ -5,12 +5,12 @@
       "label": "Starting a Business",
       "description": "First-time business licenses, registrations, and permits",
       "types": [
-        { "id": "general-business", "name": "General Business License", "timeline": "1-4 weeks", "complexity": "Simple", "cost": "$200 - $800" },
-        { "id": "restaurant", "name": "Restaurant / Food Service", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$500 - $1,800" },
-        { "id": "contractor", "name": "Contractor License", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$500 - $1,500" },
-        { "id": "real-estate", "name": "Real Estate Broker", "timeline": "2-6 weeks", "complexity": "Moderate", "cost": "$400 - $1,200" },
-        { "id": "auto-dealer", "name": "Auto Dealer License", "timeline": "2-8 weeks", "complexity": "Moderate", "cost": "$600 - $2,000" },
-        { "id": "home-health", "name": "Home Health Agency", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,000 - $3,000" }
+        { "id": "general-business", "name": "General Business License", "complexity": "Simple", "filing": "City or county business-license office", "directory": "/states" },
+        { "id": "restaurant", "name": "Restaurant / Food Service", "complexity": "Moderate", "filing": "Local health department plus the city or county license desk", "directory": "/states" },
+        { "id": "contractor", "name": "Contractor License", "complexity": "Moderate", "filing": "State contractor board and/or the city or county", "directory": "/directory/contractors" },
+        { "id": "real-estate", "name": "Real Estate Broker", "complexity": "Moderate", "filing": "State real-estate commission or division", "directory": "/states" },
+        { "id": "auto-dealer", "name": "Auto Dealer License", "complexity": "Moderate", "filing": "State motor-vehicle or dealer-licensing agency", "directory": "/states" },
+        { "id": "home-health", "name": "Home Health Agency", "complexity": "Complex", "filing": "State health department or health-care facility board", "directory": "/states" }
       ]
     },
     {
@@ -18,13 +18,13 @@
       "label": "Financial Services",
       "description": "Lending, money transmission, debt collection, and other financial licenses",
       "types": [
-        { "id": "consumer-lender", "name": "Consumer Lender", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,500 - $4,000" },
-        { "id": "mortgage-lender", "name": "Mortgage Lender/Broker", "timeline": "6-24 weeks", "complexity": "Complex", "cost": "$2,000 - $5,000" },
-        { "id": "money-transmitter", "name": "Money Transmitter", "timeline": "8-52 weeks", "complexity": "Very Complex", "cost": "$3,000 - $7,000" },
-        { "id": "collection-agency", "name": "Collection Agency", "timeline": "3-12 weeks", "complexity": "Complex", "cost": "$1,200 - $3,000" },
-        { "id": "payday-lender", "name": "Payday / Small Dollar Lender", "timeline": "4-16 weeks", "complexity": "Complex", "cost": "$1,500 - $4,500" },
-        { "id": "debt-buyer", "name": "Debt Buyer", "timeline": "3-12 weeks", "complexity": "Complex", "cost": "$1,200 - $3,500" },
-        { "id": "cryptocurrency", "name": "Cryptocurrency License", "timeline": "8-52 weeks", "complexity": "Very Complex", "cost": "$3,500 - $8,000" }
+        { "id": "consumer-lender", "name": "Consumer Lender", "complexity": "Complex", "filing": "State banking, DFI, or consumer-credit agency — usually NMLS", "directory": "/directory/lending" },
+        { "id": "mortgage-lender", "name": "Mortgage Lender/Broker", "complexity": "Complex", "filing": "State mortgage regulator through NMLS (SAFE Act)", "directory": "/directory/mortgage" },
+        { "id": "money-transmitter", "name": "Money Transmitter", "complexity": "Very Complex", "filing": "FinCEN MSB registration plus a state money-transmitter license on NMLS", "directory": "/directory/money-transmitters" },
+        { "id": "collection-agency", "name": "Collection Agency", "complexity": "Complex", "filing": "State collection board, banking department, or secretary of state — some states have no license", "directory": "/directory/collection" },
+        { "id": "payday-lender", "name": "Payday / Small Dollar Lender", "complexity": "Complex", "filing": "State banking, DFI, or consumer-credit agency — usually NMLS", "directory": "/directory/lending" },
+        { "id": "debt-buyer", "name": "Debt Buyer", "complexity": "Complex", "filing": "Often the same desk as collection; confirm the state’s debt-buyer category", "directory": "/directory/collection" },
+        { "id": "cryptocurrency", "name": "Cryptocurrency License", "complexity": "Very Complex", "filing": "Often a money-transmitter license; New York adds a BitLicense for some activity", "directory": "/directory/money-transmitters" }
       ]
     },
     {
@@ -32,7 +32,7 @@
       "label": "Insurance & Professional",
       "description": "Insurance adjusters, professional licenses, and specialty permits",
       "types": [
-        { "id": "insurance-adjuster", "name": "Insurance Adjuster", "timeline": "1-6 weeks", "complexity": "Simple", "cost": "$300 - $900" }
+        { "id": "insurance-adjuster", "name": "Insurance Adjuster", "complexity": "Simple", "filing": "State department of insurance, usually through NIPR", "directory": "/directory/insurance" }
       ]
     }
   ],
