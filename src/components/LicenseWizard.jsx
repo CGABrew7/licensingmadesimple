@@ -185,14 +185,21 @@ export default function LicenseWizard() {
               </p>
             )}
 
+            <p style={{ fontSize: '0.82rem', color: '#57534E', marginTop: '16px' }}>
+              See who needs this license and which agency takes the filing in the{' '}
+              <a href="/directory" style={{ color: '#EA580C', fontWeight: 600 }}>state directory</a>.
+            </p>
+
             {!showForm ? (
-              <button
-                onClick={() => setShowForm(true)}
+              <a
+                href="https://cornerstonelicensing.com"
+                target="_blank"
+                rel="noopener"
                 className="btn"
-                style={{ marginTop: '16px' }}
+                style={{ marginTop: '16px', textAlign: 'center', textDecoration: 'none' }}
               >
-                Get My Personalized Plan (Free)
-              </button>
+                Have Cornerstone file it
+              </a>
             ) : !submitted ? (
               <form onSubmit={handleLead} style={{ marginTop: '20px', textAlign: 'left' }}>
                 <div className="form-group">

@@ -1,7 +1,8 @@
 ---
 import '../styles/global.css';
 interface Props { title: string; description?: string; }
-const { title, description = "Business licensing made simple. Answer 3 questions, get your personalized licensing roadmap. No jargon, no confusion." } = Astro.props;
+const { title, description = "Who needs which U.S. business license, and where to file it. 50-state directory for collection, lending, money transmitters, and mortgage — plus a 3-question roadmap." } = Astro.props;
+const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,11 @@ const { title, description = "Business licensing made simple. Answer 3 questions
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <title>{title}</title>
+  <link rel="canonical" href={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body>
@@ -17,6 +23,8 @@ const { title, description = "Business licensing made simple. Answer 3 questions
     <div class="nav-inner">
       <a href="/" class="nav-logo">Licensing<span>MadeSimple</span></a>
       <div class="nav-links">
+        <a href="/directory">Directory</a>
+        <a href="/states">States</a>
         <a href="/guides">Guides</a>
         <a href="/about">About</a>
         <a href="/faq">FAQ</a>
@@ -35,19 +43,24 @@ const { title, description = "Business licensing made simple. Answer 3 questions
           <p>We make business licensing simple. Answer a few questions, get your personalized roadmap, and let experts handle the rest.</p>
         </div>
         <div>
+          <h4>Directory</h4>
+          <a href="/directory">License types</a>
+          <a href="/states">All 50 states</a>
+          <a href="/directory/mortgage">Mortgage</a>
+          <a href="/directory/collection">Collection / ARM</a>
+        </div>
+        <div>
           <h4>Guides</h4>
           <a href="/guides">All Guides</a>
+          <a href="/guides/nmls">What NMLS is</a>
           <a href="/guides/first-business-license">Your First License</a>
           <a href="/guides/multi-state">Multi-State Licensing</a>
         </div>
         <div>
-          <h4>Resources</h4>
+          <h4>Site</h4>
+          <a href="/about">About</a>
           <a href="/faq">FAQ</a>
           <a href="/contact">Contact</a>
-          <a href="/about">About</a>
-        </div>
-        <div>
-          <h4>Legal</h4>
           <a href="/privacy">Privacy</a>
         </div>
       </div>

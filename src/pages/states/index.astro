@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
+import { coreLicenseTypes, regions, statePath, states } from "../../lib/directory";
+---
+
+<Layout
+  title="State licensing desks — 50-state index"
+  description="Every U.S. state hub: which agencies license collection, lending, money transmission, and mortgage activity, and where the filing goes."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-crumb"><a href="/directory">Directory</a> / States</p>
+      <h1>Where to file, state by state</h1>
+      <p>
+        {states.length} state hubs. Each page lists the official agencies and the four
+        core license types. Nationwide operators — not one hometown market.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="lms-core-legend">
+        Core filings on every state page:
+        {coreLicenseTypes.map((t, i) => (
+          <><a href={`/directory/${t.slug}`}>{t.name}</a>{i < coreLicenseTypes.length - 1 ? " · " : ""}</>
+        ))}
+      </p>
+
+      {regions.map((region) => (
+        <div class="lms-region">
+          <h2>{region}</h2>
+          <ul class="lms-state-grid">
+            {states.filter((s) => s.region === region).map((s) => (
+              <li>
+                <a href={statePath(s.slug)}>
+                  <strong>{s.name}</strong>
+                  <span>{s.abbr}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="max-width:720px;">
+      <DirectoryDisclaimer />
+    </div>
+  </section>
+</Layout>

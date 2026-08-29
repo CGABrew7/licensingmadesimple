@@ -1,0 +1,133 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
+import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import {
+  comboPath,
+  coreLicenseTypes,
+  filingLabel,
+  getFactsForLicense,
+  getLicenseType,
+  getState,
+  licenseTypes,
+  requiredLabel,
+  statePath,
+} from "../../lib/directory";
+
+export function getStaticPaths() {
+  return licenseTypes.map((t) => ({ params: { type: t.slug } }));
+}
+
+const type = getLicenseType(Astro.params.type!);
+if (!type) throw new Error("Unknown license type");
+
+const isCore = type.tier === "core";
+const rows = isCore
+  ? getFactsForLicense(type.slug).map(({ stateSlug, fact }) => ({
+      state: getState(stateSlug)!,
+      fact,
+    }))
+  : [];
+---
+
+<Layout
+  title={`${type.name} licenses — who needs one and where to file`}
+  description={`${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
+      <p class="lms-kicker">{type.vertical}</p>
+      <h1>{type.name}</h1>
+      <p>{type.filingHint}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container lms-prose">
+      <h2>Who needs this license</h2>
+      <p>{type.whoNeeds}</p>
+
+      <h2>Typical filing path</h2>
+      <p>{type.typicalPath}</p>
+
+      <h2>Federal layer</h2>
+      <p>{type.federalOverlay}</p>
+
+      {isCore && (
+        <p>
+          Open a state page for the agency name, the usual license title, and whether
+          a statewide license exists. We omit fees, bond amounts, and processing times
+          unless a statute is cited on that page.
+        </p>
+      )}
+    </div>
+  </section>
+
+  {isCore && (
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">{type.name} by state</h2>
+        <p class="section-sub">{rows.length} states. Required means a statewide license, permit, or registration of this type is the usual rule — not that every business model is in scope.</p>
+        <div class="lms-table-wrap">
+          <table class="lms-table">
+            <thead>
+              <tr>
+                <th>State</th>
+                <th>Statewide license</th>
+                <th>Agency</th>
+                <th>Filing</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(({ state, fact }) => (
+                <tr>
+                  <td>
+                    <a href={comboPath(state.slug, type.slug)}>{state.name}</a>
+                  </td>
+                  <td>{requiredLabel(fact.required)}</td>
+                  <td>
+                    <a href={fact.agencyUrl} target="_blank" rel="noopener">{fact.agencyName}</a>
+                  </td>
+                  <td>{filingLabel(fact.filing)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {!isCore && (
+    <section class="section section-alt">
+      <div class="container lms-prose">
+        <h2>How to find the state desk</h2>
+        <p>
+          Start at the <a href="/states">state index</a> and open the financial regulator
+          listed there, then follow that agency’s insurance, contractor, or charities
+          links. We do not generate 50 thin pages for adjacent filings.
+        </p>
+        <ul class="lms-state-list">
+          {coreLicenseTypes.map((t) => (
+            <li><a href={`/directory/${t.slug}`}>{t.name}</a> — core vertical with 50-state pages</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <FileWithCornerstone topic={`a ${type.shortName} filing`} />
+      <p style="margin-top:16px;">
+        <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone’s {type.name.toLowerCase()} desk</a>
+        {" · "}
+        <a href="/guides/nmls">How NMLS filings work</a>
+        {" · "}
+        <a href="/states">All states</a>
+      </p>
+      <DirectoryDisclaimer />
+    </div>
+  </section>
+</Layout>

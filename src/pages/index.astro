@@ -12,7 +12,10 @@ const faqs = [
 ];
 ---
 
-<Layout title="LicensingMadeSimple — Business Licensing Without the Confusion">
+<Layout
+  title="LicensingMadeSimple — Who needs the license, where to file"
+  description="50-state directory of collection, lending, money-transmitter, and mortgage licenses: who typically needs each one and which agency takes the filing. Roadmap wizard included."
+>
   <section class="hero">
     <div class="container">
       <h1>Business Licensing,<br/><span>Made Simple.</span></h1>
@@ -49,6 +52,43 @@ const faqs = [
       <h2 class="section-title">Your Licensing Roadmap</h2>
       <p class="section-sub">3 questions. No jargon. Your personalized plan in 30 seconds.</p>
       <LicenseWizard client:load />
+    </div>
+  </section>
+
+  <!-- DIRECTORY -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Who Needs What, Where to File</h2>
+      <p class="section-sub">A 50-state directory for Cornerstone’s four core verticals. Official agencies. No invented fees.</p>
+      <div class="card-grid lms-core-grid">
+        <a class="card lms-dir-card" href="/directory/collection">
+          <h3>Collection / ARM</h3>
+          <p>Who needs a collection-agency or debt-collector license, which states issue one, and which board or department takes the filing.</p>
+          <span class="lms-card-link">Open collection directory →</span>
+        </a>
+        <a class="card lms-dir-card" href="/directory/lending">
+          <h3>Consumer &amp; commercial lending</h3>
+          <p>Which agency licenses consumer-finance and related lender activity, and how the typical NMLS path works.</p>
+          <span class="lms-card-link">Open lending directory →</span>
+        </a>
+        <a class="card lms-dir-card" href="/directory/money-transmitters">
+          <h3>Money transmitters</h3>
+          <p>State money-transmitter licenses plus the separate FinCEN MSB registration. New York’s BitLicense called out where it applies.</p>
+          <span class="lms-card-link">Open MTL directory →</span>
+        </a>
+        <a class="card lms-dir-card" href="/directory/mortgage">
+          <h3>Mortgage</h3>
+          <p>SAFE Act company and MLO filings through NMLS, including the states that split mortgage onto a real-estate or SML desk.</p>
+          <span class="lms-card-link">Open mortgage directory →</span>
+        </a>
+      </div>
+      <p style="text-align:center;margin-top:28px;">
+        <a href="/states">Browse all 50 states</a>
+        {" · "}
+        <a href="/directory">Full directory</a>
+        {" · "}
+        <a href="/guides/nmls">What NMLS is</a>
+      </p>
     </div>
   </section>
 
@@ -122,9 +162,9 @@ const faqs = [
 
   <section class="cta-band">
     <div class="container">
-      <h2>Ready to Get Started?</h2>
-      <p>Get your personalized licensing roadmap in 30 seconds. No commitment.</p>
-      <a href="#wizard">Get Your Roadmap</a>
+      <h2>Ready to file?</h2>
+      <p>Use the roadmap to see the license type, then have Cornerstone prepare and file it.</p>
+      <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Talk with Cornerstone</a>
     </div>
   </section>
 </Layout>
