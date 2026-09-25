@@ -1,0 +1,77 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
+import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../../lib/directory";
+---
+
+<Layout
+  title="License directory — who needs what, where to file"
+  description="A 50-state directory of collection, lending, money-transmitter, and mortgage licenses: who typically needs each one and which agency takes the filing."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-kicker">Filing directory</p>
+      <h1>Who needs the license, and where it is filed</h1>
+      <p>
+        Four core financial-services verticals, all 50 states. Official agencies only.
+        No invented fees, rankings, or reviews.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Core licenses</h2>
+      <p class="section-sub">The work this site exists to explain. Each type has a national overview and a page for every state.</p>
+      <div class="card-grid lms-core-grid">
+        {coreLicenseTypes.map((t) => (
+          <a class="card lms-dir-card" href={licensePath(t.slug)}>
+            <p class="lms-kicker">{t.vertical}</p>
+            <h3>{t.name}</h3>
+            <p>{t.filingHint}</p>
+            <span class="lms-card-link">Open {t.shortName} directory →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Browse by state</h2>
+      <p class="section-sub">{states.length} state hubs. Each one lists the agencies and the four core filings.</p>
+      <p style="text-align:center;margin-bottom:24px;">
+        <a href="/states" class="hero-cta" style="padding:12px 24px;font-size:0.95rem;">Open the state index</a>
+      </p>
+      <p class="lms-inline-states">
+        {states.map((s, i) => (
+          <><a href={`/states/${s.slug}`}>{s.abbr}</a>{i < states.length - 1 ? " · " : ""}</>
+        ))}
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Adjacent filings</h2>
+      <p class="section-sub">Useful, but not the core of this site. Overviews only — we do not generate 50-state pages for these.</p>
+      <div class="card-grid">
+        {adjacentLicenseTypes.map((t) => (
+          <a class="card lms-dir-card" href={licensePath(t.slug)}>
+            <h3>{t.name}</h3>
+            <p>{t.filingHint}</p>
+            <span class="lms-card-link">Who files, and where →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="max-width:720px;">
+      <FileWithCornerstone topic="the application" />
+      <DirectoryDisclaimer />
+    </div>
+  </section>
+</Layout>

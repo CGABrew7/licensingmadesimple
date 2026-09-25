@@ -1,0 +1,141 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import DirectoryDisclaimer from "../../../components/DirectoryDisclaimer.astro";
+import FileWithCornerstone from "../../../components/FileWithCornerstone.astro";
+import {
+  comboPath,
+  coreLicenseTypes,
+  coreSlugs,
+  filingLabel,
+  getLicenseType,
+  getState,
+  getStateLicense,
+  licensePath,
+  requiredLabel,
+  statePath,
+  states,
+} from "../../../lib/directory";
+import type { LicenseSlug } from "../../../data/license-types";
+
+export function getStaticPaths() {
+  return states.flatMap((s) =>
+    coreSlugs.map((type) => ({
+      params: { state: s.slug, type },
+    })),
+  );
+}
+
+const state = getState(Astro.params.state!);
+const type = getLicenseType(Astro.params.type!);
+if (!state || !type) throw new Error("Unknown state or license type");
+
+const fact = getStateLicense(state.slug, type.slug as LicenseSlug);
+if (!fact) throw new Error("Missing fact");
+
+const otherTypes = coreLicenseTypes.filter((t) => t.slug !== type.slug);
+const otherStates = states.filter((s) => s.slug !== state.slug);
+---
+
+<Layout
+  title={`${type.name} in ${state.name}: who needs it and where to file`}
+  description={`${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Filed with ${fact.agencyName}.`}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-crumb">
+        <a href="/directory">Directory</a> /
+        <a href={statePath(state.slug)}>{state.name}</a> /
+        {type.name}
+      </p>
+      <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
+      <h1>{type.name} in {state.name}</h1>
+      <p>{fact.licenseName}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="lms-factbar">
+        <div>
+          <span class="wr-item-label">Statewide license</span>
+          <strong>{requiredLabel(fact.required)}</strong>
+        </div>
+        <div>
+          <span class="wr-item-label">Filing path</span>
+          <strong>{filingLabel(fact.filing)}</strong>
+        </div>
+        <div>
+          <span class="wr-item-label">Agency</span>
+          <strong><a href={fact.agencyUrl} target="_blank" rel="noopener">{fact.agencyName}</a></strong>
+        </div>
+      </div>
+
+      <div class="lms-prose" style="margin-top:36px;">
+        <h2>Who needs this in {state.name}</h2>
+        <p>{fact.whoNeeds}</p>
+
+        <h2>Where to file</h2>
+        <p>{fact.path}</p>
+
+        {fact.notes.length > 0 && (
+          <>
+            <h2>Notes</h2>
+            {fact.notes.map((n) => <p>{n}</p>)}
+          </>
+        )}
+
+        <h2>Federal overlay</h2>
+        <p>{type.federalOverlay}</p>
+
+        <h2>Sources</h2>
+        <ul>
+          {fact.sources.map((s) => (
+            <li><a href={s.url} target="_blank" rel="noopener">{s.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Other {state.name} filings</h2>
+      <div class="card-grid">
+        {otherTypes.map((t) => (
+          <a class="card lms-dir-card" href={comboPath(state.slug, t.slug)}>
+            <h3>{t.name}</h3>
+            <p>Who needs it in {state.name}, and which desk takes the filing.</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">{type.name} in other states</h2>
+      <p class="lms-inline-states">
+        {otherStates.map((s, i) => (
+          <><a href={comboPath(s.slug, type.slug)}>{s.abbr}</a>{i < otherStates.length - 1 ? " · " : ""}</>
+        ))}
+      </p>
+      <p style="text-align:center;margin-top:20px;">
+        <a href={licensePath(type.slug)}>All {type.name.toLowerCase()} states</a>
+        {" · "}
+        <a href={statePath(state.slug)}>All {state.name} licenses</a>
+        {" · "}
+        <a href="/guides/nmls">NMLS guide</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="max-width:720px;">
+      <FileWithCornerstone topic={`${type.shortName} work in ${state.name}`} />
+      <p style="margin-top:12px;">
+        <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone on {type.name.toLowerCase()}</a>
+      </p>
+      <DirectoryDisclaimer />
+    </div>
+  </section>
+</Layout>

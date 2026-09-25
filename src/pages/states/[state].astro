@@ -1,0 +1,98 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
+import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import {
+  comboPath,
+  getFactsForState,
+  getLicenseType,
+  getState,
+  requiredLabel,
+  states,
+} from "../../lib/directory";
+
+export function getStaticPaths() {
+  return states.map((s) => ({ params: { state: s.slug } }));
+}
+
+const state = getState(Astro.params.state!);
+if (!state) throw new Error("Unknown state");
+
+const facts = getFactsForState(state.slug);
+---
+
+<Layout
+  title={`${state.name} licensing desks — who files where`}
+  description={`Official ${state.name} agencies for collection, lending, money-transmitter, and mortgage licenses, plus a page for each filing path.`}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-crumb"><a href="/states">States</a> / {state.name}</p>
+      <p class="lms-kicker">{state.abbr} · {state.region}</p>
+      <h1>{state.name} license filings</h1>
+      <p>{state.notes}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Agencies in {state.name}</h2>
+      <div class="card-grid lms-agency-grid">
+        {state.regulators.map((r) => (
+          <div class="card">
+            <h3>{r.name}</h3>
+            <p>{r.role}</p>
+            <a href={r.url} target="_blank" rel="noopener">Official site →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Core licenses in {state.name}</h2>
+      <p class="section-sub">Who needs the license and which desk takes the filing. No fee table — confirm costs with the agency or a filer.</p>
+      <div class="card-grid lms-core-grid">
+        {facts.map(({ licenseSlug, fact }) => {
+          const type = getLicenseType(licenseSlug)!;
+          return (
+            <a class="card lms-dir-card" href={comboPath(state.slug, licenseSlug)}>
+              <p class="lms-kicker">{requiredLabel(fact.required)}</p>
+              <h3>{type.name}</h3>
+              <p>{fact.licenseName}</p>
+              <p>{fact.agencyName}</p>
+              <span class="lms-card-link">Who needs it, where to file →</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container lms-prose">
+      <h2>Adjacent filings</h2>
+      <p>
+        Insurance producer and adjuster licenses usually file with the {state.name} department
+        of insurance (often through NIPR). Contractor licenses, if the state has them,
+        file with the contractor board or a city or county. Charitable solicitation
+        registration, where it exists, files with the attorney general or secretary of state.
+        See the <a href="/directory/insurance">insurance</a>,
+        <a href="/directory/contractors">contractor</a>, and
+        <a href="/directory/charity">charity</a> overviews.
+      </p>
+      <p>
+        Also useful: <a href="/guides/nmls">How NMLS works</a> and
+        <a href="/guides/multi-state">multi-state licensing</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="max-width:720px;">
+      <FileWithCornerstone topic={`a ${state.name} filing`} />
+      <DirectoryDisclaimer />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+---
+
+<Layout
+  title="What NMLS is — and what it is not"
+  description="The Nationwide Multistate Licensing System is the filing system for many state financial licenses. It does not issue licenses. Here is who files what."
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="lms-crumb"><a href="/guides">Guides</a> / NMLS</p>
+      <h1>NMLS, in plain English</h1>
+      <p>The system of record for many state licenses. Not a national license, and not the agency that says yes or no.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article" style="max-width:720px;">
+      <h2>What it is</h2>
+      <p>
+        The Nationwide Multistate Licensing System (NMLS) is a web system run for state
+        regulators through the Conference of State Bank Supervisors. Companies and
+        individuals use it to apply for, amend, renew, and surrender license authorities
+        that a state has chosen to manage on the system. Mortgage company and mortgage
+        loan originator licenses are on NMLS in every state because the SAFE Act put
+        them there. Many states have since added money-transmitter, consumer-finance,
+        and some collection licenses to the same record.
+      </p>
+
+      <h2>What it is not</h2>
+      <p>
+        NMLS does not issue licenses. The state agency still reviews the file and
+        grants or denies the authority. NMLS also does not replace a state’s own
+        documents, surety-bond forms, or net-worth tests. A company can hold several
+        state licenses on one NMLS ID and still have a different checklist in each state.
+      </p>
+
+      <h2>Who files what</h2>
+      <p>
+        <strong>Companies</strong> file Form MU1 (the company record) and Form MU2 for
+        each control person. <strong>Mortgage loan originators</strong> file Form MU4
+        and must be sponsored by a licensed company. Branches, where a state requires
+        them, are a separate request on the same company record.
+      </p>
+      <p>
+        Money transmitters typically add a money-services license on that same MU1,
+        then upload a BSA/AML program and proof of the surety bond each state wants.
+        Consumer lenders do the same with the state’s consumer-finance or supervised-loan
+        authority. Collection agencies file on NMLS only in states that have moved that
+        license onto the system — others still use a board or state portal.
+      </p>
+
+      <h2>Federal registry versus state license</h2>
+      <p>
+        Employees of federally regulated banks and credit unions who originate
+        residential mortgages register on the NMLS federal registry. That registration
+        is not a state MLO license. Non-depository mortgage companies and their
+        originators still need the state licenses.
+      </p>
+
+      <h2>How the public checks a license</h2>
+      <p>
+        <a href="https://www.nmlsconsumeraccess.org/" target="_blank" rel="noopener">NMLS Consumer Access</a>
+        is the free public search. It shows companies and individuals licensed or
+        registered through NMLS. It does not list every collection agency or every
+        state-portal license. If a firm is missing, check whether that regulator
+        actually manages the license on NMLS.
+      </p>
+
+      <h2>Where this site sends you next</h2>
+      <p>
+        For who needs the license and which agency takes the filing, use the
+        <a href="/directory">directory</a> and the
+        <a href="/states">state index</a>. For the filing itself,
+        <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>
+        prepares and submits the NMLS record.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container" style="max-width:720px;">
+      <FileWithCornerstone topic="an NMLS application" />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
+  .article h2:first-child { margin-top: 0; }
+  .article p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
+</style>
