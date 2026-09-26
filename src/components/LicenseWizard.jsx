@@ -3,6 +3,12 @@ import data from '../data/licenses.json';
 
 const allTypes = data.categories.flatMap(c => c.types.map(t => ({ ...t, category: c.label })));
 
+const STEPS = [
+  { n: 1, label: 'Business' },
+  { n: 2, label: 'License' },
+  { n: 3, label: 'States' },
+];
+
 export default function LicenseWizard() {
   const [step, setStep] = useState(1);
   const [category, setCategory] = useState('');
@@ -39,39 +45,48 @@ export default function LicenseWizard() {
     setShowResult(false);
   };
 
+  const progress = showResult ? 100 : ((step - 1) / 3) * 100;
+
   return (
     <div className="wizard-wrap" id="wizard">
       <div className="wizard-card">
+        <p className="lms-kicker wiz-kicker">Roadmap</p>
         <h3>Your Licensing Roadmap</h3>
         <p className="wizard-sub">3 questions. Who needs the license, and where it is filed.</p>
 
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '28px' }}>
-          {[1, 2, 3].map(s => (
-            <div key={s} style={{
-              flex: 1, height: '4px', borderRadius: '2px',
-              background: s <= step ? '#EA580C' : '#E7E5E4'
-            }} />
-          ))}
+        <ol className="wiz-progress" aria-label="Roadmap progress">
+          {STEPS.map((s) => {
+            const done = showResult || s.n < step;
+            const current = !showResult && s.n === step;
+            return (
+              <li
+                key={s.n}
+                className={done ? 'is-done' : current ? 'is-current' : ''}
+                aria-current={current ? 'step' : undefined}
+              >
+                <span className="wiz-num">{done ? '✓' : s.n}</span>
+                <span className="wiz-label">{s.label}</span>
+              </li>
+            );
+          })}
+        </ol>
+        <div className="wiz-track" aria-hidden="true">
+          <span style={{ width: `${progress}%` }} />
         </div>
 
         {step === 1 && (
-          <div>
-            <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
-              What kind of business are you in?
-            </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="wiz-panel">
+            <p className="wiz-q">What kind of business are you in?</p>
+            <div className="wiz-choices">
               {data.categories.map(c => (
                 <button
                   key={c.id}
+                  type="button"
+                  className="wiz-choice"
                   onClick={() => handleCategorySelect(c.id)}
-                  style={{
-                    padding: '16px 20px', border: '1px solid #E7E5E4', borderRadius: '12px',
-                    background: 'white', cursor: 'pointer', textAlign: 'left',
-                    transition: 'border-color 0.2s'
-                  }}
                 >
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '2px' }}>{c.label}</div>
-                  <div style={{ fontSize: '0.82rem', color: '#57534E' }}>{c.description}</div>
+                  <span className="wiz-choice-title">{c.label}</span>
+                  <span className="wiz-choice-sub">{c.description}</span>
                 </button>
               ))}
             </div>
@@ -79,26 +94,21 @@ export default function LicenseWizard() {
         )}
 
         {step === 2 && selectedCategory && (
-          <div>
-            <button onClick={() => setStep(1)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.82rem', color: '#EA580C', fontWeight: 600, marginBottom: '12px', padding: 0 }}>
-              ← Back
+          <div className="wiz-panel">
+            <button type="button" className="wiz-back" onClick={() => setStep(1)}>
+              Back
             </button>
-            <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
-              What type of license do you need?
-            </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <p className="wiz-q">What type of license do you need?</p>
+            <div className="wiz-choices">
               {selectedCategory.types.map(t => (
                 <button
                   key={t.id}
+                  type="button"
+                  className="wiz-choice wiz-choice-row"
                   onClick={() => handleTypeSelect(t.id)}
-                  style={{
-                    padding: '14px 20px', border: '1px solid #E7E5E4', borderRadius: '12px',
-                    background: 'white', cursor: 'pointer', textAlign: 'left',
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-                  }}
                 >
-                  <span style={{ fontWeight: 600, fontSize: '0.93rem' }}>{t.name}</span>
-                  <span style={{ fontSize: '0.78rem', color: '#EA580C', fontWeight: 600 }}>{t.complexity}</span>
+                  <span className="wiz-choice-title">{t.name}</span>
+                  <span className="wiz-meta">{t.complexity}</span>
                 </button>
               ))}
             </div>
@@ -106,30 +116,26 @@ export default function LicenseWizard() {
         )}
 
         {step === 3 && !showResult && (
-          <div>
-            <button onClick={() => setStep(2)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.82rem', color: '#EA580C', fontWeight: 600, marginBottom: '12px', padding: 0 }}>
-              ← Back
+          <div className="wiz-panel">
+            <button type="button" className="wiz-back" onClick={() => setStep(2)}>
+              Back
             </button>
-            <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, marginBottom: '14px' }}>
-              How many states do you need to be licensed in?
-            </label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <p className="wiz-q">How many states do you need to be licensed in?</p>
+            <div className="wiz-choices">
               {[
                 { val: '1', label: 'Just 1 state', sub: 'Starting local' },
-                { val: '2-5', label: '2-5 states', sub: 'Regional expansion' },
-                { val: '6-15', label: '6-15 states', sub: 'Multi-state operation' },
+                { val: '2-5', label: '2–5 states', sub: 'Regional expansion' },
+                { val: '6-15', label: '6–15 states', sub: 'Multi-state operation' },
                 { val: '16+', label: '16+ states', sub: 'Nationwide coverage' }
               ].map(opt => (
                 <button
                   key={opt.val}
+                  type="button"
+                  className="wiz-choice"
                   onClick={() => handleFinish(opt.val)}
-                  style={{
-                    padding: '14px 20px', border: '1px solid #E7E5E4', borderRadius: '12px',
-                    background: 'white', cursor: 'pointer', textAlign: 'left'
-                  }}
                 >
-                  <div style={{ fontWeight: 600, fontSize: '0.93rem' }}>{opt.label}</div>
-                  <div style={{ fontSize: '0.78rem', color: '#57534E' }}>{opt.sub}</div>
+                  <span className="wiz-choice-title">{opt.label}</span>
+                  <span className="wiz-choice-sub">{opt.sub}</span>
                 </button>
               ))}
             </div>
@@ -138,8 +144,8 @@ export default function LicenseWizard() {
 
         {showResult && selectedLicense && (
           <div className="wizard-result">
-            <button onClick={reset} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.82rem', color: '#EA580C', fontWeight: 600, marginBottom: '12px', padding: 0 }}>
-              ← Start over
+            <button type="button" className="wiz-back" onClick={reset}>
+              Start over
             </button>
             <div className="wr-big">{selectedLicense.name}</div>
             <div className="wr-label">
@@ -158,15 +164,14 @@ export default function LicenseWizard() {
             </div>
 
             {stateCount !== '1' && (
-              <p style={{ fontSize: '0.82rem', color: '#57534E', marginTop: '12px' }}>
+              <p className="wiz-note">
                 Each state is its own filing. Open the directory for the agency in every state you need, then have one specialist coordinate the applications.
               </p>
             )}
 
-            <p style={{ fontSize: '0.82rem', color: '#57534E', marginTop: '16px' }}>
+            <p className="wiz-note">
               See who needs this license and which agency takes the filing in the{' '}
-              <a href={selectedLicense.directory} style={{ color: '#EA580C', fontWeight: 600 }}>directory</a>.
-              This site does not quote fees or processing times.
+              <a href={selectedLicense.directory}>directory</a>.
             </p>
 
             <a
@@ -174,7 +179,6 @@ export default function LicenseWizard() {
               target="_blank"
               rel="noopener"
               className="btn"
-              style={{ marginTop: '16px', textAlign: 'center', textDecoration: 'none' }}
             >
               Have Cornerstone file it
             </a>

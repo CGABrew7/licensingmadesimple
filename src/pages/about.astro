@@ -2,34 +2,59 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="About — LicensingMadeSimple" description="A 50-state filing directory: who needs the license and which agency takes it. Cornerstone Licensing files the application.">
+<Layout
+  title="About — LicensingMadeSimple"
+  description="Why this 50-state directory exists: who needs the license, which agency takes the filing, and how Cornerstone Licensing handles the application."
+>
   <section class="page-hero">
     <div class="container">
+      <p class="lms-kicker">About</p>
       <h1>About LicensingMadeSimple</h1>
-      <p>Who needs the license, and where to file it — for operators in every U.S. state.</p>
+      <p class="lede">The directory exists so the filing desk is visible before the application starts.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width: 720px;">
-      <h2>The problem we're solving</h2>
-      <p>Business licensing is confusing by default. Every state has different rules, forms, and agencies. We built this site to answer two questions in plain language: who typically needs the license, and which desk takes the filing.</p>
+    <div class="container story">
+      <p class="story-open">Before a form is filled out, someone has to name the license and the agency. That is the whole reason this site exists.</p>
 
-      <h2>What this site is for</h2>
-      <p>This site owns <strong>who needs what</strong> and <strong>where to file</strong>. The <a href="/directory">directory</a> covers collection / ARM, consumer and commercial lending, money transmitters, and mortgage in all 50 states, with adjacent notes on insurance, contractors, and charitable solicitation.</p>
-      <p>It does not quote service fees, government fee bands, bond amounts, or processing times. Compare providers and costs on <a href="https://licensestore.com" target="_blank" rel="noopener">licensestore.com</a>. Timelines live on <a href="https://fastlicense.com" target="_blank" rel="noopener">fastlicense.com</a>.</p>
+      <h2>Why the directory is here</h2>
+      <p>A licensing conversation starts in the same place every time. An operator knows the business — collecting, lending, moving money, originating mortgages — and needs the public answer: who typically needs the license in this state, and which desk takes the filing. Those answers live with collection boards, banking departments, NMLS, FinCEN, and sometimes a city license on top of the state. They were never written down as one map.</p>
+      <p>LicensingMadeSimple is that map. It covers collection and ARM, consumer and commercial lending, money transmitters, and mortgage in all fifty states, with shorter notes on insurance, contractors, and charitable solicitation. Every core state page names the license, the agency, and the filing path, and it links the public source the page was written from.</p>
+      <p>Open California collection and the page names the Debt Collector License under the California Debt Collection Licensing Act, the Department of Financial Protection and Innovation, and an NMLS filing path. The same pattern runs through the other forty-nine states.</p>
 
-      <h2>How it works</h2>
-      <p>Answer 3 questions in the roadmap wizard to see the license type and the usual filing desk. Open the matching state page for the official agency. If you want the application prepared and submitted, <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a> does that work.</p>
+      <h2>The people behind the map</h2>
+      <p>Cornerstone Licensing is the firm that prepares and submits the application when you want that work done. Hanok Ventures is the firm beside that practice. The same people publish this directory so the “who” and the “where” are readable in public, before anyone is a client and before anyone is asked to file.</p>
+      <p>The split is deliberate. This site names the desk. <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone</a> files.</p>
 
-      <h2>Who handles the filing</h2>
-      <p>All licensing work arranged through this site is performed by <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>, a U.S. financial-services licensing firm. This site does not reprint their filing counts or approval rates. Read those claims on Cornerstone’s own site.</p>
+      <h2>How to use it</h2>
+      <ol class="story-steps">
+        <li>
+          <span>01</span>
+          <div>
+            <strong>Get your roadmap.</strong>
+            Three questions name the license type and the usual filing desk.
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <strong>Open the state page.</strong>
+            The <a href="/directory">directory</a> shows the agency and the path for that state.
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <strong>File, or have it filed.</strong>
+            You can apply yourself. If you want the application prepared and submitted, Cornerstone Licensing does that work.
+          </div>
+        </li>
+      </ol>
+
+      <p class="story-cta"><a href="/#wizard" class="hero-cta">Get Your Roadmap</a></p>
+
+      <p class="lms-disclaimer">Agency names and filing paths come from the directory’s public sources. This site does not quote service fees, government fees, bond amounts, or processing times, and it does not reprint Cornerstone’s filing counts. Confirm the current checklist on the regulator’s site. This is not legal advice.</p>
     </div>
   </section>
 </Layout>
-
-<style>
-  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
-</style>
