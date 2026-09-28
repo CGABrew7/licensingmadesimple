@@ -72,6 +72,7 @@ export function publicPages(): { path: string; changefreq: string; priority: str
     { path: "/directory", changefreq: "weekly", priority: "0.9" },
     { path: "/states", changefreq: "weekly", priority: "0.9" },
     { path: "/guides", changefreq: "monthly", priority: "0.7" },
+    { path: "/guides/which-license-do-i-need", changefreq: "monthly", priority: "0.6" },
     { path: "/guides/first-business-license", changefreq: "monthly", priority: "0.6" },
     { path: "/guides/multi-state", changefreq: "monthly", priority: "0.6" },
     { path: "/guides/what-happens-if-you-skip-it", changefreq: "monthly", priority: "0.6" },
