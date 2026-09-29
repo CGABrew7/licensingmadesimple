@@ -107,17 +107,17 @@ a:hover { text-decoration: underline; }
 }
 .hero-kicker { margin-bottom: 18px; }
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 4.15rem);
+  font-size: clamp(2rem, 4vw, 3.35rem);
   font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  margin-bottom: 18px;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  max-width: 14em;
+  margin: 0 auto 18px;
 }
-.hero h1 span { color: var(--primary); }
 .hero p {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  max-width: 520px;
+  max-width: 40rem;
   margin: 0 auto 32px;
 }
 .hero-cta {
@@ -738,7 +738,9 @@ details[open] .faq-toggle { transform: rotate(45deg); }
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 56px 0 48px; }
+  .hero { padding: 40px 0 36px; }
+  .hero h1 { font-size: 1.85rem; max-width: 16em; }
+  .hero p { font-size: 1.02rem; margin-bottom: 24px; }
   .section { padding: 56px 0; }
   .card-grid { grid-template-columns: 1fr; }
   .lms-core-grid, .lms-agency-grid, .lms-factbar, .lms-state-grid { grid-template-columns: 1fr; }
