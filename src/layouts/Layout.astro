@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import '@fontsource/geist-sans/latin-400.css';
+import '@fontsource/geist-sans/latin-500.css';
+import '@fontsource/geist-sans/latin-600.css';
+import '@fontsource/geist-sans/latin-700.css';
+import Logo from '../components/Logo.astro';
 interface Props { title: string; description?: string; }
 const { title, description = "Who needs which U.S. business license, and where to file it. 50-state directory for collection, lending, money transmitters, and mortgage — plus a 3-question roadmap." } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
@@ -17,21 +22,34 @@ const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com")
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">Licensing<span>MadeSimple</span></a>
-      <div class="nav-links">
+      <Logo />
+      <div class="nav-desktop">
         <a href="/directory">Directory</a>
         <a href="/states">States</a>
         <a href="/guides">Guides</a>
         <a href="/about">About</a>
         <a href="/faq">FAQ</a>
         <a href="/#wizard" class="nav-cta">Get Your Roadmap</a>
+      </div>
+      <div class="nav-mobile">
+        <a href="/#wizard" class="nav-cta">Get Your Roadmap</a>
+        <details class="nav-drawer">
+          <summary>
+            <span class="sr-only">Open menu</span>
+            <span class="burger" aria-hidden="true"></span>
+          </summary>
+          <div class="nav-drawer-panel">
+            <a href="/directory">Directory</a>
+            <a href="/states">States</a>
+            <a href="/guides">Guides</a>
+            <a href="/about">About</a>
+            <a href="/faq">FAQ</a>
+          </div>
+        </details>
       </div>
     </div>
   </nav>
@@ -42,7 +60,7 @@ const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com")
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="/" class="nav-logo" style="color: white;">Licensing<span>MadeSimple</span></a>
+          <Logo tone="inverse" />
           <p>A 50-state directory of who needs the license and which agency takes the filing, plus a three-question roadmap.</p>
         </div>
         <div>

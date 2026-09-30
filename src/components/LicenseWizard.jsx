@@ -45,15 +45,9 @@ export default function LicenseWizard() {
     setShowResult(false);
   };
 
-  const progress = showResult ? 100 : ((step - 1) / 3) * 100;
-
   return (
     <div className="wizard-wrap" id="wizard">
       <div className="wizard-card">
-        <p className="lms-kicker wiz-kicker">Roadmap</p>
-        <h3>Your Licensing Roadmap</h3>
-        <p className="wizard-sub">3 questions. Who needs the license, and where it is filed.</p>
-
         <ol className="wiz-progress" aria-label="Roadmap progress">
           {STEPS.map((s) => {
             const done = showResult || s.n < step;
@@ -64,15 +58,12 @@ export default function LicenseWizard() {
                 className={done ? 'is-done' : current ? 'is-current' : ''}
                 aria-current={current ? 'step' : undefined}
               >
-                <span className="wiz-num">{done ? '✓' : s.n}</span>
+                <span className="wiz-bar" aria-hidden="true" />
                 <span className="wiz-label">{s.label}</span>
               </li>
             );
           })}
         </ol>
-        <div className="wiz-track" aria-hidden="true">
-          <span style={{ width: `${progress}%` }} />
-        </div>
 
         {step === 1 && (
           <div className="wiz-panel">
@@ -144,24 +135,28 @@ export default function LicenseWizard() {
 
         {showResult && selectedLicense && (
           <div className="wizard-result">
-            <button type="button" className="wiz-back" onClick={reset}>
-              Start over
-            </button>
-            <div className="wr-big">{selectedLicense.name}</div>
-            <div className="wr-label">
-              {stateCount === '1' ? '1 state' : stateCount + ' states'} · {selectedLicense.complexity} filing
-            </div>
-
+            <p className="lms-kicker">Your roadmap preview</p>
+            <h3 className="wr-title">{selectedLicense.name}</h3>
             <div className="wr-details">
               <div className="wr-item">
-                <div className="wr-item-label">Where to file</div>
-                <div className="wr-item-value">{selectedLicense.filing}</div>
+                <div className="wr-item-label">License type</div>
+                <div className="wr-item-value">{selectedLicense.name}</div>
               </div>
               <div className="wr-item">
-                <div className="wr-item-label">States needed</div>
-                <div className="wr-item-value">{stateCount === '1' ? '1' : stateCount}</div>
+                <div className="wr-item-label">States</div>
+                <div className="wr-item-value">{stateCount === '1' ? '1 state' : stateCount + ' states'}</div>
               </div>
             </div>
+            <dl className="wr-rows">
+              <div>
+                <dt>Where to file</dt>
+                <dd>{selectedLicense.filing}</dd>
+              </div>
+              <div>
+                <dt>Your path</dt>
+                <dd>Cornerstone Licensing prepares and submits the filing when you want a desk.</dd>
+              </div>
+            </dl>
 
             {stateCount !== '1' && (
               <p className="wiz-note">
@@ -174,14 +169,20 @@ export default function LicenseWizard() {
               <a href={selectedLicense.directory}>directory</a>.
             </p>
 
-            <a
-              href="https://cornerstonelicensing.com"
-              target="_blank"
-              rel="noopener"
-              className="btn"
-            >
-              Have Cornerstone file it
-            </a>
+            <div className="wr-actions">
+              <a className="btn btn-primary" href="/#wizard">
+                Open live roadmap <span aria-hidden="true">→</span>
+              </a>
+              <a className="btn-quiet" href="/directory">Browse directory</a>
+            </div>
+            <div className="wr-nav">
+              <button type="button" className="wiz-back" onClick={() => setShowResult(false)}>
+                ← Back
+              </button>
+              <button type="button" className="wiz-text" onClick={reset}>
+                Start over
+              </button>
+            </div>
           </div>
         )}
       </div>
