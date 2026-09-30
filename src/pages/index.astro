@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import LicenseWizard from '../components/LicenseWizard.jsx';
-import { comboPath, filingLabel, getLicenseType, getState, getStateLicense } from '../lib/directory';
+import CaliforniaSample from '../components/CaliforniaSample.astro';
+import { states } from '../lib/directory';
 
 const faqs = [
   { q: "Do I need a business license?", a: "Most cities and counties require a general business license. Financial services, healthcare, construction, and food service almost always need a state license on top of that. Use the <a href='#wizard'>roadmap wizard</a> or the <a href='/directory'>directory</a> to see which desk applies." },
@@ -11,164 +12,165 @@ const faqs = [
   { q: "What about multiple states?", a: "There is no national license for these verticals. File in each state where the customer, borrower, or debtor lives. The <a href='/states'>state directory</a> names the agency for each core license." },
   { q: "Who actually files my application?", a: "Filings arranged through this site are prepared and submitted by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a>. This site’s job is who needs the license and where to file it. Filing counts and approval rates are not reprinted here." }
 ];
-
-const proofState = getState('california');
-const proofType = getLicenseType('collection');
-const proof = getStateLicense('california', 'collection');
-if (!proofState || !proofType || !proof) throw new Error('Missing California collection proof');
 ---
 
 <Layout
   title="Who needs which license, and where to file it"
   description="Answer a few questions for a personalized licensing roadmap across collection, consumer lending, money transmission, and mortgage company work. Experts can handle the filing when you want a desk."
 >
-  <section class="hero">
-    <div class="container">
-      <p class="lms-kicker hero-kicker">50 states · four core licenses</p>
-      <h1>Who needs which license, and where to file it.</h1>
-      <p>Answer a few questions for a personalized licensing roadmap across collection, consumer lending, money transmission, and mortgage company work. Experts can handle the filing when you want a desk.</p>
-      <a href="#wizard" class="hero-cta">Get Your Roadmap</a>
-    </div>
-  </section>
-
-  <section class="proof" aria-label="Example from the state directory">
-    <div class="container">
-      <div class="proof-card">
-        <div class="proof-copy">
-          <p class="lms-kicker">From the directory</p>
-          <h2>California collection, as the directory states it.</h2>
-          <p>
-            One state page from the collection directory: the license name, the agency that takes it, and the filing path.
-          </p>
+  <main class="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="lms-kicker hero-kicker">State licensing for financial services</p>
+          <h1>Who needs which license, and where to file it.</h1>
+          <p class="hero-sub">Answer a few questions for a personalized licensing roadmap across collection, consumer lending, money transmission, and mortgage company work. Experts can handle the filing when you want a desk.</p>
+          <div class="hero-actions">
+            <a href="/#wizard" class="hero-cta">Get Your Roadmap<span aria-hidden="true"> →</span></a>
+            <a class="text-link" href="/directory">Browse the Directory</a>
+          </div>
         </div>
-        <a class="proof-fact" href={comboPath(proofState.slug, proofType.slug)}>
-          <span class="proof-place">{proofState.name} · {proofType.name}</span>
-          <strong>{proof.licenseName}</strong>
-          <dl>
-            <div>
-              <dt>Agency</dt>
-              <dd>{proof.agencyName}</dd>
-            </div>
-            <div>
-              <dt>Path</dt>
-              <dd>{filingLabel(proof.filing)}</dd>
-            </div>
-          </dl>
-          <span class="lms-card-link">Open the California page</span>
-        </a>
+        <nav class="state-teaser" aria-label="Browse states">
+          {states.map((state) => (
+            <a href={`/states/${state.slug}`}>{state.abbr}</a>
+          ))}
+        </nav>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt" id="wizard-section">
-    <div class="container">
-      <h2 class="section-title">Your Licensing Roadmap</h2>
-      <p class="section-sub">3 questions. The license type and the usual filing desk.</p>
-      <LicenseWizard client:load />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Who Needs What, Where to File</h2>
-      <p class="section-sub">A 50-state directory for Cornerstone’s four core verticals. Official agencies. Public sources.</p>
-      <div class="card-grid lms-core-grid">
-        <a class="card lms-dir-card" href="/directory/collection">
-          <h3>Collection / ARM</h3>
-          <p>Who needs a collection-agency or debt-collector license, which states issue one, and which board or department takes the filing.</p>
-          <span class="lms-card-link">Open collection directory</span>
-        </a>
-        <a class="card lms-dir-card" href="/directory/lending">
-          <h3>Consumer &amp; commercial lending</h3>
-          <p>Which agency licenses consumer-finance and related lender activity, and how the typical NMLS path works.</p>
-          <span class="lms-card-link">Open lending directory</span>
-        </a>
-        <a class="card lms-dir-card" href="/directory/money-transmitters">
-          <h3>Money transmitters</h3>
-          <p>State money-transmitter licenses plus the separate FinCEN MSB registration. New York’s BitLicense called out where it applies.</p>
-          <span class="lms-card-link">Open MTL directory</span>
-        </a>
-        <a class="card lms-dir-card" href="/directory/mortgage">
-          <h3>Mortgage</h3>
-          <p>SAFE Act company and MLO filings through NMLS, including the states that split mortgage onto a real-estate or SML desk.</p>
-          <span class="lms-card-link">Open mortgage directory</span>
-        </a>
+    <section class="proof-strip" aria-label="Directory coverage">
+      <div class="container">
+        <ul class="proof-list">
+          <li><a href="/states">50 states</a></li>
+          <li><a href="/directory">Four core licenses</a></li>
+          <li><a href="/directory/collection">Collection</a></li>
+          <li><a href="/directory/lending">Lending</a></li>
+          <li><a href="/directory/money-transmitters">Money transmission</a></li>
+          <li><a href="/directory/mortgage">Mortgage</a></li>
+        </ul>
       </div>
-      <p class="section-links">
-        <a href="/states">Browse all 50 states</a>
-        <span aria-hidden="true">·</span>
-        <a href="/directory">Full directory</a>
-        <span aria-hidden="true">·</span>
-        <a href="/guides/nmls">What NMLS is</a>
-      </p>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">How the path works</h2>
-      <p class="section-sub">You keep running the business. The roadmap names the desk. Cornerstone can file.</p>
-      <div class="card-grid">
-        <div class="card step-card">
-          <span class="step-num">01</span>
-          <h3>Tell us what you need</h3>
-          <p>Use the roadmap wizard or the directory. We need your business type and state(s). The site names the agency; Cornerstone can file.</p>
+    <section class="section">
+      <div class="container">
+        <div class="dir-layout">
+          <div class="dir-copy">
+            <p class="lms-kicker">Directory</p>
+            <h2>Every state, every license, one entry each.</h2>
+            <p>Each entry lists the license name and the agency that issues it. Pick a license type to see the California entry.</p>
+            <a class="text-link" href="/states/california">Open the California page <span aria-hidden="true">→</span></a>
+          </div>
+          <CaliforniaSample />
         </div>
-        <div class="card step-card">
-          <span class="step-num">02</span>
-          <h3>The application is filed</h3>
-          <p>Your specialist prepares the application, assembles documents, files with the agency or NMLS, and answers deficiency letters.</p>
+
+        <h3 class="home-subhead">The four core licenses</h3>
+        <div class="card-grid lms-core-grid">
+          <a class="card lms-dir-card" href="/directory/collection">
+            <h3>Collection / ARM</h3>
+            <p>Who needs a collection-agency or debt-collector license, which states issue one, and which board or department takes the filing.</p>
+            <span class="lms-card-link">Open collection directory</span>
+          </a>
+          <a class="card lms-dir-card" href="/directory/lending">
+            <h3>Consumer &amp; commercial lending</h3>
+            <p>Which agency licenses consumer-finance and related lender activity, and how the typical NMLS path works.</p>
+            <span class="lms-card-link">Open lending directory</span>
+          </a>
+          <a class="card lms-dir-card" href="/directory/money-transmitters">
+            <h3>Money transmitters</h3>
+            <p>State money-transmitter licenses plus the separate FinCEN MSB registration. New York’s BitLicense called out where it applies.</p>
+            <span class="lms-card-link">Open MTL directory</span>
+          </a>
+          <a class="card lms-dir-card" href="/directory/mortgage">
+            <h3>Mortgage</h3>
+            <p>SAFE Act company and MLO filings through NMLS, including the states that split mortgage onto a real-estate or SML desk.</p>
+            <span class="lms-card-link">Open mortgage directory</span>
+          </a>
         </div>
-        <div class="card step-card">
-          <span class="step-num">03</span>
-          <h3>You're licensed</h3>
-          <p>We track your application through approval and deliver your license. Then we monitor renewal deadlines so it stays current.</p>
-        </div>
+        <p class="section-links">
+          <a href="/states">Browse all 50 states</a>
+          <span aria-hidden="true">·</span>
+          <a href="/directory">Full directory</a>
+          <span aria-hidden="true">·</span>
+          <a href="/guides/nmls">What NMLS is</a>
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 760px;">
-      <h2 class="section-title">Who's behind this</h2>
-      <p class="behind-lead">
-        The directory is published with <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>, the firm that files, by the people at Hanok Ventures. The map is public. The application is Cornerstone’s when you ask them to prepare it.
-      </p>
-      <div class="card-grid lms-core-grid">
-        <div class="card">
-          <h3>The map</h3>
-          <p>Official agencies in all 50 states for collection, lending, money transmission, and mortgage. Each page links the public source it was written from.</p>
-        </div>
-        <div class="card">
-          <h3>The filing</h3>
-          <p>Applications arranged here are prepared and submitted by Cornerstone Licensing. One specialist stays on the file.</p>
+    <section class="section section-tight" id="wizard-section">
+      <div class="container">
+        <p class="lms-kicker">Roadmap</p>
+        <h2 class="section-title" id="roadmap-title">Your licensing roadmap</h2>
+        <p class="section-sub">3 questions. The license type and the usual filing desk.</p>
+        <LicenseWizard client:load />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">How the path works</h2>
+        <p class="section-sub">You keep running the business. The roadmap names the desk. Cornerstone can file.</p>
+        <div class="card-grid">
+          <div class="card step-card">
+            <span class="step-num">01</span>
+            <h3>Tell us what you need</h3>
+            <p>Use the roadmap wizard or the directory. We need your business type and state(s). The site names the agency; Cornerstone can file.</p>
+          </div>
+          <div class="card step-card">
+            <span class="step-num">02</span>
+            <h3>The application is filed</h3>
+            <p>Your specialist prepares the application, assembles documents, files with the agency or NMLS, and answers deficiency letters.</p>
+          </div>
+          <div class="card step-card">
+            <span class="step-num">03</span>
+            <h3>You're licensed</h3>
+            <p>We track your application through approval and deliver your license. Then we monitor renewal deadlines so it stays current.</p>
+          </div>
         </div>
       </div>
-      <p class="section-links">
-        <a href="/about">Why this directory exists</a>
-      </p>
-    </div>
-  </section>
+    </section>
 
-  <section class="section section-alt">
-    <div class="container" style="max-width: 720px;">
-      <h2 class="section-title">Common Questions</h2>
-      <div class="faq-list">
-        {faqs.map(f => (
-          <details class="faq-item">
-            <summary class="faq-q">{f.q}<span class="faq-toggle">+</span></summary>
-            <div class="faq-a" set:html={f.a} />
-          </details>
-        ))}
+    <section class="section section-tight">
+      <div class="container" style="max-width: 760px;">
+        <h2 class="section-title">Who's behind this</h2>
+        <p class="behind-lead">
+          The directory is published with <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>, the firm that files, by the people at Hanok Ventures. The map is public. The application is Cornerstone’s when you ask them to prepare it.
+        </p>
+        <div class="card-grid lms-core-grid">
+          <div class="card">
+            <h3>The map</h3>
+            <p>Official agencies in all 50 states for collection, lending, money transmission, and mortgage. Each page links the public source it was written from.</p>
+          </div>
+          <div class="card">
+            <h3>The filing</h3>
+            <p>Applications arranged here are prepared and submitted by Cornerstone Licensing. One specialist stays on the file.</p>
+          </div>
+        </div>
+        <p class="section-links">
+          <a href="/about">Why this directory exists</a>
+        </p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="cta-band">
-    <div class="container">
-      <h2>See the license and the desk.</h2>
-      <p>Three questions. Your license type and the usual place it is filed.</p>
-      <a class="cta-btn" href="#wizard">Get Your Roadmap</a>
-    </div>
-  </section>
+    <section class="section section-tight">
+      <div class="container" style="max-width: 720px;">
+        <h2 class="section-title">Common Questions</h2>
+        <div class="faq-list">
+          {faqs.map(f => (
+            <details class="faq-item">
+              <summary class="faq-q">{f.q}<span class="faq-toggle">+</span></summary>
+              <div class="faq-a" set:html={f.a} />
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="home-close">
+      <div class="container">
+        <h2>See the license and the desk.</h2>
+        <p>Three questions. Your license type and the usual place it is filed.</p>
+        <a class="hero-cta" href="/#wizard">Get Your Roadmap<span aria-hidden="true"> →</span></a>
+      </div>
+    </section>
+  </main>
 </Layout>

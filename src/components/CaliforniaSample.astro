@@ -1,0 +1,57 @@
+---
+import { coreLicenseTypes, getState, getStateLicense } from "../lib/directory";
+
+const california = getState("california");
+if (!california) throw new Error("Missing California");
+
+const samples = coreLicenseTypes.map((type) => {
+  const fact = getStateLicense(california.slug, type.slug);
+  if (!fact) throw new Error(`Missing California ${type.slug}`);
+  const withDfpi = fact.agencyName.includes("DFPI") ? fact.agencyName : `${fact.agencyName} (DFPI)`;
+  const agency = type.slug === "mortgage" ? `${withDfpi}; DRE when a broker license applies` : withDfpi;
+  return { type, fact, agency };
+});
+---
+
+<article class="ca-card">
+  <header class="ca-card-head">
+    <div>
+      <h3>California</h3>
+      <p>Split-regulator state · sample directory entry</p>
+    </div>
+    <span class="ca-abbr">{california.abbr}</span>
+  </header>
+  <div class="ca-switch" role="radiogroup" aria-label="License type for the California sample">
+    {samples.map((sample, index) => (
+      <>
+        <input
+          class="ca-input"
+          type="radio"
+          name="ca-license"
+          id={`ca-${sample.type.slug}`}
+          value={sample.type.slug}
+          checked={index === 0}
+        />
+        <label for={`ca-${sample.type.slug}`}>{sample.type.name}</label>
+      </>
+    ))}
+    {samples.map((sample) => (
+      <div class={`ca-fact ca-fact-${sample.type.slug}`}>
+        <dl class="ca-rows">
+          <div>
+            <dt>License</dt>
+            <dd>{sample.fact.licenseName}</dd>
+          </div>
+          <div>
+            <dt>Agency</dt>
+            <dd>{sample.agency}</dd>
+          </div>
+          <div>
+            <dt>Note</dt>
+            <dd class="ca-note">{california.notes}</dd>
+          </div>
+        </dl>
+      </div>
+    ))}
+  </div>
+</article>
