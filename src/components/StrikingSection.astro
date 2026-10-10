@@ -1,0 +1,25 @@
+---
+import LinkedText from "./LinkedText.astro";
+
+interface Link {
+  phrase: string;
+  href: string;
+}
+
+interface Block {
+  text: string;
+  links?: Link[];
+}
+
+interface Props {
+  heading: string;
+  paragraphs: Block[];
+}
+
+const { heading, paragraphs } = Astro.props;
+---
+
+<h2>{heading}</h2>
+{paragraphs.map((paragraph) => (
+  <p><LinkedText text={paragraph.text} links={paragraph.links ?? []} /></p>
+))}

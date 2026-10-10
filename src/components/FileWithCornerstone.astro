@@ -3,17 +3,41 @@ import { CORNERSTONE_URL } from "../lib/directory";
 
 interface Props {
   topic?: string;
+  heading?: string;
+  body?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+  textLabel?: string;
+  textHref?: string;
 }
-const { topic = "this license" } = Astro.props;
+
+const {
+  topic = "this license",
+  heading,
+  body,
+  buttonLabel,
+  buttonHref,
+  textLabel,
+  textHref,
+} = Astro.props;
 ---
 
-<aside class="lms-cta">
-  <p class="lms-cta-kicker">Filing partner</p>
-  <h2>Have Cornerstone file {topic}</h2>
-  <p>
-    This site answers who needs the license and which agency takes the filing.
-    Cornerstone Licensing prepares the application, places any required bond, and
-    files it. Compare-provider pricing lives on other sites; we do not quote fees here.
-  </p>
-  <a class="lms-cta-btn" href={CORNERSTONE_URL} target="_blank" rel="noopener">Talk with Cornerstone</a>
+<aside class="lms-cta" id="filing-cta">
+  {!heading && <p class="lms-cta-kicker">Filing partner</p>}
+  <h2>{heading ?? `Have Cornerstone file ${topic}`}</h2>
+  {heading ? (
+    <p>{body}</p>
+  ) : (
+    <p>
+      This site answers who needs the license and which agency takes the filing.
+      Cornerstone Licensing prepares the application, places any required bond, and
+      files it. Compare-provider pricing lives on other sites; we do not quote fees here.
+    </p>
+  )}
+  <div class="lms-cta-actions">
+    <a class="lms-cta-btn" href={buttonHref ?? CORNERSTONE_URL} target="_blank" rel="noopener">{buttonLabel ?? "Talk with Cornerstone"}</a>
+    {textLabel && textHref && (
+      <a class="lms-cta-text" href={textHref} target="_blank" rel="noopener">{textLabel}</a>
+    )}
+  </div>
 </aside>

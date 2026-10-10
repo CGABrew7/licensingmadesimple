@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import { inboundLinks } from "../../data/striking-pages";
 import {
   comboPath,
   getFactsForState,
@@ -19,6 +20,7 @@ const state = getState(Astro.params.state!);
 if (!state) throw new Error("Unknown state");
 
 const facts = getFactsForState(state.slug);
+const filingPaths = inboundLinks("state", { state: state.slug });
 ---
 
 <Layout
@@ -73,6 +75,13 @@ const facts = getFactsForState(state.slug);
   <section class="section">
     <div class="container lms-prose">
       <h2>Adjacent filings</h2>
+      {filingPaths.length > 0 && (
+        <p>
+          {filingPaths.map((link) => (
+            <>Open the filing page: <a href={link.href}>{link.anchor}</a>. </>
+          ))}
+        </p>
+      )}
       <p>
         Insurance producer and adjuster licenses usually file with the {state.name} department
         of insurance (often through NIPR). Contractor licenses, if the state has them,

@@ -2,6 +2,9 @@
 import Layout from "../../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../../components/FileWithCornerstone.astro";
+import LinkedText from "../../../components/LinkedText.astro";
+import StrikingSection from "../../../components/StrikingSection.astro";
+import { faqPageSchema, getStrikingPage } from "../../../data/striking-pages";
 import {
   comboPath,
   coreLicenseTypes,
@@ -32,13 +35,17 @@ if (!state || !type) throw new Error("Unknown state or license type");
 const fact = getStateLicense(state.slug, type.slug as LicenseSlug);
 if (!fact) throw new Error("Missing fact");
 
+const striking = getStrikingPage(state.slug, type.slug);
 const otherTypes = coreLicenseTypes.filter((t) => t.slug !== type.slug);
 const otherStates = states.filter((s) => s.slug !== state.slug);
+const pageTitle = striking?.title ?? `${type.name} in ${state.name}: who needs it and where to file`;
+const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Filed with ${fact.agencyName}.`;
 ---
 
 <Layout
-  title={`${type.name} in ${state.name}: who needs it and where to file`}
-  description={`${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Filed with ${fact.agencyName}.`}
+  title={pageTitle}
+  description={pageDescription}
+  jsonLd={striking ? faqPageSchema(striking.faqs) : undefined}
 >
   <section class="page-hero">
     <div class="container">
@@ -48,7 +55,7 @@ const otherStates = states.filter((s) => s.slug !== state.slug);
         {type.name}
       </p>
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
-      <h1>{type.name} in {state.name}</h1>
+      <h1>{striking?.h1 ?? `${type.name} in ${state.name}`}</h1>
       <p>{fact.licenseName}</p>
     </div>
   </section>
@@ -71,10 +78,21 @@ const otherStates = states.filter((s) => s.slug !== state.slug);
       </div>
 
       <div class="lms-prose" style="margin-top:36px;">
-        <h2>Who needs this in {state.name}</h2>
-        <p>{fact.whoNeeds}</p>
+        {striking?.placement === "before-who" && (
+          <StrikingSection heading={striking.sectionHeading} paragraphs={striking.paragraphs} />
+        )}
 
-        <h2>Where to file</h2>
+        <h2>{striking?.whoHeading ?? `Who needs this in ${state.name}`}</h2>
+        <p>{fact.whoNeeds}</p>
+        {striking?.whoExtra?.map((block) => (
+          <p><LinkedText text={block.text} links={block.links ?? []} /></p>
+        ))}
+
+        {striking?.placement === "after-who" && (
+          <StrikingSection heading={striking.sectionHeading} paragraphs={striking.paragraphs} />
+        )}
+
+        <h2>{striking?.whereHeading ?? "Where to file"}</h2>
         <p>{fact.path}</p>
 
         {fact.notes.length > 0 && (
@@ -93,6 +111,18 @@ const otherStates = states.filter((s) => s.slug !== state.slug);
             <li><a href={s.url} target="_blank" rel="noopener">{s.label}</a></li>
           ))}
         </ul>
+
+        {striking && (
+          <div class="lms-faq" id="license-faq">
+            <h2>FAQ</h2>
+            {striking.faqs.map((item) => (
+              <>
+                <h3>{item.q}</h3>
+                <p>{item.a}</p>
+              </>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -131,7 +161,18 @@ const otherStates = states.filter((s) => s.slug !== state.slug);
 
   <section class="section section-alt">
     <div class="container" style="max-width:720px;">
-      <FileWithCornerstone topic={`${type.shortName} work in ${state.name}`} />
+      {striking ? (
+        <FileWithCornerstone
+          heading={striking.cta.heading}
+          body={striking.cta.body}
+          buttonLabel={striking.cta.button}
+          buttonHref={striking.cta.buttonHref}
+          textLabel={striking.cta.text}
+          textHref={striking.cta.textHref}
+        />
+      ) : (
+        <FileWithCornerstone topic={`${type.shortName} work in ${state.name}`} />
+      )}
       <p style="margin-top:12px;">
         <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone on {type.name.toLowerCase()}</a>
       </p>

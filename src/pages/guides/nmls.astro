@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import { inboundLinks } from "../../data/striking-pages";
+
+const nmlsPages = inboundLinks("nmls");
 ---
 
 <Layout
@@ -76,6 +79,13 @@ import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
         <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>
         prepares and submits the NMLS record.
       </p>
+
+      <h2>State pages on NMLS</h2>
+      <ul class="lms-link-list">
+        {nmlsPages.map((link) => (
+          <li><a href={link.href}>{link.anchor}</a></li>
+        ))}
+      </ul>
     </div>
   </section>
 
