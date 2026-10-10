@@ -421,6 +421,13 @@ details[open] .faq-toggle { transform: rotate(45deg); }
   gap: 8px;
 }
 .footer-bottom a { display: inline; margin: 0; color: #C5CDD8; }
+.footer-affiliate {
+  font-size: 0.8rem;
+  color: #8B93A1;
+  line-height: 1.5;
+  margin: 0 0 18px;
+  overflow-wrap: break-word;
+}
 
 /* ---- RESPONSIVE ---- */
 /* ---- DIRECTORY ---- */
@@ -530,6 +537,12 @@ details[open] .faq-toggle { transform: rotate(45deg); }
   text-decoration: none;
 }
 .lms-cta-btn:hover { background: var(--primary-hover); color: white; text-decoration: none; }
+.lms-cta p.lms-cta-affiliate {
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  overflow-wrap: break-word;
+}
 .lms-disclaimer {
   margin-top: 24px;
   font-size: 0.8rem;
