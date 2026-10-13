@@ -7,14 +7,14 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
 
 <Layout
   title="License directory — who needs what, where to file"
-  description="A 50-state directory of collection, lending, money-transmitter, and mortgage licenses: who typically needs each one and which agency takes the filing."
+  description="A directory of collection, lending, money-transmitter, and mortgage licenses in the 50 states and DC: who typically needs each one and which agency takes the filing."
 >
   <section class="page-hero">
     <div class="container">
       <p class="lms-kicker">Filing directory</p>
       <h1>Who needs the license, and where it is filed</h1>
       <p>
-        Four core financial-services verticals, all 50 states. Official agencies, linked to the public source.
+        Four core financial-services verticals, all 50 states and the District of Columbia. Official agencies, linked to the public source.
       </p>
     </div>
   </section>
@@ -54,7 +54,7 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
   <section class="section">
     <div class="container">
       <h2 class="section-title">Adjacent filings</h2>
-      <p class="section-sub">Useful, but not the core of this site. Overviews only — we do not generate 50-state pages for these.</p>
+      <p class="section-sub">Useful, but not the core of this site. Overviews only. We do not generate a page for every state for these.</p>
       <div class="card-grid">
         {adjacentLicenseTypes.map((t) => (
           <a class="card lms-dir-card" href={licensePath(t.slug)}>

@@ -54,7 +54,7 @@ const jsonLd = [
   howToSchema(page.howToName, page.steps),
 ];
 const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
-const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells are filled only when a regulator or NMLS source was checked.`;
+const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
 
 const rows: { label: string; cell: CitedCell }[] = [
   { label: "Fee", cell: page.fee },
@@ -104,7 +104,7 @@ const rows: { label: string; cell: CitedCell }[] = [
 
       <div class="req-block">
         <h2 class="section-title req-title">Fee, bond, and timeline</h2>
-        <p class="section-sub req-lead">A cell stays blank unless a state regulator or NMLS page was checked. Each filled cell links that source.</p>
+        <p class="section-sub req-lead">Each cell cites a state regulator, a statute, or the NMLS License Requirements and Fees Chart. If a figure could not be verified, the cell says Varies, see regulator and links the agency.</p>
         <div class="req-wrap">
           <table class="req-table">
             <thead>

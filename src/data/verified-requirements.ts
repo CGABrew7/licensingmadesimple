@@ -39,9 +39,17 @@ export interface VerifiedRequirement {
 
 const empty: CitedCell = { value: "", sources: [] };
 
+const NMLS_CHART: SourceLink = {
+  label: "NMLS License Requirements and Fees Chart",
+  url: "https://mortgage.nationwidelicensingsystem.org/knowledge/Products/nmls/stateresourcecenter/SitePages/Checklist-Compiler.aspx",
+};
 const MT_DIVISION: SourceLink = {
   label: "Montana Division of Banking and Financial Institutions",
   url: "https://doa.mt.gov/BFID/",
+};
+const MT_CODE: SourceLink = {
+  label: "Montana Code Annotated Title 32",
+  url: "https://leg.mt.gov/bills/mca/title_0320/chapters_index.html",
 };
 const FINCEN: SourceLink = {
   label: "FinCEN MSB registration",
@@ -76,22 +84,22 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
   "montana/money-transmitters": {
     lastVerified: "2026-10-13",
     fee: {
-      value: "No state money transmitter license fee. The Division of Banking and Financial Institutions does not regulate money transmitters.",
-      sources: [MT_DIVISION],
+      value: "No state money transmitter license fee. The NMLS License Requirements and Fees Chart lists Montana company licenses and does not include a money transmitter license. Montana Code Annotated Title 32 has no money transmitter chapter. The Division of Banking and Financial Institutions states that it does not regulate money transmitters.",
+      sources: [NMLS_CHART, MT_CODE, MT_DIVISION],
     },
     bond: {
-      value: "No state money transmitter surety bond. The Division does not issue this license.",
-      sources: [MT_DIVISION],
+      value: "No state money transmitter surety bond. The NMLS chart has no Montana money transmitter row, and Title 32 has no money transmitter chapter.",
+      sources: [NMLS_CHART, MT_CODE, MT_DIVISION],
     },
     timeline: {
-      value: "No state money transmitter application timeline. There is no Montana application to process.",
-      sources: [MT_DIVISION],
+      value: "No state money transmitter application timeline. There is no Montana money transmitter application to process.",
+      sources: [NMLS_CHART, MT_CODE, MT_DIVISION],
     },
     sections: [
       {
         heading: "What the Division publishes",
         paragraphs: [
-          "The Montana Division of Banking and Financial Institutions states on its site that it does not regulate money transmitters. It also states that Montana law does not define money transmission. Those two sentences are the reason the fee, bond, and timeline cells above say there is no state fee, bond, or timeline, each linked to that page.",
+          "Three current sources agree. The NMLS License Requirements and Fees Chart lists Montana company licenses and has no money transmitter row. Montana Code Annotated Title 32 has chapters for banks, consumer loans, electronic funds transfer, escrow, and residential mortgage, and no money transmitter chapter. Chapter 6 is the Electronic Funds Transfer Act. It is not a money transmitter license. The Division of Banking and Financial Institutions states that it does not regulate money transmitters and that Montana law does not define money transmission.",
           "The same page says a money transmitter may still need a different Montana license. The Division licenses consumer finance companies, anyone who collects on a consumer loan, escrow companies, and mortgage entities. A model that lends, collects a consumer loan, or handles a mortgage is not answered by this page.",
           "The Division has said it asked money transmitters for business plans and money flow charts, then withdrew that request because it does not have authority to require those materials from a company it does not license.",
         ],
@@ -107,11 +115,11 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
     faqs: [
       {
         q: "Does Montana require a money transmitter license?",
-        a: "The Division of Banking and Financial Institutions states that it does not regulate money transmitters, and that Montana law does not define money transmission. There is no statewide money transmitter application on this desk.",
+        a: "No. The NMLS License Requirements and Fees Chart has no Montana money transmitter license, Montana Code Annotated Title 32 has no money transmitter chapter, and the Division states that it does not regulate money transmitters.",
       },
       {
         q: "Is there a Montana money transmitter fee or surety bond?",
-        a: "No state money transmitter fee and no state money transmitter surety bond. Both cells cite the Division page checked on October 13, 2026.",
+        a: "No state money transmitter fee and no state money transmitter surety bond. The cells cite the NMLS chart, Title 32, and the Division page, checked on October 13, 2026.",
       },
       {
         q: "How long does a Montana money transmitter application take?",
@@ -129,7 +137,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
     steps: [
       {
         name: "Read the Division statement",
-        text: "Open the Montana Division of Banking and Financial Institutions page and read the statement that the Division does not regulate money transmitters.",
+        text: "Open the NMLS License Requirements and Fees Chart, Montana Code Annotated Title 32, and the Division page. None of them creates a money transmitter license.",
       },
       {
         name: "Separate transmission from other licenses",
@@ -152,15 +160,15 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
   "washington/money-transmitters": {
     lastVerified: "2026-10-13",
     fee: {
-      value: "$1,000 license fee, plus $100 per additional location (maximum $5,000 for locations). Those Washington fees together are capped at $6,000. NMLS charges a separate processing fee at submission. This page does not restate that NMLS amount.",
-      sources: [WA_FEE],
+      value: "$1,000 license fee, plus $100 per additional location (maximum $5,000 for locations). Those Washington fees together are capped at $6,000. The NMLS License Requirements and Fees Chart lists a $120 NMLS processing fee for this license.",
+      sources: [WA_FEE, NMLS_CHART],
     },
     bond: {
-      value: "At least $10,000 and not more than $550,000, based on the previous year's Washington money transmission dollar volume and payment instrument dollar volume. The director may increase the bond up to $1,000,000.",
-      sources: [WA_BOND, WA_FAQ],
+      value: "At least $10,000 and not more than $550,000, based on the previous year's Washington money transmission dollar volume and payment instrument dollar volume. The director may increase the bond up to $1,000,000. The NMLS chart lists the same $10,000 minimum.",
+      sources: [WA_BOND, WA_FAQ, NMLS_CHART],
     },
     timeline: {
-      value: "",
+      value: "Varies, see regulator",
       sources: [WA_FAQ, WA_FEE],
     },
     sections: [
@@ -169,7 +177,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
         paragraphs: [
           "The Department of Financial Institutions fee page lists a new application at a $1,000 license fee plus $100 per additional location, with the location piece capped at $5,000. The same row caps the combined Washington total at $6,000.",
           "That page also lists later charges that are not the initial license fee: $50 per authorized delegate added on a quarterly roster (maximum $5,000 per quarterly submission), no fee to remove a delegate, and $30 for several company amendments. Read the fee page before you pay an amendment.",
-          "NMLS collects its own processing fee when the company submits. The DFI fee page does not print that NMLS dollar amount, so this page leaves it out.",
+          "The NMLS License Requirements and Fees Chart lists a $120 processing fee for the Washington money transmitter license. Credit report and background check charges are separate from that chart line.",
         ],
       },
       {
@@ -183,7 +191,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
       {
         heading: "Timeline cell",
         paragraphs: [
-          "The timeline cell is blank. The DFI licensing FAQ and the money services fee page were checked on October 13, 2026. Neither page states a number of days for review. This page does not invent one.",
+          "The timeline cell says Varies, see regulator. The DFI licensing FAQ, the money services fee page, and the NMLS chart were checked on October 13, 2026. None of them states a number of days for review.",
           "The same FAQ states that money transmitter licenses are perpetual, that the company completes an annual assessment to keep the license in good standing, and that the NMLS system fee is paid in NMLS between November 1 and December 31.",
         ],
       },
@@ -198,7 +206,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
     faqs: [
       {
         q: "What is the Washington money transmitter application fee?",
-        a: "The DFI fee page lists a $1,000 license fee plus $100 per additional location, with locations capped at $5,000 and the combined Washington total capped at $6,000. NMLS adds its own processing fee at submission. This page does not restate that NMLS amount.",
+        a: "The DFI fee page lists a $1,000 license fee plus $100 per additional location, with locations capped at $5,000 and the combined Washington total capped at $6,000. The NMLS chart lists a $120 processing fee for this license.",
       },
       {
         q: "What surety bond does Washington require?",
@@ -206,7 +214,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
       },
       {
         q: "How long does Washington take to review a money transmitter application?",
-        a: "The timeline cell is blank. The DFI fee page and licensing FAQ checked on October 13, 2026 do not state a review-day count.",
+        a: "Varies, see regulator. The DFI fee page, the licensing FAQ, and the NMLS chart checked on October 13, 2026 do not state a review-day count.",
       },
       {
         q: "Does the Washington money transmitter license expire?",
@@ -235,20 +243,20 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
         text: "Maintain a surety bond under RCW 19.230.050: at least $10,000, not more than $550,000 based on the previous year's Washington volume, unless the director increases it up to $1,000,000.",
       },
       {
-        name: "Do not schedule from a blank timeline",
-        text: "The DFI pages checked for this entry do not publish a review-day count. Leave the launch date unset until DFI or NMLS states one for this file.",
+        name: "Treat the timeline as unset",
+        text: "The DFI pages and the NMLS chart checked for this entry do not publish a review-day count. The cell says Varies, see regulator until DFI states a clock for this file.",
       },
     ],
   },
   "maryland/money-transmitters": {
     lastVerified: "2026-10-13",
     fee: {
-      value: "$1,000 nonrefundable investigation fee and $2,000 nonrefundable license fee, paid to the Commissioner. The applicant also pays the NMLS processing fee. This page does not restate that NMLS amount.",
-      sources: [MD_FEE],
+      value: "$1,000 nonrefundable investigation fee and $2,000 nonrefundable license fee, paid to the Commissioner. The NMLS License Requirements and Fees Chart lists a $120 NMLS processing fee for this license.",
+      sources: [MD_FEE, NMLS_CHART],
     },
     bond: {
-      value: "The greater of $150,000 or 100 percent of average daily money transmission liability in Maryland for the most recently completed quarter, up to a maximum of $2,000,000. A deposit of equal market value may be filed instead of a bond.",
-      sources: [MD_BOND],
+      value: "The greater of $150,000 or 100 percent of average daily money transmission liability in Maryland for the most recently completed quarter, up to a maximum of $2,000,000. A deposit of equal market value may be filed instead of a bond. The NMLS chart lists the same $150,000 minimum.",
+      sources: [MD_BOND, NMLS_CHART],
     },
     timeline: {
       value: "The Commissioner must approve or deny an initial license within 60 days after receiving a completed application, including the surety bond and required fees when they apply.",
@@ -259,7 +267,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
         heading: "Application fee",
         paragraphs: [
           "Financial Institutions Article section 12-407(e) requires two payments to the Commissioner with the application: a nonrefundable investigation fee of $1,000 and a nonrefundable license fee of $2,000.",
-          "Section 12-407(f) also requires an initial applicant to pay NMLS the fee NMLS imposes to process the application. The statute does not print that dollar amount. This page does not supply one.",
+          "Section 12-407(f) also requires an initial applicant to pay NMLS the fee NMLS imposes to process the application. The statute does not print that dollar amount. The NMLS License Requirements and Fees Chart lists $120 for this license.",
         ],
       },
       {
@@ -281,7 +289,7 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
     faqs: [
       {
         q: "What does a Maryland money transmitter application cost?",
-        a: "Section 12-407 requires a $1,000 nonrefundable investigation fee and a $2,000 nonrefundable license fee, paid to the Commissioner, plus the NMLS processing fee. The statute does not state the NMLS dollar amount, so this page does not either.",
+        a: "Section 12-407 requires a $1,000 nonrefundable investigation fee and a $2,000 nonrefundable license fee, paid to the Commissioner. The NMLS chart lists a $120 processing fee for this license.",
       },
       {
         q: "What surety bond does Maryland require?",

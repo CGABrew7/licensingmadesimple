@@ -1,16 +1,19 @@
+import { getChartEntry, NMLS_CHART } from "../data/chart-cells";
 import { neighbors } from "../data/neighbors";
 import { getState, type StateRecord } from "../data/states";
 import type { LicenseSlug, LicenseType } from "../data/license-types";
 import type { StateLicenseFact } from "../data/state-licenses";
 import {
-  emptyCell,
   getVerifiedRequirement,
   type CitedCell,
   type HowStep,
   type PageSection,
   type QaItem,
+  type SourceLink,
 } from "../data/verified-requirements";
 import { comboPath, SITE_URL, statePath } from "./directory";
+
+const VARIES = "Varies, see regulator";
 
 const MONTHS = [
   "January",
@@ -76,7 +79,7 @@ function defaultFaqs(state: StateRecord, type: LicenseType, fact: StateLicenseFa
     },
     {
       q: `What fee, bond, and timeline apply in ${state.name}?`,
-      a: "The fee, bond, and timeline table leaves a cell blank when this desk has not checked the figure against the state regulator or NMLS. A blank cell is not an estimate. Open the agency page, then the LicenseStore cost page for this state, before you pay or set a date.",
+      a: "A figure is shown when a state regulator, a statute, or the NMLS License Requirements and Fees Chart states it. If the cell says Varies, see regulator, open the agency link before you pay or set a date.",
     },
   ];
 }
@@ -97,23 +100,39 @@ function defaultSteps(state: StateRecord, type: LicenseType, fact: StateLicenseF
     },
     {
       name: "Use the fee, bond, and timeline table",
-      text: "Read each cell. Follow the source link on a filled cell. Leave a blank cell blank until the regulator or NMLS page states the figure.",
+      text: "Read each cell and open its source. If the cell says Varies, see regulator, use the agency link on that row.",
     },
   ];
 }
 
+function filled(cell: CitedCell | undefined): CitedCell | undefined {
+  if (!cell?.value.trim()) return undefined;
+  return cell;
+}
+
+function variesCell(fact: StateLicenseFact, extra: SourceLink[]): CitedCell {
+  const sources: SourceLink[] = [{ label: fact.agencyName, url: fact.agencyUrl }];
+  for (const source of extra) {
+    if (!sources.some((item) => item.url === source.url)) sources.push(source);
+  }
+  return { value: VARIES, sources };
+}
+
 export function buildLicensePage(state: StateRecord, type: LicenseType, fact: StateLicenseFact): LicensePageModel {
   const verified = getVerifiedRequirement(state.slug, type.slug);
+  const chart = getChartEntry(state.slug, type.slug);
+  const chartSources = chart?.onChart ? [NMLS_CHART] : [];
   const nearby = (neighbors[state.slug] ?? [])
     .map((slug) => getState(slug))
     .filter((item): item is StateRecord => Boolean(item));
+  const lastVerified = verified?.lastVerified || (chart ? "2026-10-13" : "");
 
   return {
-    fee: verified?.fee ?? emptyCell(),
-    bond: verified?.bond ?? emptyCell(),
-    timeline: verified?.timeline ?? emptyCell(),
-    lastVerified: verified?.lastVerified ?? "",
-    lastVerifiedLabel: formatVerifiedDate(verified?.lastVerified ?? ""),
+    fee: filled(verified?.fee) ?? filled(chart?.fee) ?? variesCell(fact, chartSources),
+    bond: filled(verified?.bond) ?? filled(chart?.bond) ?? variesCell(fact, chartSources),
+    timeline: filled(verified?.timeline) ?? variesCell(fact, chartSources),
+    lastVerified,
+    lastVerifiedLabel: formatVerifiedDate(lastVerified),
     sections: verified?.sections ?? [],
     faqs: verified?.faqs ?? defaultFaqs(state, type, fact),
     steps: verified?.steps ?? defaultSteps(state, type, fact),

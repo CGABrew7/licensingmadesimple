@@ -2,20 +2,20 @@
 
 > Who needs which U.S. business license, and where to file it.
 
-LicensingMadeSimple is a 50-state directory for collection and accounts receivable management, consumer and commercial lending, money transmitters, and mortgage. Each state license page names the license, the agency, and the filing path.
+LicensingMadeSimple is a directory for collection and accounts receivable management, consumer and commercial lending, money transmitters, and mortgage in the 50 states and the District of Columbia. Each state license page names the license, the agency, and the filing path.
 
-Fee, bond, and timeline cells are filled only when a state regulator or NMLS page was checked on the date shown. A blank cell is not an estimate. Montana, Washington, and Maryland money transmitter pages carry the most detail.
+Fee, bond, and timeline cells cite a state regulator, a statute, or the NMLS License Requirements and Fees Chart checked on October 13, 2026. If a figure could not be verified, the cell says Varies, see regulator and links the agency. Montana, Washington, and Maryland money transmitter pages carry the most detail.
 
 ## Priority pages
 
-- [Montana money transmitters](https://licensingmadesimple.com/states/montana/money-transmitters): The Division of Banking and Financial Institutions states that it does not regulate money transmitters. No state fee, bond, or application timeline.
-- [Washington money transmitters](https://licensingmadesimple.com/states/washington/money-transmitters): Department of Financial Institutions fee page and RCW 19.230.050 bond. The timeline cell is blank.
-- [Maryland money transmitters](https://licensingmadesimple.com/states/maryland/money-transmitters): Financial Institutions Article sections 12-407 and 12-412, and COMAR 09.03.14.05.
+- [Montana money transmitters](https://licensingmadesimple.com/states/montana/money-transmitters): The NMLS chart has no Montana money transmitter row, Montana Code Annotated Title 32 has no money transmitter chapter, and the Division states that it does not regulate money transmitters. No state fee, bond, or application timeline.
+- [Washington money transmitters](https://licensingmadesimple.com/states/washington/money-transmitters): Department of Financial Institutions fee page, a $120 NMLS processing fee on the NMLS chart, and the RCW 19.230.050 bond. The timeline cell says Varies, see regulator.
+- [Maryland money transmitters](https://licensingmadesimple.com/states/maryland/money-transmitters): Financial Institutions Article sections 12-407 and 12-412, a $120 NMLS processing fee on the NMLS chart, and the COMAR 09.03.14.05 60-day decision window.
 
 ## Directory
 
 - [License types](https://licensingmadesimple.com/directory): Collection, lending, money transmitters, and mortgage.
-- [States](https://licensingmadesimple.com/states): All 50 states.
+- [States](https://licensingmadesimple.com/states): The 50 states and the District of Columbia.
 - [NMLS guide](https://licensingmadesimple.com/guides/nmls): What the filing system is.
 
 ## Related tools

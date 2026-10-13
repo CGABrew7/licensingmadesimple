@@ -1,6 +1,6 @@
 import { states } from "./states";
 
-/** Contiguous U.S. neighbors. Alaska and Hawaii have none in this directory. */
+/** Contiguous U.S. neighbors. Alaska and Hawaii have none in this directory. DC borders Maryland and Virginia. */
 export const neighbors: Record<string, string[]> = {
   alabama: ["florida", "georgia", "mississippi", "tennessee"],
   alaska: [],
@@ -10,6 +10,7 @@ export const neighbors: Record<string, string[]> = {
   colorado: ["arizona", "kansas", "nebraska", "new-mexico", "oklahoma", "utah", "wyoming"],
   connecticut: ["massachusetts", "new-york", "rhode-island"],
   delaware: ["maryland", "new-jersey", "pennsylvania"],
+  "district-of-columbia": ["maryland", "virginia"],
   florida: ["alabama", "georgia"],
   georgia: ["alabama", "florida", "north-carolina", "south-carolina", "tennessee"],
   hawaii: [],
@@ -21,7 +22,7 @@ export const neighbors: Record<string, string[]> = {
   kentucky: ["illinois", "indiana", "missouri", "ohio", "tennessee", "virginia", "west-virginia"],
   louisiana: ["arkansas", "mississippi", "texas"],
   maine: ["new-hampshire"],
-  maryland: ["delaware", "pennsylvania", "virginia", "west-virginia"],
+  maryland: ["delaware", "district-of-columbia", "pennsylvania", "virginia", "west-virginia"],
   massachusetts: ["connecticut", "new-hampshire", "new-york", "rhode-island", "vermont"],
   michigan: ["indiana", "ohio", "wisconsin"],
   minnesota: ["iowa", "north-dakota", "south-dakota", "wisconsin"],
@@ -47,7 +48,7 @@ export const neighbors: Record<string, string[]> = {
   texas: ["arkansas", "louisiana", "new-mexico", "oklahoma"],
   utah: ["arizona", "colorado", "idaho", "nevada", "new-mexico", "wyoming"],
   vermont: ["massachusetts", "new-hampshire", "new-york"],
-  virginia: ["kentucky", "maryland", "north-carolina", "tennessee", "west-virginia"],
+  virginia: ["district-of-columbia", "kentucky", "maryland", "north-carolina", "tennessee", "west-virginia"],
   washington: ["idaho", "oregon"],
   "west-virginia": ["kentucky", "maryland", "ohio", "pennsylvania", "virginia"],
   wisconsin: ["illinois", "iowa", "michigan", "minnesota"],

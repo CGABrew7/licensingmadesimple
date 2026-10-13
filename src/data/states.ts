@@ -21,9 +21,10 @@ export const states: StateRecord[] = [
     region: "South",
     regulators: [
       { name: "State Banking Department of Alabama", url: "https://www.banking.alabama.gov/", role: "Non-depository financial licenses, including mortgage and consumer finance" },
+      { name: "Alabama Securities Commission", url: "https://asc.alabama.gov/", role: "Money transmitter license" },
       { name: "Alabama Collection Service Board", url: "https://www.revenue.alabama.gov/", role: "Collection service licenses" },
     ],
-    notes: "Alabama splits collection-service licensing onto a dedicated board while mortgage and consumer-finance filings go to the Banking Department.",
+    notes: "Alabama splits collection-service licensing onto a dedicated board. Mortgage and consumer-finance filings go to the Banking Department. The NMLS chart places the money transmitter license at the Securities Commission.",
   },
   {
     slug: "alaska",
@@ -98,6 +99,16 @@ export const states: StateRecord[] = [
       { name: "Delaware Office of the State Bank Commissioner", url: "https://banking.delaware.gov/", role: "Banking and non-depository financial licenses" },
     ],
     notes: "Delaware’s Bank Commissioner licenses mortgage, lender, money-transmitter, and collection activity.",
+  },
+  {
+    slug: "district-of-columbia",
+    name: "District of Columbia",
+    abbr: "DC",
+    region: "South",
+    regulators: [
+      { name: "Department of Insurance, Securities and Banking", url: "https://disb.dc.gov/", role: "Money transmission, mortgage, and money lender licensing" },
+    ],
+    notes: "DISB licenses money transmitters, mortgage companies, and money lenders on NMLS. The current NMLS company chart does not list a District collection agency license.",
   },
   {
     slug: "florida",
@@ -210,10 +221,10 @@ export const states: StateRecord[] = [
     abbr: "ME",
     region: "Northeast",
     regulators: [
-      { name: "Maine Bureau of Consumer Credit Protection", url: "https://www.maine.gov/pfr/consumercredit/", role: "Consumer credit, mortgage, and collection licensing" },
-      { name: "Maine Bureau of Financial Institutions", url: "https://www.maine.gov/pfr/financialinstitutions/", role: "Money transmitter and depository supervision" },
+      { name: "Maine Bureau of Consumer Credit Protection", url: "https://www.maine.gov/pfr/consumercredit/", role: "Consumer credit, mortgage, collection, and money transmitter licensing" },
+      { name: "Maine Bureau of Financial Institutions", url: "https://www.maine.gov/pfr/financialinstitutions/", role: "Depository supervision" },
     ],
-    notes: "Maine splits consumer-credit licensing (BCCP) from money-transmitter supervision (Bureau of Financial Institutions).",
+    notes: "The NMLS chart places the Maine money transmitter license with the Bureau of Consumer Credit Protection, which also handles mortgage and collection.",
   },
   {
     slug: "maryland",
@@ -286,7 +297,7 @@ export const states: StateRecord[] = [
       { name: "Montana Division of Banking and Financial Institutions", url: "https://banking.mt.gov/", role: "Mortgage, consumer lending, and money-services supervision" },
       { name: "Montana Attorney General", url: "https://dojmt.gov/", role: "Consumer-protection enforcement for collectors; no state collection license" },
     ],
-    notes: "The Division of Banking and Financial Institutions states that it does not regulate money transmitters, and Montana law does not define that activity. Consumer lending, mortgage, escrow, and collection on a consumer loan can still be licensed.",
+    notes: "The NMLS chart has no Montana money transmitter row, Montana Code Annotated Title 32 has no money transmitter chapter, and the Division states that it does not regulate money transmitters. Consumer lending, mortgage, escrow, and collection on a consumer loan can still be licensed.",
   },
   {
     slug: "nebraska",
@@ -435,9 +446,9 @@ export const states: StateRecord[] = [
     regulators: [
       { name: "South Carolina Board of Financial Institutions", url: "https://www.banking.sc.gov/", role: "Mortgage and some non-depository licenses" },
       { name: "South Carolina Department of Consumer Affairs", url: "https://consumer.sc.gov/", role: "Consumer-credit licensing" },
-      { name: "South Carolina Attorney General", url: "https://www.scag.gov/", role: "Consumer-protection enforcement for collectors; no state collection license" },
+      { name: "South Carolina Attorney General", url: "https://www.scag.gov/", role: "Money transmitter license, and consumer-protection enforcement where there is no state collection license" },
     ],
-    notes: "South Carolina splits mortgage, consumer-credit, and collection enforcement. There is no statewide collection-agency license.",
+    notes: "The NMLS chart places the South Carolina money transmitter license with the Attorney General. Mortgage company licenses file with the Board of Financial Institutions. There is no statewide collection-agency license.",
   },
   {
     slug: "south-dakota",
