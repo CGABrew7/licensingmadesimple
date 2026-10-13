@@ -6,6 +6,12 @@ import LinkedText from "../../../components/LinkedText.astro";
 import StrikingSection from "../../../components/StrikingSection.astro";
 import { faqPageSchema, getStrikingPage } from "../../../data/striking-pages";
 import {
+  breadcrumbSchema,
+  buildLicensePage,
+  faqSchema,
+  howToSchema,
+} from "../../../lib/license-page";
+import {
   comboPath,
   coreLicenseTypes,
   coreSlugs,
@@ -19,6 +25,7 @@ import {
   states,
 } from "../../../lib/directory";
 import type { LicenseSlug } from "../../../data/license-types";
+import type { CitedCell } from "../../../data/verified-requirements";
 
 export function getStaticPaths() {
   return states.flatMap((s) =>
@@ -36,24 +43,42 @@ const fact = getStateLicense(state.slug, type.slug as LicenseSlug);
 if (!fact) throw new Error("Missing fact");
 
 const striking = getStrikingPage(state.slug, type.slug);
+const page = buildLicensePage(state, type, fact);
 const otherTypes = coreLicenseTypes.filter((t) => t.slug !== type.slug);
 const otherStates = states.filter((s) => s.slug !== state.slug);
-const pageTitle = striking?.title ?? `${type.name} in ${state.name}: who needs it and where to file`;
-const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Filed with ${fact.agencyName}.`;
+const strikingFaq = striking ? faqPageSchema(striking.faqs) : undefined;
+const jsonLd = [
+  breadcrumbSchema(state, type),
+  faqSchema(page.faqs),
+  ...(strikingFaq ? [strikingFaq] : []),
+  howToSchema(page.howToName, page.steps),
+];
+const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
+const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells are filled only when a regulator or NMLS source was checked.`;
+
+const rows: { label: string; cell: CitedCell }[] = [
+  { label: "Fee", cell: page.fee },
+  { label: "Bond", cell: page.bond },
+  { label: "Timeline", cell: page.timeline },
+];
 ---
 
 <Layout
   title={pageTitle}
   description={pageDescription}
-  jsonLd={striking ? faqPageSchema(striking.faqs) : undefined}
+  jsonLd={jsonLd}
+
 >
   <section class="page-hero">
     <div class="container">
-      <p class="lms-crumb">
-        <a href="/directory">Directory</a> /
-        <a href={statePath(state.slug)}>{state.name}</a> /
-        {type.name}
-      </p>
+      <nav class="lms-crumb" aria-label="Breadcrumb">
+        <ol class="crumb-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/directory">Directory</a></li>
+          <li><a href={statePath(state.slug)}>{state.name}</a></li>
+          <li aria-current="page">{type.name}</li>
+        </ol>
+      </nav>
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
       <h1>{striking?.h1 ?? `${type.name} in ${state.name}`}</h1>
       <p>{fact.licenseName}</p>
@@ -75,6 +100,46 @@ const pageDescription = striking?.description ?? `${fact.licenseName} in ${state
           <span class="wr-item-label">Agency</span>
           <strong><a href={fact.agencyUrl} target="_blank" rel="noopener">{fact.agencyName}</a></strong>
         </div>
+      </div>
+
+      <div class="req-block">
+        <h2 class="section-title req-title">Fee, bond, and timeline</h2>
+        <p class="section-sub req-lead">A cell stays blank unless a state regulator or NMLS page was checked. Each filled cell links that source.</p>
+        <div class="req-wrap">
+          <table class="req-table">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Published figure</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr>
+                  <th scope="row">{row.label}</th>
+                  <td>{row.cell.value}</td>
+                  <td>
+                    {row.cell.sources.map((source, index) => (
+                      <>
+                        {index > 0 ? ", " : ""}
+                        <a href={source.url} target="_blank" rel="noopener">{source.label}</a>
+                      </>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="lms-verified">
+          Last verified:{page.lastVerifiedLabel ? <> <time datetime={page.lastVerified}>{page.lastVerifiedLabel}</time></> : null}
+        </p>
+        <p class="tool-row">
+          <a href={page.storeCostUrl} target="_blank" rel="noopener">LicenseStore cost page for {state.name}</a>
+          <a href={page.storeCompareUrl} target="_blank" rel="noopener">LicenseStore compare</a>
+          <a href={page.storeSourcesUrl} target="_blank" rel="noopener">LicenseStore sources</a>
+        </p>
       </div>
 
       <div class="lms-prose" style="margin-top:36px;">
@@ -102,8 +167,35 @@ const pageDescription = striking?.description ?? `${fact.licenseName} in ${state
           </>
         )}
 
+        {page.sections.map((section) => (
+          <>
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </>
+        ))}
+
+        <h2>{page.howToName}</h2>
+        <ol class="howto-steps">
+          {page.steps.map((step) => (
+            <li>
+              <strong>{step.name}</strong>
+              <span>{step.text}</span>
+            </li>
+          ))}
+        </ol>
+
         <h2>Federal overlay</h2>
         <p>{type.federalOverlay}</p>
+
+        <h2>Questions</h2>
+        <div class="faq-list">
+          {page.faqs.map((faq) => (
+            <details class="faq-item">
+              <summary class="faq-q">{faq.q}<span class="faq-toggle">+</span></summary>
+              <div class="faq-a"><p>{faq.a}</p></div>
+            </details>
+          ))}
+        </div>
 
         <h2>Sources</h2>
         <ul>
@@ -141,7 +233,22 @@ const pageDescription = striking?.description ?? `${fact.licenseName} in ${state
     </div>
   </section>
 
-  <section class="section">
+  {page.nearby.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">{type.name} in nearby states</h2>
+        <ul class="neighbor-list">
+          {page.nearby.map((neighbor) => (
+            <li>
+              <a href={comboPath(neighbor.slug, type.slug)}>{neighbor.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section section-alt">
     <div class="container">
       <h2 class="section-title">{type.name} in other states</h2>
       <p class="lms-inline-states">
@@ -149,17 +256,15 @@ const pageDescription = striking?.description ?? `${fact.licenseName} in ${state
           <><a href={comboPath(s.slug, type.slug)}>{s.abbr}</a>{i < otherStates.length - 1 ? " · " : ""}</>
         ))}
       </p>
-      <p style="text-align:center;margin-top:20px;">
+      <p class="section-links">
         <a href={licensePath(type.slug)}>All {type.name.toLowerCase()} states</a>
-        {" · "}
         <a href={statePath(state.slug)}>All {state.name} licenses</a>
-        {" · "}
         <a href="/guides/nmls">NMLS guide</a>
       </p>
     </div>
   </section>
 
-  <section class="section section-alt">
+  <section class="section">
     <div class="container" style="max-width:720px;">
       {striking ? (
         <FileWithCornerstone

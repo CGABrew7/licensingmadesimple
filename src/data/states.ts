@@ -286,7 +286,7 @@ export const states: StateRecord[] = [
       { name: "Montana Division of Banking and Financial Institutions", url: "https://banking.mt.gov/", role: "Mortgage, consumer lending, and money-services supervision" },
       { name: "Montana Attorney General", url: "https://dojmt.gov/", role: "Consumer-protection enforcement for collectors; no state collection license" },
     ],
-    notes: "Montana has historically been an outlier on money-transmitter licensing. Confirm the current statute with the Division before treating transmission as unlicensed activity.",
+    notes: "The Division of Banking and Financial Institutions states that it does not regulate money transmitters, and Montana law does not define that activity. Consumer lending, mortgage, escrow, and collection on a consumer loan can still be licensed.",
   },
   {
     slug: "nebraska",

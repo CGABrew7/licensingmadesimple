@@ -5,11 +5,20 @@ import '@fontsource/geist-sans/latin-500.css';
 import '@fontsource/geist-sans/latin-600.css';
 import '@fontsource/geist-sans/latin-700.css';
 import Logo from '../components/Logo.astro';
-interface Props { title: string; description?: string; jsonLd?: Record<string, unknown>; }
-const { title, description = "Who needs which U.S. business license, and where to file it. 50-state directory for collection, lending, money transmitters, and mortgage — plus a 3-question roadmap." } = Astro.props;
-const jsonLd = Astro.props.jsonLd;
+interface Props { title: string; description?: string; jsonLd?: unknown | unknown[]; }
+const { title, description = "Who needs which U.S. business license, and where to file it. 50-state directory for collection, lending, money transmitters, and mortgage, plus a 3-question roadmap.", jsonLd } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
-const jsonLdHtml = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
+const organization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "LicensingMadeSimple",
+  url: "https://licensingmadesimple.com",
+  logo: "https://licensingmadesimple.com/logo-lockup.png",
+  description: "A 50-state directory of who needs a collection, lending, money transmitter, or mortgage license, and which agency takes the filing.",
+  sameAs: ["https://cornerstonelicensing.com"],
+};
+const extraJsonLd = jsonLd == null ? [] : Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+const jsonLdBlocks = [organization, ...extraJsonLd];
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +33,9 @@ const jsonLdHtml = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : ""
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  {jsonLdHtml && <script type="application/ld+json" set:html={jsonLdHtml} />}
+  {jsonLdBlocks.map((block) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
+  ))}
 </head>
 <body>
   <nav class="nav">
@@ -86,9 +97,10 @@ const jsonLdHtml = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : ""
           <a href="/faq">FAQ</a>
           <a href="/contact">Contact</a>
           <a href="/privacy">Privacy</a>
+          <a href="/llms.txt">llms.txt</a>
         </div>
       </div>
-      <p class="footer-note">Agency names and filing paths come from public regulator and NMLS sources already in the directory. This site does not quote fees, bond amounts, or processing times, and it does not reprint filing counts. Confirm the current checklist with the agency before you apply. Not legal advice.</p>
+      <p class="footer-note">Fee, bond, and timeline cells on a state license page are filled only when a state regulator or NMLS source was checked, and each filled cell links that source. A blank cell is not an estimate. This site does not reprint filing counts. Confirm the current checklist with the agency before you apply. Not legal advice.</p>
       <div class="footer-bottom">
         <span>&copy; 2026 LicensingMadeSimple. All rights reserved.</span>
         <span>Licensing services by <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a></span>
