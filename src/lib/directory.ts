@@ -42,7 +42,7 @@ export function filingLabel(filing: StateLicenseFact["filing"]): string {
     case "state-portal":
       return "File through the state portal or board";
     case "nmls-or-state":
-      return "NMLS or the state portal — use the agency checklist";
+      return "NMLS or the state portal. Use the agency checklist.";
     case "municipal-plus":
       return "State and/or city filing";
     case "none":
@@ -81,6 +81,7 @@ export function publicPages(): { path: string; changefreq: string; priority: str
     { path: "/faq", changefreq: "yearly", priority: "0.4" },
     { path: "/contact", changefreq: "yearly", priority: "0.4" },
     { path: "/privacy", changefreq: "yearly", priority: "0.2" },
+    { path: "/llms.txt", changefreq: "monthly", priority: "0.3" },
   ];
 
   const typePages = licenseTypes.map((t) => ({

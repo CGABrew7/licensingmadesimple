@@ -58,9 +58,9 @@ const rows = isCore
 
       {isCore && (
         <p>
-          Open a state page for the agency name, the usual license title, and whether
-          a statewide license exists. We omit fees, bond amounts, and processing times
-          unless a statute is cited on that page.
+          Open a state page for the agency, the filing path, and the fee, bond, and
+          timeline table. Each cell cites a regulator, a statute, or the NMLS chart.
+          If a figure could not be verified, the cell says Varies, see regulator.
         </p>
       )}
     </div>
@@ -122,7 +122,7 @@ const rows = isCore
         </p>
         <ul class="lms-state-list">
           {coreLicenseTypes.map((t) => (
-            <li><a href={`/directory/${t.slug}`}>{t.name}</a> — core vertical with 50-state pages</li>
+            <li><a href={`/directory/${t.slug}`}>{t.name}</a>: core vertical with pages for the 50 states and DC</li>
           ))}
         </ul>
       </div>
