@@ -5,9 +5,11 @@ import '@fontsource/geist-sans/latin-500.css';
 import '@fontsource/geist-sans/latin-600.css';
 import '@fontsource/geist-sans/latin-700.css';
 import Logo from '../components/Logo.astro';
-interface Props { title: string; description?: string; }
+interface Props { title: string; description?: string; jsonLd?: Record<string, unknown>; }
 const { title, description = "Who needs which U.S. business license, and where to file it. 50-state directory for collection, lending, money transmitters, and mortgage — plus a 3-question roadmap." } = Astro.props;
+const jsonLd = Astro.props.jsonLd;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
+const jsonLdHtml = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : "";
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,7 @@ const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com")
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {jsonLdHtml && <script type="application/ld+json" set:html={jsonLdHtml} />}
 </head>
 <body>
   <nav class="nav">

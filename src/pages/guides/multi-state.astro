@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { inboundLinks } from '../../data/striking-pages';
+
+const statePages = inboundLinks("multi-state");
 ---
 
 <Layout title="Multi-State Licensing Explained — LicensingMadeSimple" description="There is no national license. Each state has its own agency and filing path.">
@@ -25,6 +28,13 @@ import Layout from '../../layouts/Layout.astro';
       <p>A filer can run the applications in parallel. Doing it yourself means one checklist per state. <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a> coordinates multi-state filings if you want that done for you.</p>
 
       <p>Use the <a href="/#wizard">roadmap wizard</a> to pick the license type, or go straight to the <a href="/directory">directory</a>.</p>
+
+      <h2>State license pages</h2>
+      <ul class="lms-link-list">
+        {statePages.map((link) => (
+          <li><a href={link.href}>{link.anchor}</a></li>
+        ))}
+      </ul>
     </div>
   </section>
 </Layout>

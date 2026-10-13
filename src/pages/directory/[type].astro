@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import { inboundLinks } from "../../data/striking-pages";
 import {
   comboPath,
   coreLicenseTypes,
@@ -22,6 +23,7 @@ const type = getLicenseType(Astro.params.type!);
 if (!type) throw new Error("Unknown license type");
 
 const isCore = type.tier === "core";
+const filingPaths = isCore ? inboundLinks("directory", { license: type.slug }) : [];
 const rows = isCore
   ? getFactsForLicense(type.slug).map(({ stateSlug, fact }) => ({
       state: getState(stateSlug)!,
@@ -95,6 +97,16 @@ const rows = isCore
             </tbody>
           </table>
         </div>
+        {filingPaths.length > 0 && (
+          <>
+            <h2 class="lms-subhead">State filing paths</h2>
+            <ul class="lms-link-list">
+              {filingPaths.map((link) => (
+                <li><a href={link.href}>{link.anchor}</a></li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </section>
   )}
