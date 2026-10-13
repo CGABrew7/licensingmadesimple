@@ -740,7 +740,7 @@ const moneyTransmitters: Record<string, StateLicenseFact> = {
   kansas: mtlFact("kansas", "Kansas Office of the State Bank Commissioner", "https://osbckansas.org/", "File the Kansas money-transmitter license on NMLS."),
   kentucky: mtlFact("kentucky", "Kentucky Department of Financial Institutions", "https://kfi.ky.gov/", "Request the Kentucky money-transmitter license on NMLS."),
   louisiana: mtlFact("louisiana", "Louisiana Office of Financial Institutions", "https://www.ofi.la.gov/", "File the Louisiana money-transmitter license on NMLS with OFI."),
-  maine: mtlFact("maine", "Maine Bureau of Consumer Credit Protection", "https://www.maine.gov/pfr/consumercredit/", "The NMLS chart places the Maine money transmitter license with the Bureau of Consumer Credit Protection."),
+  maine: mtlFact("maine", "Maine Bureau of Financial Institutions", "https://www.maine.gov/pfr/financialinstitutions/", "Maine money-transmitter filings go to the Bureau of Financial Institutions, not BCCP."),
   maryland: mtlFact("maryland", "Maryland Office of the Commissioner of Financial Regulation", "https://www.labor.maryland.gov/finance/", "Request the Maryland money-transmitter license on NMLS."),
   massachusetts: mtlFact("massachusetts", "Massachusetts Division of Banks", "https://www.mass.gov/orgs/division-of-banks", "File the Massachusetts foreign-transmittal / money-services license on NMLS."),
   michigan: mtlFact("michigan", "Michigan Department of Insurance and Financial Services", "https://www.michigan.gov/difs", "Request the Michigan money-transmitter license on NMLS through DIFS."),

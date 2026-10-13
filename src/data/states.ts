@@ -221,10 +221,10 @@ export const states: StateRecord[] = [
     abbr: "ME",
     region: "Northeast",
     regulators: [
-      { name: "Maine Bureau of Consumer Credit Protection", url: "https://www.maine.gov/pfr/consumercredit/", role: "Consumer credit, mortgage, collection, and money transmitter licensing" },
-      { name: "Maine Bureau of Financial Institutions", url: "https://www.maine.gov/pfr/financialinstitutions/", role: "Depository supervision" },
+      { name: "Maine Bureau of Consumer Credit Protection", url: "https://www.maine.gov/pfr/consumercredit/", role: "Consumer credit, mortgage, and collection licensing" },
+      { name: "Maine Bureau of Financial Institutions", url: "https://www.maine.gov/pfr/financialinstitutions/", role: "Money transmitter and depository supervision" },
     ],
-    notes: "The NMLS chart places the Maine money transmitter license with the Bureau of Consumer Credit Protection, which also handles mortgage and collection.",
+    notes: "Maine splits consumer-credit licensing (BCCP) from money-transmitter supervision (Bureau of Financial Institutions).",
   },
   {
     slug: "maryland",
