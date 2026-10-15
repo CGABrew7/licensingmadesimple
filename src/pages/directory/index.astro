@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import { getDirectoryHub } from "../../data/directory-hubs";
 import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../../lib/directory";
 ---
 
@@ -24,14 +25,17 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
       <h2 class="section-title">Core licenses</h2>
       <p class="section-sub">The work this site exists to explain. Each type has a national overview and a page for every state.</p>
       <div class="card-grid lms-core-grid">
-        {coreLicenseTypes.map((t) => (
-          <a class="card lms-dir-card" href={licensePath(t.slug)}>
-            <p class="lms-kicker">{t.vertical}</p>
-            <h3>{t.name}</h3>
-            <p>{t.filingHint}</p>
-            <span class="lms-card-link">Open {t.shortName} directory →</span>
-          </a>
-        ))}
+        {coreLicenseTypes.map((t) => {
+          const hub = getDirectoryHub(t.slug);
+          return (
+            <a class="card lms-dir-card" href={licensePath(t.slug)}>
+              <p class="lms-kicker">{t.vertical}</p>
+              <h3>{hub?.h1 ?? t.name}</h3>
+              <p>{hub?.description ?? t.filingHint}</p>
+              <span class="lms-card-link">Open {t.shortName} directory →</span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>

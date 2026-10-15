@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
+import { nationalHubLinks } from "../../data/directory-hubs";
 import { coreLicenseTypes, regions, statePath, states } from "../../lib/directory";
 ---
 
@@ -26,6 +27,12 @@ import { coreLicenseTypes, regions, statePath, states } from "../../lib/director
         {coreLicenseTypes.map((t, i) => (
           <><a href={`/directory/${t.slug}`}>{t.name}</a>{i < coreLicenseTypes.length - 1 ? " · " : ""}</>
         ))}
+      </p>
+      <p class="section-sub">
+        State pages answer one state. National questions:
+        {nationalHubLinks().map((link, i) => (
+          <>{i > 0 ? ", " : ""}<a href={link.href}>{link.anchor}</a></>
+        ))}.
       </p>
 
       {regions.map((region) => (

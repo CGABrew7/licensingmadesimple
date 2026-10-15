@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import { inboundLinks } from "../../data/striking-pages";
+import { nationalHubLinks } from "../../data/directory-hubs";
 import {
   comboPath,
   getFactsForState,
@@ -74,6 +75,13 @@ const filingPaths = inboundLinks("state", { state: state.slug });
 
   <section class="section">
     <div class="container lms-prose">
+      <h2>National license pages</h2>
+      <p>
+        This page is {state.name} only. Nationwide questions belong on the national pages:
+        {nationalHubLinks().map((link, i) => (
+          <>{i > 0 ? ", " : ""}<a href={link.href}>{link.anchor}</a></>
+        ))}.
+      </p>
       <h2>Adjacent filings</h2>
       {filingPaths.length > 0 && (
         <p>

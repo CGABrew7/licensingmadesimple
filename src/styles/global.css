@@ -383,7 +383,15 @@ details[open] .faq-toggle { transform: rotate(45deg); }
   text-align: center;
 }
 .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 12px; letter-spacing: -0.03em; overflow-wrap: break-word; }
-.page-hero p, .page-hero .lede { color: var(--text-secondary); font-size: 1.12rem; max-width: 640px; margin: 0 auto; line-height: 1.55; }
+.page-hero p, .page-hero .lede { color: var(--text-secondary); font-size: 1.12rem; max-width: 720px; margin: 0 auto; line-height: 1.55; }
+.page-hero .hub-byline { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); }
+.page-hero .hub-byline time { color: var(--text); font-weight: 600; }
+.page-hero .hub-jumps { margin-top: 20px; }
+.page-hero .hub-up { margin-top: 14px; font-size: 0.95rem; }
+.hub-note { margin: 0; font-size: 0.84rem; line-height: 1.55; color: var(--text-secondary); }
+.hub-cited { margin: 8px 0 0; font-size: 0.78rem; line-height: 1.45; color: var(--text-muted); }
+.lms-table.hub-table { min-width: 760px; }
+.hub-table td:nth-child(4) { min-width: 280px; }
 
 /* ---- FOOTER ---- */
 .footer {

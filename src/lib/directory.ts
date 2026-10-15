@@ -87,7 +87,7 @@ export function publicPages(): { path: string; changefreq: string; priority: str
   const typePages = licenseTypes.map((t) => ({
     path: licensePath(t.slug),
     changefreq: "weekly",
-    priority: t.tier === "core" ? "0.8" : "0.5",
+    priority: t.slug === "money-transmitters" || t.slug === "collection" || t.slug === "mortgage" ? "0.9" : t.tier === "core" ? "0.8" : "0.5",
   }));
 
   const statePages = states.map((s) => ({
