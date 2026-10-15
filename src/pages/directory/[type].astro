@@ -2,7 +2,16 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
-import { inboundLinks } from "../../data/striking-pages";
+import LinkedText from "../../components/LinkedText.astro";
+import { NMLS_CHART } from "../../data/chart-cells";
+import {
+  HUB_UPDATED,
+  HUB_UPDATED_LABEL,
+  getDirectoryHub,
+  hubBreadcrumbSchema,
+  hubWebPageSchema,
+} from "../../data/directory-hubs";
+import { faqPageSchema, inboundLinks } from "../../data/striking-pages";
 import {
   comboPath,
   coreLicenseTypes,
@@ -12,7 +21,6 @@ import {
   getState,
   licenseTypes,
   requiredLabel,
-  statePath,
 } from "../../lib/directory";
 
 export function getStaticPaths() {
@@ -22,6 +30,7 @@ export function getStaticPaths() {
 const type = getLicenseType(Astro.params.type!);
 if (!type) throw new Error("Unknown license type");
 
+const hub = getDirectoryHub(type.slug);
 const isCore = type.tier === "core";
 const filingPaths = isCore ? inboundLinks("directory", { license: type.slug }) : [];
 const rows = isCore
@@ -30,43 +39,133 @@ const rows = isCore
       fact,
     }))
   : [];
+const title = hub?.title ?? `${type.name} licenses — who needs one and where to file`;
+const description = hub?.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
+const jsonLd = hub ? [hubWebPageSchema(hub), hubBreadcrumbSchema(hub), faqPageSchema(hub.faqs)] : undefined;
+const tableLeadLinks = hub?.slug === "money-transmitters"
+  ? [{ phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url }]
+  : [];
 ---
 
-<Layout
-  title={`${type.name} licenses — who needs one and where to file`}
-  description={`${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`}
->
+<Layout title={title} description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
       <p class="lms-kicker">{type.vertical}</p>
-      <h1>{type.name}</h1>
-      <p>{type.filingHint}</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container lms-prose">
-      <h2>Who needs this license</h2>
-      <p>{type.whoNeeds}</p>
-
-      <h2>Typical filing path</h2>
-      <p>{type.typicalPath}</p>
-
-      <h2>Federal layer</h2>
-      <p>{type.federalOverlay}</p>
-
-      {isCore && (
-        <p>
-          Open a state page for the agency, the filing path, and the fee, bond, and
-          timeline table. Each cell cites a regulator, a statute, or the NMLS chart.
-          If a figure could not be verified, the cell says Varies, see regulator.
-        </p>
+      <h1>{hub?.h1 ?? type.name}</h1>
+      {hub ? (
+        <>
+          <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
+          <p class="hub-byline">By LicensingMadeSimple · Last updated <time datetime={HUB_UPDATED}>{HUB_UPDATED_LABEL}</time></p>
+          <div class="section-links hub-jumps">
+            {hub.jumps.map((jump) => (
+              <a href={jump.href}>{jump.label}</a>
+            ))}
+          </div>
+        </>
+      ) : (
+        <p>{type.filingHint}</p>
       )}
     </div>
   </section>
 
-  {isCore && (
+  {hub ? (
+    <section class="section">
+      <div class="container lms-prose">
+        {hub.sections.map((section) => (
+          <>
+            <h2 id={section.id}>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p><LinkedText text={paragraph.text} links={paragraph.links ?? []} /></p>
+            ))}
+          </>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <section class="section">
+      <div class="container lms-prose">
+        <h2>Who needs this license</h2>
+        <p>{type.whoNeeds}</p>
+
+        <h2>Typical filing path</h2>
+        <p>{type.typicalPath}</p>
+
+        <h2>Federal layer</h2>
+        <p>{type.federalOverlay}</p>
+
+        {isCore && (
+          <p>
+            Open a state page for the agency, the filing path, and the fee, bond, and
+            timeline table. Each cell cites a regulator, a statute, or the NMLS chart.
+            If a figure could not be verified, the cell says Varies, see regulator.
+          </p>
+        )}
+      </div>
+    </section>
+  )}
+
+  {hub && (
+    <section class="section section-alt" id={hub.tableId}>
+      <div class="container">
+        <h2 class="section-title">{hub.tableHeading}</h2>
+        <p class="section-sub"><LinkedText text={hub.tableLead} links={tableLeadLinks} /></p>
+        <div class="lms-table-wrap">
+          <table class="lms-table hub-table">
+            <thead>
+              <tr>
+                <th scope="col">State</th>
+                <th scope="col">Statewide license</th>
+                <th scope="col">Agency</th>
+                <th scope="col">What differs in this state</th>
+              </tr>
+            </thead>
+            <tbody>
+              {hub.rows.map((row) => (
+                <tr>
+                  <td><a href={row.href}>{row.stateName}</a></td>
+                  <td>{row.status}</td>
+                  <td><a href={row.agencyUrl} target="_blank" rel="noopener">{row.agencyName}</a></td>
+                  <td>
+                    <p class="hub-note">{row.blurb}</p>
+                    {row.cited && <p class="hub-cited">{row.cited}</p>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {filingPaths.length > 0 && (
+          <>
+            <h2 class="lms-subhead">State filing paths</h2>
+            <ul class="lms-link-list">
+              {filingPaths.map((link) => (
+                <li><a href={link.href}>{link.anchor}</a></li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </section>
+  )}
+
+  {hub && (
+    <section class="section" id="faq">
+      <div class="container" style="max-width:720px;">
+        <h2 class="section-title">Questions</h2>
+        <div class="faq-list">
+          {hub.faqs.map((faq) => (
+            <details class="faq-item">
+              <summary class="faq-q">{faq.q}<span class="faq-toggle">+</span></summary>
+              <div class="faq-a"><p>{faq.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {!hub && isCore && (
     <section class="section section-alt">
       <div class="container">
         <h2 class="section-title">{type.name} by state</h2>

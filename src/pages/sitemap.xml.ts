@@ -6,7 +6,7 @@ export const GET: APIRoute = () => {
   const urls = publicPages()
     .map(
       ({ path, changefreq, priority }) => `  <url>
-    <loc>${SITE_URL}${path === "/" ? "/" : path}</loc>
+    <loc>${SITE_URL}${path === "/" ? "/" : `${path}/`}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>

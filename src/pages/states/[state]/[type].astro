@@ -11,6 +11,7 @@ import {
   faqSchema,
   howToSchema,
 } from "../../../lib/license-page";
+import { nationalHubLinks } from "../../../data/directory-hubs";
 import {
   comboPath,
   coreLicenseTypes,
@@ -56,6 +57,7 @@ const jsonLd = [
 const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
 const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
 
+const nationalHub = nationalHubLinks().find((link) => link.href === licensePath(type.slug));
 const rows: { label: string; cell: CitedCell }[] = [
   { label: "Fee", cell: page.fee },
   { label: "Bond", cell: page.bond },
@@ -82,6 +84,11 @@ const rows: { label: string; cell: CitedCell }[] = [
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
       <h1>{striking?.h1 ?? `${type.name} in ${state.name}`}</h1>
       <p>{fact.licenseName}</p>
+      {nationalHub && (
+        <p class="hub-up">
+          <a href={nationalHub.href}>{nationalHub.anchor}</a> is the national page. This page is {state.name} only.
+        </p>
+      )}
     </div>
   </section>
 
@@ -257,7 +264,7 @@ const rows: { label: string; cell: CitedCell }[] = [
         ))}
       </p>
       <p class="section-links">
-        <a href={licensePath(type.slug)}>All {type.name.toLowerCase()} states</a>
+        <a href={licensePath(type.slug)}>{nationalHub?.anchor ?? `All ${type.name.toLowerCase()} states`}</a>
         <a href={statePath(state.slug)}>All {state.name} licenses</a>
         <a href="/guides/nmls">NMLS guide</a>
       </p>
