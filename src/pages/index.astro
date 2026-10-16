@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import LicenseWizard from '../components/LicenseWizard.jsx';
 import CaliforniaSample from '../components/CaliforniaSample.astro';
+import LicensedRidge from '../components/LicensedRidge.astro';
 import { states } from '../lib/directory';
 
 const faqs = [
@@ -37,6 +38,8 @@ const faqs = [
         </nav>
       </div>
     </section>
+
+    <LicensedRidge />
 
     <section class="proof-strip" aria-label="Directory coverage">
       <div class="container">
@@ -106,30 +109,6 @@ const faqs = [
         <h2 class="section-title" id="roadmap-title">Your licensing roadmap</h2>
         <p class="section-sub">3 questions. The license type and the usual filing desk.</p>
         <LicenseWizard client:load />
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">How the path works</h2>
-        <p class="section-sub">You keep running the business. The roadmap names the desk. Cornerstone can file.</p>
-        <div class="card-grid">
-          <div class="card step-card">
-            <span class="step-num">01</span>
-            <h3>Tell us what you need</h3>
-            <p>Use the roadmap wizard or the directory. We need your business type and state(s). The site names the agency; Cornerstone can file.</p>
-          </div>
-          <div class="card step-card">
-            <span class="step-num">02</span>
-            <h3>The application is filed</h3>
-            <p>Your specialist prepares the application, assembles documents, files with the agency or NMLS, and answers deficiency letters.</p>
-          </div>
-          <div class="card step-card">
-            <span class="step-num">03</span>
-            <h3>You're licensed</h3>
-            <p>We track your application through approval and deliver your license. Then we monitor renewal deadlines so it stays current.</p>
-          </div>
-        </div>
       </div>
     </section>
 
