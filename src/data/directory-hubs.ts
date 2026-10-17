@@ -224,7 +224,7 @@ function chartRowName(feeValue: string | undefined): string | null {
 
 function citedMoneyTransmitter(stateSlug: string): string {
   const entry = getChartEntry(stateSlug, "money-transmitters");
-  if (!entry) return "Fee and bond: not published in this directory's chart extract.";
+  if (!entry) return "";
   const feeText = entry.fee?.value ?? "";
   const bondText = entry.bond?.value ?? "";
   const blob = `${feeText} ${bondText}`;
@@ -238,11 +238,7 @@ function citedMoneyTransmitter(stateSlug: string): string {
     parts.push(snippet.endsWith(".") ? snippet : `${snippet}.`);
   }
   const bondSnippets = collectMatches(bondText, BOND_PATTERNS);
-  if (bondSnippets.length) {
-    for (const snippet of bondSnippets) parts.push(snippet.endsWith(".") ? snippet : `${snippet}.`);
-  } else {
-    parts.push("Minimum bond: not published in this directory's chart extract.");
-  }
+  for (const snippet of bondSnippets) parts.push(snippet.endsWith(".") ? snippet : `${snippet}.`);
   for (const phrase of COPY_IF_PRESENT) {
     if (blob.includes(phrase) && !parts.some((part) => part.includes(phrase))) parts.push(phrase);
   }
@@ -374,7 +370,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     slug: "money-transmitters",
     title: "Money transmitter license requirements by state",
     description:
-      "Which states require a money transmitter license, who needs one, and where to file in all 50 states and DC. Fees and bonds are cited, or marked not published.",
+      "Which states require a money transmitter license, who needs one, and where to file in all 50 states and DC. Fee and bond lines cite the NMLS chart or a statute.",
     h1: "Money transmitter license requirements by state",
     lede:
       "There is no single U.S. money transmitter license. A business that receives money or monetary value from a person in a state and transmits it, sells payment instruments, or holds customer funds for later payment generally needs that state's license. In this directory that is the usual rule in 49 states and the District of Columbia. Montana has no statewide money transmitter license. FinCEN money services business registration does not replace the state license.",
@@ -441,7 +437,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     ],
     tableId: "states",
     tableHeading: "Money transmitter license, all 50 states and DC",
-    tableLead: `Each note says what is different about that state’s desk. Fee and bond lines are copied from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited on the state page. If a figure is not in that extract, the line says not published. Open the state page for the full cell and the regulator link.`,
+    tableLead: `Each note says what is different about that state’s desk. Fee and bond lines are copied from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited on the state page. Open the state page for the full cell and the regulator link.`,
     rows,
     faqs: [
       {
@@ -466,7 +462,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
       },
       {
         q: "Where are money transmitter fees and bond amounts published?",
-        a: `On each state page, and in short form in the table on this page. Figures are quoted from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited for Florida or New Jersey. If this directory does not have a figure, the line says not published. Do not treat a missing bond line as a finding that no bond exists.`,
+        a: `On each state page, and in short form in the table on this page. Figures are quoted from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited for Florida or New Jersey. Do not treat a missing bond line as a finding that no bond exists.`,
       },
     ],
   };
