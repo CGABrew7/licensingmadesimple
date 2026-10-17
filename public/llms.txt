@@ -8,7 +8,7 @@ Fee, bond, and timeline cells cite a state regulator, a statute, or the NMLS Lic
 
 ## Priority pages
 
-- [Money transmitter license requirements by state](https://licensingmadesimple.com/directory/money-transmitters): National page for which states require a money transmitter license, who needs one, and where to file. All 50 states and DC. Montana has no statewide money transmitter license. Fee and bond lines cite the NMLS chart checked on October 13, 2026, or a statute, or say not published. By LicensingMadeSimple. Last updated October 15, 2026.
+- [Money transmitter license requirements by state](https://licensingmadesimple.com/directory/money-transmitters): National page for which states require a money transmitter license, who needs one, and where to file. All 50 states and DC. Montana has no statewide money transmitter license. Fee and bond lines cite the NMLS chart checked on October 13, 2026, or a statute. By LicensingMadeSimple. Last updated October 15, 2026.
 - [Collection agency license requirements by state](https://licensingmadesimple.com/directory/collection): Which states require a collection agency license and which do not issue a standalone statewide license.
 - [Mortgage company and broker license requirements by state](https://licensingmadesimple.com/directory/mortgage): Company, broker, servicer, and MLO. NMLS is the filing system. The state issues the license.
 - [Montana money transmitters](https://licensingmadesimple.com/states/montana/money-transmitters): The NMLS chart has no Montana money transmitter row, Montana Code Annotated Title 32 has no money transmitter chapter, and the Division states that it does not regulate money transmitters. No state fee, bond, or application timeline.
