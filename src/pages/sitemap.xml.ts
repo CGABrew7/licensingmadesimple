@@ -1,9 +1,11 @@
 import type { APIRoute } from "astro";
 import { publicPages, SITE_URL } from "../lib/directory";
+import { isPublicPathIndexable } from "../lib/state-page-quality";
 
 export const GET: APIRoute = () => {
   const lastmod = new Date().toISOString().slice(0, 10);
   const urls = publicPages()
+    .filter((page) => isPublicPathIndexable(page.path))
     .map(
       ({ path, changefreq, priority }) => `  <url>
     <loc>${SITE_URL}${path === "/" ? "/" : `${path}/`}</loc>

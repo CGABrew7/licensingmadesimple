@@ -11,6 +11,7 @@ import {
   faqSchema,
   howToSchema,
 } from "../../../lib/license-page";
+import { comboQuality } from "../../../lib/state-page-quality";
 import { nationalHubLinks } from "../../../data/directory-hubs";
 import {
   comboPath,
@@ -45,6 +46,7 @@ if (!fact) throw new Error("Missing fact");
 
 const striking = getStrikingPage(state.slug, type.slug);
 const page = buildLicensePage(state, type, fact);
+const quality = comboQuality(state, type);
 const otherTypes = coreLicenseTypes.filter((t) => t.slug !== type.slug);
 const otherStates = states.filter((s) => s.slug !== state.slug);
 const strikingFaq = striking ? faqPageSchema(striking.faqs) : undefined;
@@ -69,7 +71,7 @@ const rows: { label: string; cell: CitedCell }[] = [
   title={pageTitle}
   description={pageDescription}
   jsonLd={jsonLd}
-
+  robots={quality.indexable ? undefined : "noindex, follow"}
 >
   <section class="page-hero">
     <div class="container">
@@ -94,6 +96,20 @@ const rows: { label: string; cell: CitedCell }[] = [
 
   <section class="section">
     <div class="container">
+      {quality.indexable && (
+        <div class="lms-prose">
+          {quality.paragraphs.map((paragraph) => (
+            <p><LinkedText text={paragraph.text} links={paragraph.links} /></p>
+          ))}
+          <h2>Related pages</h2>
+          <ul class="neighbor-list">
+            {quality.related.map((link) => (
+              <li><a href={link.href}>{link.anchor}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div class="lms-factbar">
         <div>
           <span class="wr-item-label">Statewide license</span>

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
+import LinkedText from "../../components/LinkedText.astro";
 import { inboundLinks } from "../../data/striking-pages";
 import { nationalHubLinks } from "../../data/directory-hubs";
 import {
@@ -12,6 +13,7 @@ import {
   requiredLabel,
   states,
 } from "../../lib/directory";
+import { stateHubQuality } from "../../lib/state-page-quality";
 
 export function getStaticPaths() {
   return states.map((s) => ({ params: { state: s.slug } }));
@@ -22,17 +24,31 @@ if (!state) throw new Error("Unknown state");
 
 const facts = getFactsForState(state.slug);
 const filingPaths = inboundLinks("state", { state: state.slug });
+const quality = stateHubQuality(state);
 ---
 
 <Layout
-  title={`${state.name} licensing desks — who files where`}
+  title={`${state.name} licensing desks: who files where`}
   description={`Official ${state.name} agencies for collection, lending, money-transmitter, and mortgage licenses, plus a page for each filing path.`}
+  robots={quality.indexable ? undefined : "noindex, follow"}
 >
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/states">States</a> / {state.name}</p>
       <p class="lms-kicker">{state.abbr} · {state.region}</p>
       <h1>{state.name} license filings</h1>
+      {quality.indexable && (
+        <>
+          {quality.paragraphs.map((paragraph) => (
+            <p><LinkedText text={paragraph.text} links={paragraph.links} /></p>
+          ))}
+          <p class="section-links hub-jumps">
+            {quality.related.map((link) => (
+              <a href={link.href}>{link.anchor}</a>
+            ))}
+          </p>
+        </>
+      )}
       <p>{state.notes}</p>
     </div>
   </section>
