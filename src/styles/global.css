@@ -384,8 +384,19 @@ details[open] .faq-toggle { transform: rotate(45deg); }
 }
 .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 12px; letter-spacing: -0.03em; overflow-wrap: break-word; }
 .page-hero p, .page-hero .lede { color: var(--text-secondary); font-size: 1.12rem; max-width: 720px; margin: 0 auto; line-height: 1.55; }
-.page-hero .hub-byline { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); }
+.page-hero .hub-byline { margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.45; }
 .page-hero .hub-byline time { color: var(--text); font-weight: 600; }
+.author-box {
+  margin-top: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  text-align: left;
+}
+.author-box p { margin: 0; font-size: 0.93rem; color: var(--text-secondary); line-height: 1.7; overflow-wrap: break-word; }
+.author-box .author-box-name { font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.author-box a { color: var(--cta); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .page-hero .hub-jumps { margin-top: 20px; }
 .page-hero .hub-up { margin-top: 14px; font-size: 0.95rem; }
 .hub-note { margin: 0; font-size: 0.84rem; line-height: 1.55; color: var(--text-secondary); }

@@ -1,8 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AuthorBox from "../../components/AuthorBox.astro";
+import Byline from "../../components/Byline.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import { getDirectoryHub } from "../../data/directory-hubs";
+import { directoryIndexUpdated } from "../../lib/editorial";
 import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../../lib/directory";
 ---
 
@@ -17,6 +20,7 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
       <p>
         Four core financial-services verticals, all 50 states and the District of Columbia. Official agencies, linked to the public source.
       </p>
+      <Byline modified={directoryIndexUpdated} />
     </div>
   </section>
 
@@ -75,6 +79,7 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
     <div class="container" style="max-width:720px;">
       <FileWithCornerstone topic="the application" />
       <DirectoryDisclaimer />
+      <AuthorBox />
     </div>
   </section>
 </Layout>

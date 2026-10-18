@@ -1,5 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AuthorBox from '../../components/AuthorBox.astro';
+import Byline from '../../components/Byline.astro';
+import { articleSchema, guideDates } from '../../lib/editorial';
+
+const dates = guideDates.index;
+const description = "Plain-English guides to business licensing.";
+const jsonLd = articleSchema({
+  headline: "Licensing Guides",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 
 const guides = [
   { slug: "which-license-do-i-need", title: "Which Business License Do I Need?", desc: "Find which business license you need by place and activity, then check fees, timing, or filing help." },
@@ -10,11 +23,12 @@ const guides = [
 ];
 ---
 
-<Layout title="Guides — LicensingMadeSimple" description="Plain-English guides to business licensing.">
+<Layout title="Guides — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <h1>Licensing Guides</h1>
       <p>Plain-English notes on who needs a license and where it is filed.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -26,6 +40,7 @@ const guides = [
           <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">{g.desc}</p>
         </a>
       ))}
+      <AuthorBox />
     </div>
   </section>
 </Layout>

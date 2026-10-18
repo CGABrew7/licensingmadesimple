@@ -1,17 +1,19 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AuthorBox from "../../components/AuthorBox.astro";
+import Byline from "../../components/Byline.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import LinkedText from "../../components/LinkedText.astro";
 import { NMLS_CHART } from "../../data/chart-cells";
 import {
   HUB_UPDATED,
-  HUB_UPDATED_LABEL,
   getDirectoryHub,
   hubBreadcrumbSchema,
   hubWebPageSchema,
 } from "../../data/directory-hubs";
 import { faqPageSchema, inboundLinks } from "../../data/striking-pages";
+import { directoryTypeUpdated } from "../../lib/editorial";
 import {
   comboPath,
   coreLicenseTypes,
@@ -56,7 +58,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
       {hub ? (
         <>
           <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
-          <p class="hub-byline">By LicensingMadeSimple · Last updated <time datetime={HUB_UPDATED}>{HUB_UPDATED_LABEL}</time></p>
+          <Byline modified={HUB_UPDATED} />
           <div class="section-links hub-jumps">
             {hub.jumps.map((jump) => (
               <a href={jump.href}>{jump.label}</a>
@@ -64,7 +66,10 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
           </div>
         </>
       ) : (
-        <p>{type.filingHint}</p>
+        <>
+          <p>{type.filingHint}</p>
+          <Byline modified={directoryTypeUpdated} />
+        </>
       )}
     </div>
   </section>
@@ -239,6 +244,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
         <a href="/states">All states</a>
       </p>
       <DirectoryDisclaimer />
+      <AuthorBox />
     </div>
   </section>
 </Layout>

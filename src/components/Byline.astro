@@ -1,0 +1,27 @@
+---
+import { formatEditorialDate } from "../lib/editorial";
+
+interface Props {
+  published?: string;
+  modified: string;
+}
+
+const { published, modified } = Astro.props;
+const showBoth = Boolean(published && published !== modified);
+const singleDate = published ?? modified;
+const singleLabel = published ? "Published" : "Updated";
+---
+
+<p class="hub-byline">
+  By the LicensingMadeSimple Editorial Team
+  {showBoth ? (
+    <>
+      {" · Published "}<time datetime={published}>{formatEditorialDate(published!)}</time>
+      {" · Updated "}<time datetime={modified}>{formatEditorialDate(modified)}</time>
+    </>
+  ) : (
+    <>
+      {" · "}{singleLabel}{" "}<time datetime={singleDate}>{formatEditorialDate(singleDate)}</time>
+    </>
+  )}
+</p>
