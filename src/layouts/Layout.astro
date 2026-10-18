@@ -5,8 +5,8 @@ import '@fontsource/geist-sans/latin-500.css';
 import '@fontsource/geist-sans/latin-600.css';
 import '@fontsource/geist-sans/latin-700.css';
 import Logo from '../components/Logo.astro';
-interface Props { title: string; description?: string; jsonLd?: unknown | unknown[]; }
-const { title, description = "Who needs which U.S. business license, and where to file it. Directory for collection, lending, money transmitters, and mortgage in the 50 states and DC, plus a 3-question roadmap.", jsonLd } = Astro.props;
+interface Props { title: string; description?: string; jsonLd?: unknown | unknown[]; robots?: string; }
+const { title, description = "Who needs which U.S. business license, and where to file it. Directory for collection, lending, money transmitters, and mortgage in the 50 states and DC, plus a 3-question roadmap.", jsonLd, robots } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
 const organization = {
   "@context": "https://schema.org",
@@ -26,6 +26,7 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
+  {robots && <meta name="robots" content={robots} />}
   <title>{title}</title>
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={title} />
