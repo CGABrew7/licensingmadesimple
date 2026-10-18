@@ -1,14 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AuthorBox from '../../components/AuthorBox.astro';
+import Byline from '../../components/Byline.astro';
 import FileWithCornerstone from '../../components/FileWithCornerstone.astro';
+import { articleSchema, guideDates } from '../../lib/editorial';
+
+const dates = guideDates["which-license-do-i-need"];
+const description = "Find which business license you need by place and activity, then check fees, timing, or filing help.";
+const jsonLd = articleSchema({
+  headline: "Which Business License Do I Need?",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 ---
 
-<Layout title="Which Business License Do I Need | LicensingMadeSimple" description="Find which business license you need by place and activity, then check fees, timing, or filing help.">
+<Layout title="Which Business License Do I Need | LicensingMadeSimple" description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/guides">Guides</a> / Which license</p>
       <h1>Which Business License Do I Need?</h1>
       <p>Find the license that matches where you operate and what you do.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -94,6 +108,7 @@ import FileWithCornerstone from '../../components/FileWithCornerstone.astro';
   <section class="section section-alt">
     <div class="container" style="max-width:720px;">
       <FileWithCornerstone topic="a regulated application" />
+      <AuthorBox />
     </div>
   </section>
 </Layout>

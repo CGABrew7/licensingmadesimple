@@ -1,12 +1,26 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AuthorBox from '../../components/AuthorBox.astro';
+import Byline from '../../components/Byline.astro';
+import { articleSchema, guideDates } from '../../lib/editorial';
+
+const dates = guideDates["first-business-license"];
+const description = "Who typically needs a first business license, and which desk takes the filing.";
+const jsonLd = articleSchema({
+  headline: "Getting Your First Business License",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 ---
 
-<Layout title="Getting Your First Business License — LicensingMadeSimple" description="Who typically needs a first business license, and which desk takes the filing.">
+<Layout title="Getting Your First Business License — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <h1>Getting Your First Business License</h1>
       <p>What you need, and where to file it.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -37,6 +51,7 @@ import Layout from '../../layouts/Layout.astro';
       <p>You can file yourself. The agency will accept a complete application from the applicant. If you want the package assembled and submitted, <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a> does that work. We do not reprint approval-rate or speed claims here.</p>
 
       <p>Next: <a href="/#wizard">roadmap wizard</a> or the <a href="/states">state index</a>.</p>
+      <AuthorBox />
     </div>
   </section>
 </Layout>

@@ -1,15 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AuthorBox from '../../components/AuthorBox.astro';
+import Byline from '../../components/Byline.astro';
 import { inboundLinks } from '../../data/striking-pages';
+import { articleSchema, guideDates } from '../../lib/editorial';
 
 const statePages = inboundLinks("multi-state");
+const dates = guideDates["multi-state"];
+const description = "There is no national license. Each state has its own agency and filing path.";
+const jsonLd = articleSchema({
+  headline: "Multi-State Licensing Explained",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 ---
 
-<Layout title="Multi-State Licensing Explained — LicensingMadeSimple" description="There is no national license. Each state has its own agency and filing path.">
+<Layout title="Multi-State Licensing Explained — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <h1>Multi-State Licensing Explained</h1>
       <p>Why every state is a separate filing, and where each one goes.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -35,6 +48,7 @@ const statePages = inboundLinks("multi-state");
           <li><a href={link.href}>{link.anchor}</a></li>
         ))}
       </ul>
+      <AuthorBox />
     </div>
   </section>
 </Layout>

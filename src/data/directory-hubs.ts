@@ -5,7 +5,6 @@ import { getFactsForLicense, getStateLicense, type StateLicenseFact } from "./st
 import { getState, states } from "./states";
 
 export const HUB_UPDATED = "2026-10-15";
-export const HUB_UPDATED_LABEL = "October 15, 2026";
 export const NMLS_CHART_CHECKED = "October 13, 2026";
 const SITE = "https://licensingmadesimple.com";
 

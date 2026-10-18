@@ -1,12 +1,26 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AuthorBox from '../../components/AuthorBox.astro';
+import Byline from '../../components/Byline.astro';
+import { articleSchema, guideDates } from '../../lib/editorial';
+
+const dates = guideDates["what-happens-if-you-skip-it"];
+const description = "Unlicensed activity can mean fines, a cease-and-desist, and unenforceable contracts. Confirm the required desk before you operate.";
+const jsonLd = articleSchema({
+  headline: "What Happens If You Skip It",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 ---
 
-<Layout title="What Happens If You Skip Licensing — LicensingMadeSimple" description="Unlicensed activity can mean fines, a cease-and-desist, and unenforceable contracts. Confirm the required desk before you operate.">
+<Layout title="What Happens If You Skip Licensing — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
   <section class="page-hero">
     <div class="container">
       <h1>What Happens If You Skip It</h1>
       <p>The consequences of operating without a required license.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -26,6 +40,7 @@ import Layout from '../../layouts/Layout.astro';
 
       <h2>Find the required desk</h2>
       <p>Most licensing gaps are fixable once you know which agency takes the application. Use the <a href="/directory">directory</a> or the <a href="/#wizard">roadmap wizard</a>. If you want the filing prepared and submitted, <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a> does that work.</p>
+      <AuthorBox />
     </div>
   </section>
 </Layout>

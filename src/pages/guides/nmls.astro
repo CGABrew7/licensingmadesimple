@@ -1,20 +1,34 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AuthorBox from "../../components/AuthorBox.astro";
+import Byline from "../../components/Byline.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import { inboundLinks } from "../../data/striking-pages";
+import { articleSchema, guideDates } from "../../lib/editorial";
 
 const nmlsPages = inboundLinks("nmls");
+const dates = guideDates.nmls;
+const description = "The Nationwide Multistate Licensing System is the filing system for many state financial licenses. It does not issue licenses. Here is who files what.";
+const jsonLd = articleSchema({
+  headline: "NMLS, in plain English",
+  description,
+  url: new URL(Astro.url.pathname, "https://licensingmadesimple.com").href,
+  datePublished: dates.published,
+  dateModified: dates.modified,
+});
 ---
 
 <Layout
   title="What NMLS is — and what it is not"
-  description="The Nationwide Multistate Licensing System is the filing system for many state financial licenses. It does not issue licenses. Here is who files what."
+  description={description}
+  jsonLd={jsonLd}
 >
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/guides">Guides</a> / NMLS</p>
       <h1>NMLS, in plain English</h1>
       <p>The system of record for many state licenses. Not a national license, and not the agency that says yes or no.</p>
+      <Byline published={dates.published} modified={dates.modified} />
     </div>
   </section>
 
@@ -92,6 +106,7 @@ const nmlsPages = inboundLinks("nmls");
   <section class="section section-alt">
     <div class="container" style="max-width:720px;">
       <FileWithCornerstone topic="an NMLS application" />
+      <AuthorBox />
     </div>
   </section>
 </Layout>
