@@ -14,6 +14,7 @@ import {
   states,
 } from "../../lib/directory";
 import { stateHubQuality } from "../../lib/state-page-quality";
+import { formatEditorialDate, stateHubUpdated } from "../../lib/editorial";
 
 export function getStaticPaths() {
   return states.map((s) => ({ params: { state: s.slug } }));
@@ -50,6 +51,7 @@ const quality = stateHubQuality(state);
         </>
       )}
       <p>{state.notes}</p>
+      <p class="hub-byline">Updated <time datetime={stateHubUpdated}>{formatEditorialDate(stateHubUpdated)}</time></p>
     </div>
   </section>
 

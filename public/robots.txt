@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Meta's search crawler (Meta AI and the Muse agent)
+User-agent: meta-webindexer
+Allow: /
+
 Sitemap: https://licensingmadesimple.com/sitemap.xml
