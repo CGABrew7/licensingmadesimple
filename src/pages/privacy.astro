@@ -2,34 +2,40 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Privacy Policy — LicensingMadeSimple" description="LicensingMadeSimple privacy policy.">
+<Layout title="Privacy Policy | LicensingMadeSimple" description="What LicensingMadeSimple collects, the tools it uses, and how to ask about your information.">
   <section class="page-hero">
     <div class="container">
       <h1>Privacy Policy</h1>
-      <p>Last updated: October 2026</p>
+      <p>Last updated October 25, 2026</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container article" style="max-width: 720px;">
-      <h2>Information We Collect</h2>
-      <p>Our roadmap wizard collects your selections (business type, license type, state count) without requiring personal information. When you request a personalized plan or contact us, we collect the information you provide: name, email, phone, and business details.</p>
+      <h2>What we collect</h2>
+      <p>The roadmap on the home page keeps the choices you click (business type, license type, and state count) in your browser while you use that page. It does not ask for your name, email, or phone, and it does not send those choices to us.</p>
+      <p>If you email us, we receive the message you send, including your email address and whatever you write.</p>
 
-      <h2>How We Use Your Information</h2>
-      <p>Personal information is shared with our licensing partner, Cornerstone Licensing, to prepare your personalized plan or quote. We do not sell your information to third parties.</p>
+      <h2>Tools we use</h2>
+      <ul>
+        <li>We count page views with Cloudflare Web Analytics. It sets no cookies and does not follow you across sites. It records the page, referrer, browser type and country, in aggregate.</li>
+        <li>We use Microsoft Clarity to understand how visitors use pages, through heatmaps and session recordings with typed text masked. It sets cookies. Microsoft processes the data under its privacy statement (<a href="https://privacy.microsoft.com/privacystatement">https://privacy.microsoft.com/privacystatement</a>).</li>
+      </ul>
 
-      <h2>Cookies and Analytics</h2>
-      <p>We use basic analytics to understand site usage. This data is aggregated and does not personally identify you.</p>
-      <p>We use Microsoft Clarity to understand how visitors use pages, through heatmaps and session recordings with typed text masked. It sets cookies. Microsoft processes the data under its privacy statement (<a href="https://privacy.microsoft.com/privacystatement">https://privacy.microsoft.com/privacystatement</a>).</p>
+      <h2>Cookies</h2>
+      <p>Cloudflare Web Analytics sets no cookies. Microsoft Clarity sets cookies. This site does not set cookies of its own.</p>
 
-      <h2>Data Security</h2>
-      <p>All form submissions are transmitted over encrypted connections (HTTPS).</p>
+      <h2>Your choices and requests</h2>
+      <p>To ask what we hold about you, or to have it corrected or deleted, email <a href="mailto:privacy@licensingmadesimple.com">privacy@licensingmadesimple.com</a>.</p>
 
-      <h2>Your Rights</h2>
-      <p>You can request access to, correction of, or deletion of your personal information at any time by <a href="/contact">contacting us</a>.</p>
+      <h2>Changes</h2>
+      <p>We may update this policy by posting a new version on this page and changing the date above.</p>
 
-      <h2>Chrome Extension</h2>
-      <p>Privacy practices for the License Expiration Tracker Chrome extension are described separately: <a href="/privacy/chrome-license-expiration-tracker/">Privacy Policy — License Expiration Tracker (Chrome)</a>.</p>
+      <h2>Contact</h2>
+      <p>Email <a href="mailto:privacy@licensingmadesimple.com">privacy@licensingmadesimple.com</a>.</p>
+
+      <h2>Chrome extension</h2>
+      <p>Privacy practices for the License Expiration Tracker Chrome extension are described separately: <a href="/privacy/chrome-license-expiration-tracker/">Privacy policy for the License Expiration Tracker Chrome extension</a>.</p>
     </div>
   </section>
 </Layout>
@@ -38,4 +44,6 @@ import Layout from '../layouts/Layout.astro';
   .article h2 { font-size: 1.15rem; margin-top: 32px; margin-bottom: 10px; }
   .article h2:first-child { margin-top: 0; }
   .article p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+  .article ul { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin: 0 0 12px 1.2em; padding: 0; }
+  .article li { margin-bottom: 6px; }
 </style>
