@@ -13,6 +13,9 @@ export const guideDates = {
 /** Last commit date of src/pages/directory/index.astro. */
 export const directoryIndexUpdated = "2026-10-16";
 
+/** Last commit date of src/pages/states/[state].astro. */
+export const stateHubUpdated = "2026-10-17";
+
 /** Last commit date of src/pages/directory/[type].astro. */
 export const directoryTypeUpdated = "2026-10-15";
 

@@ -39,7 +39,7 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
   ))}
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <Logo />
       <div class="nav-desktop">
@@ -69,9 +69,11 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
     </div>
   </nav>
 
-  <slot />
+  <main id="main">
+    <slot />
+  </main>
 
-  <footer class="footer">
+  <footer class="footer" aria-label="Site footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
