@@ -417,11 +417,6 @@ details[open] .faq-toggle { transform: rotate(45deg); }
   min-width: 44px;
   padding: 0 10px;
 }
-.lms-related a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
 .page-hero .hub-up { margin-top: 14px; font-size: 0.95rem; }
 .hub-note { margin: 0; font-size: 0.84rem; line-height: 1.55; color: var(--text-secondary); }
 .hub-cited { margin: 8px 0 0; font-size: 0.78rem; line-height: 1.45; color: var(--text-muted); }
