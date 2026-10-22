@@ -7,7 +7,6 @@ import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import LinkedText from "../../components/LinkedText.astro";
 import { NMLS_CHART } from "../../data/chart-cells";
 import {
-  HUB_UPDATED,
   getDirectoryHub,
   hubBreadcrumbSchema,
   hubWebPageSchema,
@@ -44,12 +43,13 @@ const rows = isCore
 const title = hub?.title ?? `${type.name} licenses — who needs one and where to file`;
 const description = hub?.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
 const jsonLd = hub ? [hubWebPageSchema(hub), hubBreadcrumbSchema(hub), faqPageSchema(hub.faqs)] : undefined;
+const hideNetworkBrand = type.slug === "money-transmitters";
 const tableLeadLinks = hub?.slug === "money-transmitters"
   ? [{ phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url }]
   : [];
 ---
 
-<Layout title={title} description={description} jsonLd={jsonLd}>
+<Layout title={title} description={description} jsonLd={jsonLd} hideNetworkBrand={hideNetworkBrand}>
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
@@ -58,7 +58,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
       {hub ? (
         <>
           <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
-          <Byline modified={HUB_UPDATED} />
+          <Byline modified={hub.updated} />
           <div class="section-links hub-jumps">
             {hub.jumps.map((jump) => (
               <a href={jump.href}>{jump.label}</a>
@@ -235,13 +235,27 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
 
   <section class="section">
     <div class="container" style="max-width:720px;">
-      <FileWithCornerstone topic={`a ${type.shortName} filing`} />
-      <p style="margin-top:16px;">
-        <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone’s {type.name.toLowerCase()} desk</a>
-        {" · "}
-        <a href="/guides/nmls">How NMLS filings work</a>
-        {" · "}
-        <a href="/states">All states</a>
+      {!hideNetworkBrand && <FileWithCornerstone topic={`a ${type.shortName} filing`} />}
+      <p class="lms-related" style={hideNetworkBrand ? undefined : "margin-top:16px;"}>
+        {hideNetworkBrand ? (
+          <>
+            <a href="/guides/nmls">How NMLS filings work</a>
+            {" · "}
+            <a href="/guides/multi-state">Multi-state licensing</a>
+            {" · "}
+            <a href="/states/montana/money-transmitters">Montana money transmitter license</a>
+            {" · "}
+            <a href="/states">All states</a>
+          </>
+        ) : (
+          <>
+            <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone’s {type.name.toLowerCase()} desk</a>
+            {" · "}
+            <a href="/guides/nmls">How NMLS filings work</a>
+            {" · "}
+            <a href="/states">All states</a>
+          </>
+        )}
       </p>
       <DirectoryDisclaimer />
       <AuthorBox />

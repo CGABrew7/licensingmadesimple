@@ -48,6 +48,7 @@ export interface DirectoryHub {
   tableLead: string;
   rows: HubRow[];
   faqs: HubFaq[];
+  updated: string;
 }
 
 const MTL_LEADS: Record<string, string> = {
@@ -365,19 +366,25 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     cited: citedMoneyTransmitter(stateSlug),
   }));
   const type = getLicenseType("money-transmitters")!;
+  const mtDivision = "https://banking.mt.gov/BFID/";
+  const mtCode = "https://mca.legmt.gov/bills/mca/title_0320/chapters_index.html";
+  const csbsMsb = "https://www.csbs.org/chapter-four-overview-of-money-service-business";
   return {
     slug: "money-transmitters",
     title: "Money transmitter license requirements by state",
     description:
-      "Which states require a money transmitter license, who needs one, and where to file in all 50 states and DC. Fee and bond lines cite the NMLS chart or a statute.",
+      "Which states require a money transmitter license for a payments startup. Montana does not. 49 states and DC generally do. Sources are regulators, CSBS, and NMLS.",
     h1: "Money transmitter license requirements by state",
     lede:
-      "There is no single U.S. money transmitter license. A business that receives money or monetary value from a person in a state and transmits it, sells payment instruments, or holds customer funds for later payment generally needs that state's license. In this directory that is the usual rule in 49 states and the District of Columbia. Montana has no statewide money transmitter license. FinCEN money services business registration does not replace the state license.",
+      "A payments startup that receives money or monetary value from customers and transmits it, sells payment instruments, or holds customer funds for later payment generally needs a money transmitter license in each of the 49 states and the District of Columbia where those customers are. Montana does not issue that license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS License Requirements and Fees Chart has no Montana money transmitter row, and the Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses.",
     ledeLinks: [
       { phrase: "Montana", href: "/states/montana/money-transmitters" },
-      { phrase: "FinCEN money services business registration", href: "https://www.fincen.gov/money-services-business-msb-registration" },
+      { phrase: "Montana Division of Banking and Financial Institutions", href: mtDivision },
+      { phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url },
+      { phrase: "Conference of State Bank Supervisors", href: csbsMsb },
     ],
     jumps: [
+      { href: "#which-states", label: "Which states require a license" },
       { href: "#who-needs", label: "Who needs a money transmitter license" },
       { href: "#do-i-need", label: "Do I need one" },
       { href: "#states", label: "All 50 states and DC" },
@@ -385,11 +392,18 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     ],
     sections: [
       {
-        heading: "What states require a money transmitter license",
+        id: "which-states",
+        heading: "Which states require a money transmitter license for a payments startup?",
         paragraphs: [
           {
-            text: "Count the customer’s state, not the state of incorporation. In this directory a statewide money transmitter or money-services license is the usual rule in every state except Montana, and in the District of Columbia. Montana is the exception recorded here: the Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS chart has no Montana money transmitter row, and Montana Code Annotated Title 32 has no money transmitter chapter. Other Montana licenses can still apply.",
-            links: [{ phrase: "Montana", href: "/states/montana/money-transmitters" }],
+            text: "A payments startup that receives money or monetary value from customers and transmits it, sells payment instruments, or holds customer funds for later payment generally needs a money transmitter license in each of the 49 states and the District of Columbia where those customers are. Montana does not issue that license. Count the customer’s state, not the state of incorporation. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS License Requirements and Fees Chart has no Montana money transmitter row. Montana Code Annotated Title 32 has no money transmitter chapter. The Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses. Other Montana licenses can still apply.",
+            links: [
+              { phrase: "Montana", href: "/states/montana/money-transmitters" },
+              { phrase: "Montana Division of Banking and Financial Institutions", href: mtDivision },
+              { phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url },
+              { phrase: "Montana Code Annotated Title 32", href: mtCode },
+              { phrase: "Conference of State Bank Supervisors", href: csbsMsb },
+            ],
           },
           {
             text: "Agent-of-payee, payment-processor, and bank-agent exemptions exist in some statutes. They are fact-specific. This page does not treat an exemption as the default, and it does not rank states as easy or exempt for digital assets. Open the state page and the regulator before you rely on an exemption.",
@@ -440,8 +454,8 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     rows,
     faqs: [
       {
-        q: "What states require a money transmitter license?",
-        a: "In this directory, a statewide money transmitter license is the usual rule in 49 states and the District of Columbia. Montana has no statewide money transmitter license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS chart has no Montana money transmitter row, and Montana Code Annotated Title 32 has no money transmitter chapter. Exemptions in the other states are statutory. This page does not treat them as a default.",
+        q: "Which states require a money transmitter license for a payments startup?",
+        a: "A payments startup generally needs a money transmitter license in each of the 49 states and the District of Columbia where its customers send, receive, or store money or monetary value. Montana does not issue a statewide money transmitter license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS License Requirements and Fees Chart has no Montana money transmitter row, and the Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses. A statutory exemption in another state is specific to that statute. This page does not treat an exemption as the default.",
       },
       {
         q: "Who needs a money transmitter license?",
@@ -464,6 +478,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         a: `On each state page, and in short form in the table on this page. Figures are quoted from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited for Florida or New Jersey. Do not treat a missing bond line as a finding that no bond exists.`,
       },
     ],
+    updated: "2026-10-22",
   };
 }
 
@@ -529,6 +544,7 @@ function buildCollectionHub(): DirectoryHub {
         a: "They can. The Illinois page records a City of Chicago debt-collection license on top of the state license for agencies that collect from Chicago residents. The New York page records a city DCWP license for collection that reaches New York City residents. Read those state pages before you skip the city filing.",
       },
     ],
+    updated: HUB_UPDATED,
   };
 }
 
@@ -593,6 +609,7 @@ function buildMortgageHub(): DirectoryHub {
         a: split,
       },
     ],
+    updated: HUB_UPDATED,
   };
 }
 
@@ -665,6 +682,7 @@ function assertHub(hub: DirectoryHub) {
     if (row.cited) assertPlain(`${hub.slug} ${row.stateSlug} cited`, row.cited, true);
   }
   assertDistinct(hub.slug, hub.rows.map((row) => row.blurb));
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(hub.updated)) throw new Error(`${hub.slug} updated date is not ISO`);
   if (hub.faqs.length < 4) throw new Error(`${hub.slug} FAQ is short`);
   for (const faq of hub.faqs) {
     assertPlain(`${hub.slug} faq`, `${faq.q} ${faq.a}`, false);
@@ -683,6 +701,19 @@ const hubs: Record<string, DirectoryHub> = {
 };
 
 for (const hub of Object.values(hubs)) assertHub(hub);
+
+const moneyHub = hubs["money-transmitters"];
+const moneyQuestion = "Which states require a money transmitter license for a payments startup?";
+if (moneyHub.updated !== "2026-10-22") throw new Error("Money transmitter hub date is not October 22, 2026");
+if (!moneyHub.sections.some((section) => section.heading === moneyQuestion)) {
+  throw new Error("Money transmitter question heading missing");
+}
+if (!moneyHub.faqs.some((faq) => faq.q === moneyQuestion)) {
+  throw new Error("Money transmitter prompt FAQ missing");
+}
+if (/cornerstone/i.test(JSON.stringify(moneyHub))) {
+  throw new Error("Money transmitter hub mentions Cornerstone");
+}
 
 export function getDirectoryHub(slug: string): DirectoryHub | undefined {
   return hubs[slug];
@@ -705,7 +736,7 @@ export function hubWebPageSchema(hub: DirectoryHub) {
     url,
     name: hub.title,
     description: hub.description,
-    dateModified: HUB_UPDATED,
+    dateModified: hub.updated,
     author: { "@type": "Organization", name: "LicensingMadeSimple", url: SITE },
     publisher: { "@type": "Organization", name: "LicensingMadeSimple", url: SITE },
     isPartOf: { "@type": "WebSite", name: "LicensingMadeSimple", url: SITE },
