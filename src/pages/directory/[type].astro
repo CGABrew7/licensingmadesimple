@@ -7,7 +7,6 @@ import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import LinkedText from "../../components/LinkedText.astro";
 import { NMLS_CHART } from "../../data/chart-cells";
 import {
-  HUB_UPDATED,
   getDirectoryHub,
   hubBreadcrumbSchema,
   hubWebPageSchema,
@@ -58,7 +57,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
       {hub ? (
         <>
           <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
-          <Byline modified={HUB_UPDATED} />
+          <Byline modified={hub.updated} />
           <div class="section-links hub-jumps">
             {hub.jumps.map((jump) => (
               <a href={jump.href}>{jump.label}</a>
