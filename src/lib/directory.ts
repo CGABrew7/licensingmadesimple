@@ -81,6 +81,7 @@ export function publicPages(): { path: string; changefreq: string; priority: str
     { path: "/faq", changefreq: "yearly", priority: "0.4" },
     { path: "/contact", changefreq: "yearly", priority: "0.4" },
     { path: "/privacy", changefreq: "yearly", priority: "0.2" },
+    { path: "/terms", changefreq: "yearly", priority: "0.2" },
     { path: "/llms.txt", changefreq: "monthly", priority: "0.3" },
   ];
 
