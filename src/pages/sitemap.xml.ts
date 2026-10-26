@@ -8,7 +8,7 @@ export const GET: APIRoute = () => {
     .filter((page) => isPublicPathIndexable(page.path))
     .map(
       ({ path, changefreq, priority }) => `  <url>
-    <loc>${SITE_URL}${path === "/" ? "/" : `${path}/`}</loc>
+    <loc>${SITE_URL}${path === "/" || /\.[a-z0-9]+$/i.test(path) ? path : `${path}/`}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>

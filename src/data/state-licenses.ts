@@ -376,7 +376,7 @@ const collection: Record<string, StateLicenseFact> = {
     filing: "municipal-plus",
     whoNeeds: "A debt-collection agency that collects from New York City residents generally needs a DCWP (formerly DCA) debt-collection license. There is no single statewide collection-agency license that matches the typical state-board model. Debt buyers and certain other models may also have DFS obligations. Confirm with DFS before you treat the city license as the whole story.",
     path: "Apply for the NYC DCWP debt-collection license if you collect from city residents. Separately ask DFS whether your model needs a statewide financial-services authority. A New York licensed-lender or mortgage license does not authorize collection work.",
-    extraSources: [FDCPA, { label: "NYC DCWP debt collection", url: "https://www.nyc.gov/site/dca/businesses/info-debt-collection.page" }],
+    extraSources: [FDCPA, { label: "NYC DCWP debt collection", url: "https://www.nyc.gov/site/dca/businesses/license-checklist-debt-collection-agency.page" }],
   }),
   "north-carolina": fact({
     required: true,
@@ -472,7 +472,7 @@ const collection: Record<string, StateLicenseFact> = {
     required: true,
     licenseName: "Collection Service License",
     agencyName: "Tennessee Collection Service Board",
-    agencyUrl: "https://www.tn.gov/commerce/regboards/collect.html",
+    agencyUrl: "https://www.tn.gov/commerce/regboards/collections.html",
     filing: "state-portal",
     whoNeeds: "Businesses that collect claims for others in Tennessee generally need a collection-service license from the Collection Service Board.",
     path: "Apply to the Collection Service Board under Commerce and Insurance. A TDFI mortgage or lender license does not replace this board license.",
