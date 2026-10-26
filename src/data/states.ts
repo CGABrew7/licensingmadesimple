@@ -468,7 +468,7 @@ export const states: StateRecord[] = [
     region: "South",
     regulators: [
       { name: "Tennessee Department of Financial Institutions", url: "https://www.tn.gov/tdfi", role: "Mortgage, consumer lending, and money transmission licensing" },
-      { name: "Tennessee Collection Service Board", url: "https://www.tn.gov/commerce/regboards/collect.html", role: "Collection service licenses" },
+      { name: "Tennessee Collection Service Board", url: "https://www.tn.gov/commerce/regboards/collections.html", role: "Collection service licenses" },
     ],
     notes: "Collection services file with a dedicated board under Commerce and Insurance; other financial licenses file with TDFI.",
   },
