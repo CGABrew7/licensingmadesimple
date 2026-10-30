@@ -1,0 +1,25 @@
+---
+import LinkedText from "./LinkedText.astro";
+import type { StatuteHistory } from "../data/statute-history";
+
+interface Props {
+  history: StatuteHistory;
+}
+
+const { history } = Astro.props;
+---
+
+<div class="statute-history">
+  <h2>Statute history</h2>
+  <p>{history.lead}</p>
+  <ul>
+    {history.links.map((link) => (
+      <li>
+        <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+      </li>
+    ))}
+  </ul>
+  <p class="statute-history-note">
+    <LinkedText text={history.attribution} links={history.attributionLinks} />
+  </p>
+</div>
