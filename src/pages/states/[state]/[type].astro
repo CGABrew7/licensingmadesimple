@@ -3,6 +3,7 @@ import Layout from "../../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../../components/FileWithCornerstone.astro";
 import LinkedText from "../../../components/LinkedText.astro";
+import StatuteHistory from "../../../components/StatuteHistory.astro";
 import StrikingSection from "../../../components/StrikingSection.astro";
 import { faqPageSchema, getStrikingPage } from "../../../data/striking-pages";
 import {
@@ -28,6 +29,7 @@ import {
 } from "../../../lib/directory";
 import type { LicenseSlug } from "../../../data/license-types";
 import type { CitedCell } from "../../../data/verified-requirements";
+import { licenseStatuteHistory } from "../../../data/statute-history";
 
 export function getStaticPaths() {
   return states.flatMap((s) =>
@@ -60,6 +62,7 @@ const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, 
 const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
 
 const nationalHub = nationalHubLinks().find((link) => link.href === licensePath(type.slug));
+const statuteHistory = licenseStatuteHistory(state.slug, type.slug);
 const rows: { label: string; cell: CitedCell }[] = [
   { label: "Fee", cell: page.fee },
   { label: "Bond", cell: page.bond },
@@ -164,6 +167,8 @@ const rows: { label: string; cell: CitedCell }[] = [
           <a href={page.storeSourcesUrl} target="_blank" rel="noopener">LicenseStore sources</a>
         </p>
       </div>
+
+      {statuteHistory && <StatuteHistory history={statuteHistory} />}
 
       <div class="lms-prose" style="margin-top:36px;">
         {striking?.placement === "before-who" && (

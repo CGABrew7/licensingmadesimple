@@ -1213,3 +1213,42 @@ ul.lms-link-list li { margin: 0 0 8px; overflow-wrap: break-word; }
   .hero-sub { font-size: 1rem; margin-bottom: 20px; }
   .dir-copy h2 { font-size: 2rem; }
 }
+
+.statute-history {
+  max-width: 720px;
+  margin: 28px auto 8px;
+}
+.lms-prose > .statute-history:first-child { margin-top: 0; }
+.statute-history h2 {
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+  overflow-wrap: break-word;
+}
+.statute-history p,
+.statute-history li {
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+.statute-history ul {
+  margin: 0 0 12px;
+  padding-left: 1.15rem;
+}
+.statute-history li { margin-bottom: 4px; }
+.statute-history a { overflow-wrap: anywhere; }
+.statute-history ul a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.statute-history-note a {
+  display: inline;
+  min-height: 0;
+}
+.statute-history-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}

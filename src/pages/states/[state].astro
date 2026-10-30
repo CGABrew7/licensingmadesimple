@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import LinkedText from "../../components/LinkedText.astro";
+import StatuteHistory from "../../components/StatuteHistory.astro";
 import { inboundLinks } from "../../data/striking-pages";
 import { nationalHubLinks } from "../../data/directory-hubs";
 import {
@@ -15,6 +16,7 @@ import {
 } from "../../lib/directory";
 import { stateHubQuality } from "../../lib/state-page-quality";
 import { formatEditorialDate, stateHubUpdated } from "../../lib/editorial";
+import { stateStatuteHistory } from "../../data/statute-history";
 
 export function getStaticPaths() {
   return states.map((s) => ({ params: { state: s.slug } }));
@@ -26,6 +28,7 @@ if (!state) throw new Error("Unknown state");
 const facts = getFactsForState(state.slug);
 const filingPaths = inboundLinks("state", { state: state.slug });
 const quality = stateHubQuality(state);
+const statuteHistory = stateStatuteHistory(state.slug);
 ---
 
 <Layout
@@ -93,6 +96,7 @@ const quality = stateHubQuality(state);
 
   <section class="section">
     <div class="container lms-prose">
+      {statuteHistory && <StatuteHistory history={statuteHistory} />}
       <h2>National license pages</h2>
       <p>
         This page is {state.name} only. Nationwide questions belong on the national pages:
