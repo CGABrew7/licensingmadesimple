@@ -6,5 +6,13 @@ const { tone = "default" } = Astro.props;
 ---
 
 <a href="/" class:list={["nav-logo", tone === "inverse" && "is-inverse"]}>
-  <img src="/logo-lockup.png" alt="Licensing Made Simple" style="height:44px;width:auto;display:block" />
+  <img
+    src="/logo-lockup-212.webp"
+    srcset="/logo-lockup-106.webp 106w, /logo-lockup-212.webp 212w"
+    sizes="106px"
+    width="106"
+    height="44"
+    alt="Licensing Made Simple"
+    decoding="async"
+  />
 </a>
