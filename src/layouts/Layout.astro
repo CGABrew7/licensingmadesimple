@@ -4,10 +4,13 @@ import '@fontsource/geist-sans/latin-400.css';
 import '@fontsource/geist-sans/latin-500.css';
 import '@fontsource/geist-sans/latin-600.css';
 import '@fontsource/geist-sans/latin-700.css';
+import heroFont400 from '@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url';
+import heroFont600 from '@fontsource/geist-sans/files/geist-sans-latin-600-normal.woff2?url';
 import Logo from '../components/Logo.astro';
 interface Props { title: string; description?: string; jsonLd?: unknown | unknown[]; robots?: string; }
 const { title, description = "Who needs which U.S. business license, and where to file it. Directory for collection, lending, money transmitters, and mortgage in the 50 states and DC, plus a 3-question roadmap.", jsonLd, robots } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
+const preloadHero = Astro.url.pathname === "/";
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -25,6 +28,12 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {preloadHero && (
+    <>
+      <link rel="preload" href={heroFont400} as="font" type="font/woff2" crossorigin="anonymous" fetchpriority="high" />
+      <link rel="preload" href={heroFont600} as="font" type="font/woff2" crossorigin="anonymous" />
+    </>
+  )}
   <meta name="description" content={description} />
   {robots && <meta name="robots" content={robots} />}
   <title>{title}</title>
@@ -37,7 +46,6 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
   {jsonLdBlocks.map((block) => (
     <script type="application/ld+json" is:inline set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
   ))}
-  <script type="text/javascript" is:inline>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z2r4cb6gso");</script>
 </head>
 <body>
   <nav class="nav" aria-label="Primary">
@@ -113,5 +121,10 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
       </div>
     </div>
   </footer>
+  <script type="text/javascript" is:inline>
+    window.addEventListener("load", function () {
+      (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "z2r4cb6gso");
+    }, { once: true });
+  </script>
 </body>
 </html>

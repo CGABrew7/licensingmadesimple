@@ -94,6 +94,7 @@ a:hover { text-decoration: underline; }
   min-width: 0;
 }
 .nav-logo:hover { text-decoration: none; color: var(--text); }
+.nav-logo img { display: block; height: 44px; width: auto; }
 .nav-logo.is-inverse,
 .nav-logo.is-inverse:hover { color: var(--tint-50); }
 .logo-mark { width: 22px; height: 22px; flex: 0 0 auto; }
