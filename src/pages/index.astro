@@ -4,6 +4,13 @@ import LicenseWizard from '../components/LicenseWizard.jsx';
 import CaliforniaSample from '../components/CaliforniaSample.astro';
 import { states } from '../lib/directory';
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "LicensingMadeSimple",
+  url: "https://licensingmadesimple.com",
+};
+
 const faqs = [
   { q: "Do I need a business license?", a: "Most cities and counties require a general business license. Financial services, healthcare, construction, and food service almost always need a state license on top of that. Use the <a href='#wizard'>roadmap wizard</a> or the <a href='/directory'>directory</a> to see which desk applies." },
   { q: "How long does licensing take?", a: "A state license page shows a timeline when a regulator, a statute, or NMLS states one. If the cell says Varies, see regulator, open the agency link. For clocks this directory has not verified, use <a href='https://fastlicence.com' target='_blank' rel='noopener'>fastlicence.com</a>." },
@@ -17,6 +24,7 @@ const faqs = [
 <Layout
   title="Who needs which license, and where to file it"
   description="See which license you need and which agency issues it for collection, lending, money transmission, and mortgage work in all 50 states and DC."
+  jsonLd={websiteJsonLd}
 >
   <div class="home">
     <section class="hero">
