@@ -58,8 +58,8 @@ const jsonLd = [
   ...(strikingFaq ? [strikingFaq] : []),
   howToSchema(page.howToName, page.steps),
 ];
-const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
-const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
+const pageTitle = striking?.title ?? fact.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
+const pageDescription = striking?.description ?? fact.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
 
 const nationalHub = nationalHubLinks().find((link) => link.href === licensePath(type.slug));
 const statuteHistory = licenseStatuteHistory(state.slug, type.slug);
@@ -87,7 +87,8 @@ const rows: { label: string; cell: CitedCell }[] = [
         </ol>
       </nav>
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
-      <h1>{striking?.h1 ?? `${type.name} in ${state.name}`}</h1>
+      <h1>{striking?.h1 ?? fact.h1 ?? `${type.name} in ${state.name}`}</h1>
+      {fact.lead && <p>{fact.lead}</p>}
       <p>{fact.licenseName}</p>
       {nationalHub && (
         <p class="hub-up">
