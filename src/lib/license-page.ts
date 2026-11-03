@@ -7,6 +7,7 @@ import {
   getVerifiedRequirement,
   type CitedCell,
   type HowStep,
+  type InternalLink,
   type PageSection,
   type QaItem,
   type SourceLink,
@@ -65,6 +66,10 @@ export interface LicensePageModel {
   storeCompareUrl: string;
   storeSourcesUrl: string;
   howToName: string;
+  title: string;
+  description: string;
+  h1: string;
+  related: InternalLink[];
 }
 
 function defaultFaqs(state: StateRecord, type: LicenseType, fact: StateLicenseFact): QaItem[] {
@@ -141,6 +146,10 @@ export function buildLicensePage(state: StateRecord, type: LicenseType, fact: St
     storeCompareUrl: "https://licensestore.com/compare/",
     storeSourcesUrl: "https://licensestore.com/sources/",
     howToName: `How to handle a ${type.shortName} filing in ${state.name}`,
+    title: verified?.title ?? "",
+    description: verified?.description ?? "",
+    h1: verified?.h1 ?? "",
+    related: verified?.related ?? [],
   };
 }
 

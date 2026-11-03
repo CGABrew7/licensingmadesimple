@@ -3,8 +3,8 @@ import { SITE_URL } from "./directory";
 /** First and last commit dates for each guide file. */
 export const guideDates = {
   index: { published: "2026-08-09", modified: "2026-09-28" },
-  "first-business-license": { published: "2026-08-09", modified: "2026-10-13" },
-  "multi-state": { published: "2026-08-09", modified: "2026-10-13" },
+  "first-business-license": { published: "2026-08-09", modified: "2026-11-03" },
+  "multi-state": { published: "2026-08-09", modified: "2026-11-03" },
   nmls: { published: "2026-08-29", modified: "2026-10-13" },
   "what-happens-if-you-skip-it": { published: "2026-08-09", modified: "2026-08-29" },
   "which-license-do-i-need": { published: "2026-09-28", modified: "2026-10-13" },

@@ -105,7 +105,7 @@ const MTL_LEADS: Record<string, string> = {
   missouri:
     "Missouri files a sale-of-checks and money-transmitter license with the Division of Finance on NMLS. Missouri does not issue a statewide collection-agency license. That is a different rule from money transmission.",
   montana:
-    "Montana does not issue a statewide money transmitter license. The Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS chart has no Montana money transmitter row, and Montana Code Annotated Title 32 has no money transmitter chapter. Consumer lending, mortgage, escrow, and collection on a consumer loan can still be licensed.",
+    "Montana does not issue a money transmitter license or a money service business license. The Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS chart has no Montana money transmitter row, and Montana Code Annotated Title 32 has no money transmitter chapter. Consumer lending, mortgage, escrow, retail sales finance, and collection on a consumer loan can still be licensed.",
   nebraska:
     "Nebraska money transmission files with the Department of Banking and Finance on NMLS. Collection agencies file with the Secretary of State, which does not issue this license.",
   nevada:
@@ -416,6 +416,13 @@ function buildMoneyTransmitterHub(): DirectoryHub {
               { phrase: "New York", href: "/states/new-york/money-transmitters" },
             ],
           },
+          {
+            text: "Ohio requires the license when a business receives money or its equivalent from a person in Ohio and delivers, pays, or makes it accessible to the same person or another person. The Ohio page covers who needs that money service business license. Montana does not issue a money transmitter license or a money service business license.",
+            links: [
+              { phrase: "Ohio page", href: "/states/ohio/money-transmitters" },
+              { phrase: "Montana", href: "/states/montana/money-transmitters" },
+            ],
+          },
         ],
       },
       {
@@ -478,8 +485,18 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         a: `On each state page, and in short form in the table on this page. Figures are quoted from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited for Florida or New Jersey. Do not treat a missing bond line as a finding that no bond exists.`,
       },
     ],
-    updated: "2026-10-22",
+    updated: "2026-11-03",
   };
+}
+
+function collectionCited(stateSlug: string): string | undefined {
+  if (stateSlug === "colorado") {
+    return "Investigation fee $500, nonrefundable. Initial license application fee $1,500. Renewal license application fee $1,500. Bond of $12,000 plus $2,000 for each $10,000 or part by which average monthly client remittances exceed $15,000, and not more than $20,000. Sources: Colorado Attorney General collection agency licensing page; Colorado Revised Statutes section 5-16-124.";
+  }
+  if (stateSlug === "wyoming") {
+    return "New agency license $500. New branch license $500. Agency renewal $150. Branch renewal $150. Surety bond $10,000, or a $10,000 cash deposit. Renewal on NMLS runs November 1 through December 1. Sources: Wyoming Collection Agency Board licensing rules, Chapter 2; Wyoming Statute 33-11-108.";
+  }
+  return undefined;
 }
 
 function buildCollectionHub(): DirectoryHub {
@@ -487,17 +504,24 @@ function buildCollectionHub(): DirectoryHub {
   const { none, confirm, licensed } = collectionBuckets();
   const noneNames = listNames(none);
   const confirmNames = listNames(confirm);
-  const rows = rowsFor("collection", (_slug, fact) => ({ blurb: `${fact.whoNeeds} ${fact.path}` }));
+  const rows = rowsFor("collection", (slug, fact) => ({
+    blurb: `${fact.whoNeeds} ${fact.path}`,
+    cited: collectionCited(slug),
+  }));
   return {
     slug: "collection",
-    title: "Collection agency license requirements by state",
+    title: "State licensing rules for debt collectors",
     description:
-      "Which states require a collection agency license, which do not issue one, and which agency takes the filing. All 50 states and DC. The FDCPA still applies.",
-    h1: "Collection agency license requirements by state",
-    lede: `A third-party collection agency generally needs a state collection-agency, debt-collector, or collection-service license in each state that issues one, based on where the debtor lives. This directory records no standalone statewide collection-agency license in ${noneNames}. Confirm with the agency before treating collection as unlicensed in ${confirmNames}. The other ${licensed.length} states generally require a statewide license or registration.`,
-    ledeLinks: [],
+      "State licensing rules for debt collectors, including the Colorado collection agency license application and the Wyoming collection agency license.",
+    h1: "State licensing rules for debt collectors",
+    lede: `A third-party collection agency generally needs a state collection-agency, debt-collector, or collection-service license in each state that issues one, based on where the debtor lives. This directory records no standalone statewide collection-agency license in ${noneNames}. Confirm with the agency before treating collection as unlicensed in ${confirmNames}. The other ${licensed.length} states generally require a statewide license or registration. The Colorado collection agency license application and the Wyoming collection agency license are state filings. There is no national collection agency license.`,
+    ledeLinks: [
+      { phrase: "Colorado collection agency license application", href: "/states/colorado/collection" },
+      { phrase: "Wyoming collection agency license", href: "/states/wyoming/collection" },
+    ],
     jumps: [
       { href: "#who-needs", label: "Who needs a collection license" },
+      { href: "#state-rules", label: "Colorado, Wyoming, and status checks" },
       { href: "#states", label: "All states" },
       { href: "#faq", label: "FAQ" },
     ],
@@ -520,11 +544,29 @@ function buildCollectionHub(): DirectoryHub {
           { text: type.federalOverlay },
         ],
       },
+      {
+        id: "state-rules",
+        heading: "Colorado, Wyoming, and how to check licensing status",
+        paragraphs: [
+          {
+            text: "State licensing rules for debt collectors follow the debtor's state. There is no national collection agency license, so a company that uses a national name still needs each state's license where that state issues one. Open the Colorado collection agency license application and the Wyoming collection agency license for those two filings. A company that is new to the work can start with the first business license guide, then use the multi-state licensing page to list every state.",
+            links: [
+              { phrase: "Colorado collection agency license application", href: "/states/colorado/collection" },
+              { phrase: "Wyoming collection agency license", href: "/states/wyoming/collection" },
+              { phrase: "first business license guide", href: "/guides/first-business-license" },
+              { phrase: "multi-state licensing", href: "/guides/multi-state" },
+            ],
+          },
+          {
+            text: "To check the licensing status of a collection company, including a search like National Credit Adjusters or Financial Recovery Services, use the agency named in that state's row and look up the legal name. Colorado uses the Collection Agency Board in the Attorney General's office. Wyoming uses the Collection Agency Board, and the application is on NMLS. The same trade name can belong to different firms in different states.",
+          },
+        ],
+      },
     ],
     tableId: "states",
     tableHeading: "Which states require a collection agency license",
     tableLead:
-      "The note on each row is the scope recorded for that state. It is not a swapped sentence with the state name changed. Fee and bond figures, when a regulator, a statute, or the NMLS chart states them, stay on the state page. This table does not invent a fee.",
+      "The note on each row is the scope recorded for that state. Colorado and Wyoming rows also quote the fee and bond from the regulator or statute linked on the state page. Other fee and bond figures stay on the state page.",
     rows,
     faqs: [
       {
@@ -543,8 +585,24 @@ function buildCollectionHub(): DirectoryHub {
         q: "Do New York City or Chicago add a collection license?",
         a: "They can. The Illinois page records a City of Chicago debt-collection license on top of the state license for agencies that collect from Chicago residents. The New York page records a city DCWP license for collection that reaches New York City residents. Read those state pages before you skip the city filing.",
       },
+      {
+        q: "What are the state licensing rules for debt collectors?",
+        a: "A third-party debt collector generally needs the collection license of each state that issues one, based on where the debtor lives. This directory names the agency in the table. The FDCPA still applies in states that do not issue a license.",
+      },
+      {
+        q: "How do I file a Colorado collection agency license application?",
+        a: "File it in the Colorado Department of Law licensing portal with the Collection Agency Board in the Attorney General's office. The Colorado page lists the investigation fee, the license fee, the July renewal, and the bond formula.",
+      },
+      {
+        q: "Does Wyoming require a collection agency license?",
+        a: "Yes, for a collection agency that collects from Wyoming residents. File the Wyoming collection agency license on NMLS with the Collection Agency Board. The Wyoming page lists the Board fee, the surety bond, and the November renewal window.",
+      },
+      {
+        q: "Where do I check the licensing status of a collection company?",
+        a: "Use the agency in that state's row and search the legal name. A national company name is not a national license. Colorado and Wyoming each publish the lookup path on the state page linked from this table.",
+      },
     ],
-    updated: HUB_UPDATED,
+    updated: "2026-11-03",
   };
 }
 
@@ -704,7 +762,7 @@ for (const hub of Object.values(hubs)) assertHub(hub);
 
 const moneyHub = hubs["money-transmitters"];
 const moneyQuestion = "Which states require a money transmitter license for a payments startup?";
-if (moneyHub.updated !== "2026-10-22") throw new Error("Money transmitter hub date is not October 22, 2026");
+if (moneyHub.updated !== "2026-11-03") throw new Error("Money transmitter hub date is not November 3, 2026");
 if (!moneyHub.sections.some((section) => section.heading === moneyQuestion)) {
   throw new Error("Money transmitter question heading missing");
 }
@@ -722,7 +780,7 @@ export function getDirectoryHub(slug: string): DirectoryHub | undefined {
 export function nationalHubLinks(): { href: string; anchor: string }[] {
   return [
     { href: "/directory/money-transmitters", anchor: "Money transmitter license requirements by state" },
-    { href: "/directory/collection", anchor: "Collection agency license requirements by state" },
+    { href: "/directory/collection", anchor: "State licensing rules for debt collectors" },
     { href: "/directory/mortgage", anchor: "Mortgage company and broker license requirements by state" },
   ];
 }

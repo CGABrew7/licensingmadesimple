@@ -58,8 +58,8 @@ const jsonLd = [
   ...(strikingFaq ? [strikingFaq] : []),
   howToSchema(page.howToName, page.steps),
 ];
-const pageTitle = striking?.title ?? `${type.name} in ${state.name}: fee, bond, timeline, and where to file`;
-const pageDescription = striking?.description ?? `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`;
+const pageTitle = striking?.title ?? (page.title || `${type.name} in ${state.name}: fee, bond, timeline, and where to file`);
+const pageDescription = striking?.description ?? (page.description || `${fact.licenseName} in ${state.name}. ${requiredLabel(fact.required)}. Fee, bond, and timeline cells cite a regulator, a statute, or the NMLS chart.`);
 
 const nationalHub = nationalHubLinks().find((link) => link.href === licensePath(type.slug));
 const statuteHistory = licenseStatuteHistory(state.slug, type.slug);
@@ -87,7 +87,7 @@ const rows: { label: string; cell: CitedCell }[] = [
         </ol>
       </nav>
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
-      <h1>{striking?.h1 ?? `${type.name} in ${state.name}`}</h1>
+      <h1>{striking?.h1 ?? (page.h1 || `${type.name} in ${state.name}`)}</h1>
       <p>{fact.licenseName}</p>
       {nationalHub && (
         <p class="hub-up">
@@ -214,6 +214,17 @@ const rows: { label: string; cell: CitedCell }[] = [
 
         <h2>Federal overlay</h2>
         <p>{type.federalOverlay}</p>
+
+        {page.related.length > 0 && (
+          <>
+            <h2>Related filings</h2>
+            <ul class="neighbor-list">
+              {page.related.map((link) => (
+                <li><a href={link.href}>{link.anchor}</a></li>
+              ))}
+            </ul>
+          </>
+        )}
 
         <h2>Questions</h2>
         <div class="faq-list">
