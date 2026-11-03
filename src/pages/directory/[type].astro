@@ -44,8 +44,8 @@ const rows = isCore
       fact,
     }))
   : [];
-const title = hub?.title ?? lending?.title ?? `${type.name} licenses — who needs one and where to file`;
-const description = hub?.description ?? lending?.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
+const title = hub?.title ?? lending?.title ?? type.title ?? `${type.name} licenses — who needs one and where to file`;
+const description = hub?.description ?? lending?.description ?? type.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
 const jsonLd = hub
   ? [hubWebPageSchema(hub), hubBreadcrumbSchema(hub), faqPageSchema(hub.faqs)]
   : lending
@@ -61,7 +61,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
       <p class="lms-kicker">{type.vertical}</p>
-      <h1>{hub?.h1 ?? lending?.h1 ?? type.name}</h1>
+      <h1>{hub?.h1 ?? lending?.h1 ?? type.h1 ?? type.name}</h1>
       {hub ? (
         <>
           <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
@@ -121,6 +121,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
     <section class="section">
       <div class="container lms-prose">
         <h2>Who needs this license</h2>
+        {type.whoLead && <p>{type.whoLead}</p>}
         <p>{type.whoNeeds}</p>
 
         <h2>Typical filing path</h2>
