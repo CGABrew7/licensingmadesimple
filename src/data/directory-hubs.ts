@@ -373,12 +373,13 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     slug: "money-transmitters",
     title: "Money transmitter license requirements by state",
     description:
-      "Which states require a money transmitter license for a payments startup. Montana does not. 49 states and DC generally do. Sources are regulators, CSBS, and NMLS.",
+      "Which states require a money transmitter license for a payments startup. Montana does not. The other 49 states and DC generally do. File where the customers are.",
     h1: "Money transmitter license requirements by state",
     lede:
-      "A payments startup that receives money or monetary value from customers and transmits it, sells payment instruments, or holds customer funds for later payment generally needs a money transmitter license in each of the 49 states and the District of Columbia where those customers are. Montana does not issue that license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS License Requirements and Fees Chart has no Montana money transmitter row, and the Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses.",
+      "A payments startup generally needs a money transmitter license in each of the 49 states and the District of Columbia where its customers are. Montana does not issue that license. Count the customer's state, not the state of incorporation. One NMLS record is not a national license. Read the NMLS guide, then the state page. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS License Requirements and Fees Chart has no Montana money transmitter row. The Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses.",
     ledeLinks: [
       { phrase: "Montana", href: "/states/montana/money-transmitters" },
+      { phrase: "NMLS guide", href: "/guides/nmls" },
       { phrase: "Montana Division of Banking and Financial Institutions", href: mtDivision },
       { phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url },
       { phrase: "Conference of State Bank Supervisors", href: csbsMsb },
@@ -396,24 +397,24 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         heading: "Which states require a money transmitter license for a payments startup?",
         paragraphs: [
           {
-            text: "A payments startup that receives money or monetary value from customers and transmits it, sells payment instruments, or holds customer funds for later payment generally needs a money transmitter license in each of the 49 states and the District of Columbia where those customers are. Montana does not issue that license. Count the customer’s state, not the state of incorporation. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS License Requirements and Fees Chart has no Montana money transmitter row. Montana Code Annotated Title 32 has no money transmitter chapter. The Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses. Other Montana licenses can still apply.",
+            text: "Start with the states where customers send, receive, or store money or monetary value. Montana is the only no-license row in this directory. Montana Code Annotated Title 32 has no money transmitter chapter. Other Montana licenses can still apply. Use the multi-state licensing guide to list every customer state before you file.",
             links: [
               { phrase: "Montana", href: "/states/montana/money-transmitters" },
-              { phrase: "Montana Division of Banking and Financial Institutions", href: mtDivision },
-              { phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url },
               { phrase: "Montana Code Annotated Title 32", href: mtCode },
-              { phrase: "Conference of State Bank Supervisors", href: csbsMsb },
+              { phrase: "multi-state licensing guide", href: "/guides/multi-state" },
             ],
           },
           {
-            text: "Agent-of-payee, payment-processor, and bank-agent exemptions exist in some statutes. They are fact-specific. This page does not treat an exemption as the default, and it does not rank states as easy or exempt for digital assets. Open the state page and the regulator before you rely on an exemption.",
+            text: "Agent-of-payee, payment-processor, and bank-agent exemptions exist in some statutes. They are fact-specific. This page does not treat an exemption as the default, and it does not rank states as easy or exempt for digital assets. If the activity label is still unclear, use the which license guide. Then open the state page and the regulator before you rely on an exemption.",
+            links: [{ phrase: "which license guide", href: "/guides/which-license-do-i-need" }],
           },
           {
-            text: "Two states file outside the NMLS money-transmitter rows in this directory. Florida uses a chapter 560 application at the Office of Financial Regulation. New Jersey uses a Department of Banking and Insurance application, with a separate foreign money transmitter license type. New York files the money transmitter license on NMLS and, for virtual-currency business activity under 23 NYCRR 200, a separate BitLicense or limited-purpose trust charter.",
+            text: "Two states file outside the NMLS money-transmitter rows in this directory. Florida uses a chapter 560 application at the Office of Financial Regulation. New Jersey uses a Department of Banking and Insurance application, with a separate foreign money transmitter license type. New York files the money transmitter license on NMLS and, for virtual-currency business activity under 23 NYCRR 200, a separate BitLicense or limited-purpose trust charter. A city or county general business license is a separate step. The first business license guide covers that local filing.",
             links: [
               { phrase: "Florida", href: "/states/florida/money-transmitters" },
               { phrase: "New Jersey", href: "/states/new-jersey/money-transmitters" },
               { phrase: "New York", href: "/states/new-york/money-transmitters" },
+              { phrase: "first business license guide", href: "/guides/first-business-license" },
             ],
           },
           {
@@ -431,12 +432,13 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         paragraphs: [
           { text: type.whoNeeds },
           {
-            text: "You generally need the license if the business receives customer funds and transmits them, sells or issues payment instruments, or holds customer funds for later payment, and the customers are in a licensing state. Stored-value programs, remittance firms, and digital-asset platforms that move customer value are in that net. A bank charter, when one actually applies, is a different legal status. Do not assume it from a partnership with a bank.",
+            text: "A bank charter, when one actually applies, is a different legal status. Do not assume it from a partnership with a bank. Stored-value programs, remittance firms, and digital-asset platforms that move customer value are in the same net as other money transmitters when they receive customer value and transmit it.",
           },
           {
-            text: "Registration with FinCEN on Form 107 is a federal money services business duty. It never substitutes for a required state license. Unlicensed money transmission can also be a federal crime under 18 U.S.C. § 1960.",
+            text: "Registration with FinCEN on Form 107 is a federal money services business duty. It never substitutes for a required state license. Unlicensed money transmission can also be a federal crime under 18 U.S.C. § 1960. Read what happens if you skip a required license for the kinds of consequences agencies use. That guide does not quote a fine.",
             links: [
               { phrase: "FinCEN", href: "https://www.fincen.gov/money-services-business-msb-registration" },
+              { phrase: "what happens if you skip a required license", href: "/guides/what-happens-if-you-skip-it" },
             ],
           },
         ],
@@ -446,7 +448,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         heading: "Do I need a money transmitter license",
         paragraphs: [
           {
-            text: "Ask three questions. Does the business receive, hold, or transmit another person’s money or monetary value? Are the customers in a state that issues this license? Does a statute in that state actually exempt this model? If the first two answers are yes, and you cannot point to the exemption in that state’s statute, plan on the license. One NMLS record is not a national license. You request each state’s authority. Companies that serve customers in many states file in each of those states.",
+            text: "Ask three questions. Does the business receive, hold, or transmit another person's money or monetary value? Are the customers in a state that issues this license? Does a statute in that state actually exempt this model? If the first two answers are yes, and you cannot point to the exemption in that state's statute, plan on the license. You request each state's authority. A company that serves customers in many states files in each of those states.",
           },
           {
             text: "If the only customers are in Montana, this directory records no Montana money transmitter application. Read the Montana page before you treat every payments model as unlicensed there. Federal FinCEN registration can still apply.",
@@ -462,19 +464,23 @@ function buildMoneyTransmitterHub(): DirectoryHub {
     faqs: [
       {
         q: "Which states require a money transmitter license for a payments startup?",
-        a: "A payments startup generally needs a money transmitter license in each of the 49 states and the District of Columbia where its customers send, receive, or store money or monetary value. Montana does not issue a statewide money transmitter license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters, the NMLS License Requirements and Fees Chart has no Montana money transmitter row, and the Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses. A statutory exemption in another state is specific to that statute. This page does not treat an exemption as the default.",
+        a: "Forty-nine states and the District of Columbia generally require one where the customers are. Montana does not issue a statewide money transmitter license. The Montana Division of Banking and Financial Institutions states that it does not regulate money transmitters. The NMLS License Requirements and Fees Chart has no Montana money transmitter row. The Conference of State Bank Supervisors states, in an October 2019 overview, that all states except Montana have passed laws covering money services businesses. A statutory exemption in another state is specific to that statute. This page does not treat an exemption as the default.",
       },
       {
         q: "Who needs a money transmitter license?",
-        a: "A business that receives money or monetary value from one person and transmits it to another, sells payment instruments, or holds customer funds for later payment. The test is the activity with customers in the state, not where the company is incorporated. Many payment companies, stored-value programs, remittance firms, and digital-asset platforms that move customer value fall in that group.",
+        a: "A business that receives money or monetary value from one person and transmits it to another, sells payment instruments, or holds customer funds for later payment. The test is the activity with customers in the state, not where the company is incorporated. Payment companies, stored-value programs, remittance firms, and digital-asset platforms that move customer value are in that group when they do that work.",
       },
       {
         q: "Do I need a money transmitter license?",
-        a: "You need the state license in each licensing state where your customers are, unless that state’s statute exempts the model. FinCEN Form 107 does not answer the state question. There is no all-50-states license. Start with the table on this page, then open the state regulator linked from the state page.",
+        a: "You need the state license in each licensing state where your customers are, unless that state's statute exempts the model. Ask whether the business receives, holds, or transmits another person's money or monetary value, whether those customers are in a licensing state, and whether you can point to the exemption. FinCEN Form 107 does not answer the state question. There is no all-50-states license.",
       },
       {
         q: "Is there a money transmitter license for all 50 states?",
         a: "No. Each state, and the District of Columbia, issues its own license, except Montana, which this directory records as having no statewide money transmitter license. A company that serves customers in many states files in each of those states. NMLS is the usual filing system. Florida and New Jersey money transmitter licenses in this directory are state applications and are not rows on the NMLS chart.",
+      },
+      {
+        q: "Where do I start if customers are in more than one state?",
+        a: "List every state where customers send, receive, or store value. File in each licensing state. Montana is the exception recorded here. NMLS is the usual system. Florida and New Jersey money transmitter licenses in this directory are state applications. Open the state page for the desk, the fee, and the bond.",
       },
       {
         q: "Does FinCEN registration replace a state money transmitter license?",
@@ -485,7 +491,7 @@ function buildMoneyTransmitterHub(): DirectoryHub {
         a: `On each state page, and in short form in the table on this page. Figures are quoted from the NMLS License Requirements and Fees Chart checked on ${NMLS_CHART_CHECKED}, or from a statute already cited for Florida or New Jersey. Do not treat a missing bond line as a finding that no bond exists.`,
       },
     ],
-    updated: "2026-11-03",
+    updated: "2026-11-07",
   };
 }
 
@@ -512,10 +518,11 @@ function buildCollectionHub(): DirectoryHub {
     slug: "collection",
     title: "State licensing rules for debt collectors",
     description:
-      "State licensing rules for debt collectors, including the Colorado collection agency license application and the Wyoming collection agency license.",
+      "State licensing rules for debt collectors, including which states have no license, the Colorado application, and the Wyoming collection agency license.",
     h1: "State licensing rules for debt collectors",
-    lede: `A third-party collection agency generally needs a state collection-agency, debt-collector, or collection-service license in each state that issues one, based on where the debtor lives. This directory records no standalone statewide collection-agency license in ${noneNames}. Confirm with the agency before treating collection as unlicensed in ${confirmNames}. The other ${licensed.length} states generally require a statewide license or registration. The Colorado collection agency license application and the Wyoming collection agency license are state filings. There is no national collection agency license.`,
+    lede: `A third-party collection agency generally needs a state collection license in each state that issues one, based on where the debtor lives. There is no national collection agency license. This directory records no standalone statewide collection-agency license in ${noneNames}. Confirm with the agency before treating collection as unlicensed in ${confirmNames}. The other ${licensed.length} states generally require a statewide license or registration. Use the multi-state licensing guide to list the debtor states. The Colorado collection agency license application and the Wyoming collection agency license are state filings.`,
     ledeLinks: [
+      { phrase: "multi-state licensing guide", href: "/guides/multi-state" },
       { phrase: "Colorado collection agency license application", href: "/states/colorado/collection" },
       { phrase: "Wyoming collection agency license", href: "/states/wyoming/collection" },
     ],
@@ -535,13 +542,20 @@ function buildCollectionHub(): DirectoryHub {
             text: `States with no standalone statewide collection-agency license in this directory: ${noneNames}. Collectors that contact consumers in those states still have to follow the Fair Debt Collection Practices Act. ${confirmNames} are not in that no-license list. Their pages say to confirm the current category with the agency.`,
           },
           {
-            text: "City licenses sit on top of the state rule where the state page says so. Illinois collectors who collect from Chicago residents may also need the city debt-collection license. Collection that reaches New York City residents can also need the city’s DCWP license. A state license does not replace the city license.",
+            text: "City licenses sit on top of the state rule where the state page says so. Illinois collectors who collect from Chicago residents may also need the city debt-collection license. Collection that reaches New York City residents can also need the city's DCWP license. A state license does not replace the city license.",
             links: [
               { phrase: "Illinois", href: "/states/illinois/collection" },
               { phrase: "New York City", href: "/states/new-york/collection" },
             ],
           },
           { text: type.federalOverlay },
+          {
+            text: "If you are still deciding whether the work is collection, lending, or something else, start with the which license guide. If a state requires a license and you operate without it, read what happens if you skip a required license. That page does not quote a fine.",
+            links: [
+              { phrase: "which license guide", href: "/guides/which-license-do-i-need" },
+              { phrase: "what happens if you skip a required license", href: "/guides/what-happens-if-you-skip-it" },
+            ],
+          },
         ],
       },
       {
@@ -558,7 +572,8 @@ function buildCollectionHub(): DirectoryHub {
             ],
           },
           {
-            text: "To check the licensing status of a collection company, including a search like National Credit Adjusters or Financial Recovery Services, use the agency named in that state's row and look up the legal name. Colorado uses the Collection Agency Board in the Attorney General's office. Wyoming uses the Collection Agency Board, and the application is on NMLS. The same trade name can belong to different firms in different states.",
+            text: "To check the licensing status of a collection company, including a search like National Credit Adjusters or Financial Recovery Services, use the agency named in that state's row and look up the legal name. Colorado uses the Collection Agency Board in the Attorney General's office. Wyoming uses the Collection Agency Board, and the application is on NMLS. The NMLS guide explains that the system does not issue the license. The same trade name can belong to different firms in different states.",
+            links: [{ phrase: "NMLS guide", href: "/guides/nmls" }],
           },
         ],
       },
@@ -571,7 +586,7 @@ function buildCollectionHub(): DirectoryHub {
     faqs: [
       {
         q: "Which states require a collection agency license?",
-        a: `This directory marks a statewide collection license or registration as generally required in ${licensed.length} states. The table names the agency and the scope. File in each of those states where the debtor lives, not only where the office sits.`,
+        a: `File where the debtor lives, in each state that issues a collection license. This directory marks a statewide license or registration as generally required in ${licensed.length} states. The table names the agency and the scope. There is no national collection agency license.`,
       },
       {
         q: "Which states do not require a collection agency license?",
@@ -587,7 +602,11 @@ function buildCollectionHub(): DirectoryHub {
       },
       {
         q: "What are the state licensing rules for debt collectors?",
-        a: "A third-party debt collector generally needs the collection license of each state that issues one, based on where the debtor lives. This directory names the agency in the table. The FDCPA still applies in states that do not issue a license.",
+        a: "A third-party debt collector generally needs the collection license of each state that issues one, based on where the debtor lives. This directory names the agency in the table. The FDCPA still applies in states that do not issue a license. A company new to the work can start with the local general business license, then line up each debtor state.",
+      },
+      {
+        q: "How do I handle collection licensing in more than one state?",
+        a: `List every state where the debtor lives. File in each of the ${licensed.length} states this directory marks as generally requiring a license. There is no national collection agency license. States with no standalone statewide license in this directory still expect collectors to follow the FDCPA.`,
       },
       {
         q: "How do I file a Colorado collection agency license application?",
@@ -599,10 +618,10 @@ function buildCollectionHub(): DirectoryHub {
       },
       {
         q: "Where do I check the licensing status of a collection company?",
-        a: "Use the agency in that state's row and search the legal name. A national company name is not a national license. Colorado and Wyoming each publish the lookup path on the state page linked from this table.",
+        a: "Use the agency in that state's row and search the legal name. A national company name is not a national license. Colorado and Wyoming each publish the lookup path on the state page linked from this table. NMLS Consumer Access lists a firm only when that state manages the license on NMLS.",
       },
     ],
-    updated: "2026-11-03",
+    updated: "2026-11-07",
   };
 }
 
@@ -762,7 +781,8 @@ for (const hub of Object.values(hubs)) assertHub(hub);
 
 const moneyHub = hubs["money-transmitters"];
 const moneyQuestion = "Which states require a money transmitter license for a payments startup?";
-if (moneyHub.updated !== "2026-11-03") throw new Error("Money transmitter hub date is not November 3, 2026");
+if (moneyHub.updated !== "2026-11-07") throw new Error("Money transmitter hub date is not November 7, 2026");
+if (hubs.collection.updated !== "2026-11-07") throw new Error("Collection hub date is not November 7, 2026");
 if (!moneyHub.sections.some((section) => section.heading === moneyQuestion)) {
   throw new Error("Money transmitter question heading missing");
 }
@@ -772,9 +792,188 @@ if (!moneyHub.faqs.some((faq) => faq.q === moneyQuestion)) {
 if (/cornerstone/i.test(JSON.stringify(moneyHub))) {
   throw new Error("Money transmitter hub mentions Cornerstone");
 }
+for (const slug of ["money-transmitters", "collection"] as const) {
+  const blob = JSON.stringify(hubs[slug]);
+  for (const href of ["/guides/nmls", "/guides/multi-state", "/guides/which-license-do-i-need", "/guides/first-business-license", "/guides/what-happens-if-you-skip-it"]) {
+    if (!blob.includes(href)) throw new Error(`${slug} is missing ${href}`);
+  }
+  if (/cornerstone/i.test(blob)) throw new Error(`${slug} hub mentions Cornerstone`);
+}
 
 export function getDirectoryHub(slug: string): DirectoryHub | undefined {
   return hubs[slug];
+}
+
+export interface LendingIntro {
+  slug: "lending";
+  title: string;
+  description: string;
+  h1: string;
+  lede: string;
+  ledeLinks: TextLink[];
+  jumps: { href: string; label: string }[];
+  sections: { id?: string; heading: string; paragraphs: HubBlock[] }[];
+  tableLead: string;
+  faqs: HubFaq[];
+  updated: string;
+}
+
+function buildLendingIntro(): LendingIntro {
+  const facts = getFactsForLicense("lending");
+  if (facts.length !== states.length || facts.some((item) => item.fact.required !== true)) {
+    throw new Error("Lending required-set changed. Do not keep the all-states sentence.");
+  }
+  const type = getLicenseType("lending")!;
+  const page: LendingIntro = {
+    slug: "lending",
+    title: "Consumer and commercial lending licenses by state",
+    description:
+      "Which state license a consumer or commercial lender needs, and which agency takes the filing. File where the borrower lives. Open the state page for any cited fee.",
+    h1: "Consumer and commercial lending licenses by state",
+    lede:
+      "A company that makes consumer loans generally needs a state consumer-lending license in each state where the borrower lives, when the product, rate, or amount crosses that state's trigger. There is no national consumer lending license. Most states take the company application on NMLS. The state still issues the license. Banks and credit unions lending under a charter are usually exempt from the non-depository license. Commercial-purpose loans sit outside many consumer statutes. The NMLS guide explains the filing system. The multi-state licensing guide is how you list every borrower state.",
+    ledeLinks: [
+      { phrase: "NMLS guide", href: "/guides/nmls" },
+      { phrase: "multi-state licensing guide", href: "/guides/multi-state" },
+    ],
+    jumps: [
+      { href: "#who-needs", label: "Who needs a license" },
+      { href: "#where", label: "Where to file" },
+      { href: "#states", label: "All states" },
+      { href: "#faq", label: "FAQ" },
+    ],
+    sections: [
+      {
+        id: "who-needs",
+        heading: "Who needs a consumer lending license",
+        paragraphs: [
+          { text: type.whoNeeds },
+          {
+            text: "Map the product before you file. The same installment loan can be a consumer-finance license in one state and a sales-finance license in the next. California uses a California Financing Law license. Florida splits a Chapter 516 consumer finance license from Chapter 520 sales finance. New York uses a licensed-lender authority for some loans. Texas consumer loans generally file with the Office of Consumer Credit Commissioner. Tennessee uses an industrial loan and thrift registration and a separate flexible credit license. Those are different authorities. Open the state page before you treat one name as the license everywhere.",
+            links: [
+              { phrase: "California Financing Law license", href: "/states/california/lending" },
+              { phrase: "Florida", href: "/states/florida/lending" },
+              { phrase: "New York", href: "/states/new-york/lending" },
+              { phrase: "Texas", href: "/states/texas/lending" },
+              { phrase: "Tennessee", href: "/states/tennessee/lending" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "where",
+        heading: "Where to file a consumer lending license",
+        paragraphs: [
+          {
+            text: "File in every state where borrowers live, not only where the lender sits. Most states take company applications through NMLS (Form MU1, with MU2s for control persons). A few still use a state portal. The which license guide helps if you are not sure the activity is lending rather than collection or money transmission. A city or county general business license is a separate filing. The first business license guide covers that local step.",
+            links: [
+              { phrase: "which license guide", href: "/guides/which-license-do-i-need" },
+              { phrase: "first business license guide", href: "/guides/first-business-license" },
+            ],
+          },
+          { text: type.federalOverlay },
+          {
+            text: "Operating without a required state license can mean a fine, a cease and desist, or a contract a court may not enforce. Read what happens if you skip a required license, then confirm the desk on the state page.",
+            links: [
+              { phrase: "what happens if you skip a required license", href: "/guides/what-happens-if-you-skip-it" },
+            ],
+          },
+        ],
+      },
+    ],
+    tableLead:
+      "All 50 states and DC. Required means a statewide license of this type is the usual rule. It does not mean every loan product is in scope. Fee, bond, and timeline figures stay on the state page.",
+    faqs: [
+      {
+        q: "Which states require a consumer lending license?",
+        a: "This directory records a statewide consumer-lending license as generally required in all 50 states and the District of Columbia. The license name and the trigger change by state. File where the borrower lives. Open the state row for the agency. Fee and bond figures stay on the state page.",
+      },
+      {
+        q: "Is there a national consumer lending license?",
+        a: "No. Each state issues its own authority. NMLS is the filing system for most of them. The state agency still grants or denies the license.",
+      },
+      {
+        q: "Do banks need a state consumer lending license?",
+        a: "Banks and credit unions lending under a charter are usually exempt from the state non-depository license. A partnership with a bank is not the same thing as holding that charter. Confirm the exemption in the statute for the borrower's state.",
+      },
+      {
+        q: "Is a commercial loan the same license as a consumer loan?",
+        a: "Often no. Commercial-purpose loans sit outside many consumer statutes, and some states license certain small-business or commercial finance activity separately. Tennessee uses an industrial loan and thrift registration and a separate flexible credit license. That department does not publish a license named marketplace lending or business lending.",
+      },
+      {
+        q: "Where are consumer lending license fees listed?",
+        a: "On the state page, when a regulator, a statute, or the NMLS chart is cited there. This page does not add a fee of its own.",
+      },
+      {
+        q: "Does an NMLS record replace the state lending license?",
+        a: "No. NMLS is where the company file and control persons are submitted. The state still issues the license. Use the state agency checklist after the company record is open.",
+      },
+    ],
+    updated: "2026-11-07",
+  };
+  assertPlain("lending title", page.title, false);
+  assertPlain("lending description", page.description, false);
+  assertPlain("lending h1", page.h1, false);
+  assertPlain("lending lede", page.lede, false);
+  assertPlain("lending table", page.tableLead, false);
+  if (page.title.length > 65) throw new Error(`lending title is ${page.title.length} characters`);
+  if (page.description.length < 120 || page.description.length > 170) {
+    throw new Error(`lending description is ${page.description.length} characters`);
+  }
+  for (const link of page.ledeLinks) {
+    if (!page.lede.includes(link.phrase)) throw new Error(`lending lede is missing ${link.phrase}`);
+  }
+  for (const section of page.sections) {
+    assertPlain("lending heading", section.heading, false);
+    for (const block of section.paragraphs) assertLinks(`lending ${section.heading}`, block);
+  }
+  if (page.faqs.length < 4) throw new Error("lending FAQ is short");
+  for (const faq of page.faqs) {
+    assertPlain("lending faq", `${faq.q} ${faq.a}`, false);
+    if (!faq.q.endsWith("?")) throw new Error("lending question is missing punctuation");
+  }
+  const guideHrefs = page.sections.flatMap((section) => section.paragraphs.flatMap((block) => block.links ?? [])).map((link) => link.href);
+  for (const href of ["/guides/nmls", "/guides/multi-state", "/guides/which-license-do-i-need", "/guides/first-business-license", "/guides/what-happens-if-you-skip-it"]) {
+    const inLede = page.ledeLinks.some((link) => link.href === href);
+    if (!inLede && !guideHrefs.includes(href)) throw new Error(`lending page is missing ${href}`);
+  }
+  if (/cornerstone/i.test(JSON.stringify(page))) throw new Error("lending intro mentions Cornerstone");
+  if (page.updated !== "2026-11-07") throw new Error("lending intro date is not November 7, 2026");
+  return page;
+}
+
+const lendingIntro = buildLendingIntro();
+
+export function getLendingIntro(): LendingIntro {
+  return lendingIntro;
+}
+
+export function lendingWebPageSchema(page: LendingIntro) {
+  const url = `${SITE}/directory/lending/`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": url,
+    url,
+    name: page.title,
+    description: page.description,
+    dateModified: page.updated,
+    author: { "@type": "Organization", name: "LicensingMadeSimple", url: SITE },
+    publisher: { "@type": "Organization", name: "LicensingMadeSimple", url: SITE },
+    isPartOf: { "@type": "WebSite", name: "LicensingMadeSimple", url: SITE },
+  };
+}
+
+export function lendingBreadcrumbSchema(page: LendingIntro) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+      { "@type": "ListItem", position: 2, name: "Directory", item: `${SITE}/directory/` },
+      { "@type": "ListItem", position: 3, name: page.h1, item: `${SITE}/directory/lending/` },
+    ],
+  };
 }
 
 export function nationalHubLinks(): { href: string; anchor: string }[] {
