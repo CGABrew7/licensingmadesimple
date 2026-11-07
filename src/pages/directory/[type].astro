@@ -8,8 +8,11 @@ import LinkedText from "../../components/LinkedText.astro";
 import { NMLS_CHART } from "../../data/chart-cells";
 import {
   getDirectoryHub,
+  getLendingIntro,
   hubBreadcrumbSchema,
   hubWebPageSchema,
+  lendingBreadcrumbSchema,
+  lendingWebPageSchema,
 } from "../../data/directory-hubs";
 import { faqPageSchema, inboundLinks } from "../../data/striking-pages";
 import { directoryTypeUpdated } from "../../lib/editorial";
@@ -32,6 +35,7 @@ const type = getLicenseType(Astro.params.type!);
 if (!type) throw new Error("Unknown license type");
 
 const hub = getDirectoryHub(type.slug);
+const lending = type.slug === "lending" ? getLendingIntro() : undefined;
 const isCore = type.tier === "core";
 const filingPaths = isCore ? inboundLinks("directory", { license: type.slug }) : [];
 const rows = isCore
@@ -40,9 +44,13 @@ const rows = isCore
       fact,
     }))
   : [];
-const title = hub?.title ?? `${type.name} licenses — who needs one and where to file`;
-const description = hub?.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
-const jsonLd = hub ? [hubWebPageSchema(hub), hubBreadcrumbSchema(hub), faqPageSchema(hub.faqs)] : undefined;
+const title = hub?.title ?? lending?.title ?? `${type.name} licenses — who needs one and where to file`;
+const description = hub?.description ?? lending?.description ?? `${type.name}: who typically needs the license, which agency takes the filing, and ${isCore ? "a page for every state" : "how the filing desk works"}.`;
+const jsonLd = hub
+  ? [hubWebPageSchema(hub), hubBreadcrumbSchema(hub), faqPageSchema(hub.faqs)]
+  : lending
+    ? [lendingWebPageSchema(lending), lendingBreadcrumbSchema(lending), faqPageSchema(lending.faqs)]
+    : undefined;
 const tableLeadLinks = hub?.slug === "money-transmitters"
   ? [{ phrase: "NMLS License Requirements and Fees Chart", href: NMLS_CHART.url }]
   : [];
@@ -53,13 +61,23 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
       <p class="lms-kicker">{type.vertical}</p>
-      <h1>{hub?.h1 ?? type.name}</h1>
+      <h1>{hub?.h1 ?? lending?.h1 ?? type.name}</h1>
       {hub ? (
         <>
           <p class="lede"><LinkedText text={hub.lede} links={hub.ledeLinks} /></p>
           <Byline modified={hub.updated} />
           <div class="section-links hub-jumps">
             {hub.jumps.map((jump) => (
+              <a href={jump.href}>{jump.label}</a>
+            ))}
+          </div>
+        </>
+      ) : lending ? (
+        <>
+          <p class="lede"><LinkedText text={lending.lede} links={lending.ledeLinks} /></p>
+          <Byline modified={lending.updated} />
+          <div class="section-links hub-jumps">
+            {lending.jumps.map((jump) => (
               <a href={jump.href}>{jump.label}</a>
             ))}
           </div>
@@ -77,6 +95,19 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
     <section class="section">
       <div class="container lms-prose">
         {hub.sections.map((section) => (
+          <>
+            <h2 id={section.id}>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p><LinkedText text={paragraph.text} links={paragraph.links ?? []} /></p>
+            ))}
+          </>
+        ))}
+      </div>
+    </section>
+  ) : lending ? (
+    <section class="section">
+      <div class="container lms-prose">
+        {lending.sections.map((section) => (
           <>
             <h2 id={section.id}>{section.heading}</h2>
             {section.paragraphs.map((paragraph) => (
@@ -170,10 +201,10 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
   )}
 
   {!hub && isCore && (
-    <section class="section section-alt">
+    <section class="section section-alt" id={lending ? "states" : undefined}>
       <div class="container">
-        <h2 class="section-title">{type.name} by state</h2>
-        <p class="section-sub">{rows.length} states. Required means a statewide license, permit, or registration of this type is the usual rule — not that every business model is in scope.</p>
+        <h2 class="section-title">{lending ? "Consumer and commercial lending by state" : `${type.name} by state`}</h2>
+        <p class="section-sub">{lending ? lending.tableLead : `${rows.length} states. Required means a statewide license, permit, or registration of this type is the usual rule — not that every business model is in scope.`}</p>
         <div class="lms-table-wrap">
           <table class="lms-table">
             <thead>
@@ -210,6 +241,22 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
             </ul>
           </>
         )}
+      </div>
+    </section>
+  )}
+
+  {lending && (
+    <section class="section" id="faq">
+      <div class="container" style="max-width:720px;">
+        <h2 class="section-title">Questions</h2>
+        <div class="faq-list">
+          {lending.faqs.map((faq) => (
+            <details class="faq-item">
+              <summary class="faq-q">{faq.q}<span class="faq-toggle">+</span></summary>
+              <div class="faq-a"><p>{faq.a}</p></div>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   )}
