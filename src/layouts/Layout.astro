@@ -11,6 +11,8 @@ import FooterArt from '../components/FooterArt.astro';
 interface Props { title: string; description?: string; jsonLd?: unknown | unknown[]; robots?: string; }
 const { title, description = "Who needs which U.S. business license, and where to file it. Directory for collection, lending, money transmitters, and mortgage in the 50 states and DC, plus a 3-question roadmap.", jsonLd, robots } = Astro.props;
 const canonical = new URL(Astro.url.pathname, "https://licensingmadesimple.com").href;
+const ogImage = "https://licensingmadesimple.com/og.png";
+const ogImageAlt = "Licensing Made Simple. Who needs which license, and where to file it.";
 const preloadHero = Astro.url.pathname === "/";
 const organization = {
   "@context": "https://schema.org",
@@ -43,6 +45,14 @@ const jsonLdBlocks = [organization, ...extraJsonLd];
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={ogImageAlt} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image:alt" content={ogImageAlt} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   {jsonLdBlocks.map((block) => (
     <script type="application/ld+json" is:inline set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
