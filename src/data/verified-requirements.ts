@@ -156,6 +156,18 @@ const NMLS_PROCESSING: SourceLink = {
   label: "NMLS processing fees",
   url: "https://mortgage.nationwidelicensingsystem.org/knowledge/products/nmls/pubs/aboutNMLS/reference/aboutNMLS/maps/topics/aboutNMLS_processingFees-1.html",
 };
+const TX_FIN_392: SourceLink = {
+  label: "Texas Finance Code section 392.101",
+  url: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.392.htm",
+};
+const TX_SOS_FAQ: SourceLink = {
+  label: "Texas Secretary of State, third-party debt collector bond FAQ",
+  url: "https://www.sos.texas.gov/statdoc/faqs2900.shtml",
+};
+const TX_SOS_FORM: SourceLink = {
+  label: "Texas Secretary of State Form 2901",
+  url: "https://www.sos.texas.gov/statdoc/forms/2901.pdf",
+};
 
 export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, VerifiedRequirement>> = {
   "montana/money-transmitters": {
@@ -765,6 +777,87 @@ export const verifiedRequirements: Partial<Record<`${string}/${LicenseSlug}`, Ve
       },
     ],
   },
+  "texas/collection": {
+    lastVerified: "2026-11-09",
+    title: "Texas collection agency license",
+    description:
+      "No Texas collection agency license. Third-party collectors file a $10,000 surety bond with the Secretary of State. Finance Code section 392.101.",
+    h1: "Texas collection agency license",
+    related: [
+      { href: "/directory/collection", anchor: "State licensing rules for debt collectors" },
+      { href: "/states/oklahoma/collection", anchor: "Collection agency rules in Oklahoma" },
+      { href: "/states/texas/lending", anchor: "Consumer lending in Texas" },
+    ],
+    fee: {
+      value: "No Secretary of State filing fee for the bond. The surety company sets the premium. Checked November 9, 2026.",
+      sources: [TX_SOS_FAQ],
+    },
+    bond: {
+      value:
+        "$10,000. Finance Code section 392.101 says a third-party debt collector or credit bureau may not engage in debt collection unless it has obtained a surety bond in that amount, issued by a surety company authorized to do business in this state, and filed a copy with the secretary of state. The Secretary of State FAQ states the same bond amount and states that these businesses are not required to register. Checked November 9, 2026.",
+      sources: [TX_FIN_392, TX_SOS_FAQ, TX_SOS_FORM],
+    },
+    timeline: {
+      value: "Varies, see regulator",
+      sources: [TX_FIN_392, TX_SOS_FAQ],
+    },
+    sections: [
+      {
+        heading: "What Finance Code section 392.101 requires",
+        paragraphs: [
+          "Texas does not issue a statewide collection agency license. Finance Code section 392.101 says a third-party debt collector or credit bureau may not engage in debt collection unless it has obtained a surety bond issued by a surety company authorized to do business in this state. A copy of the bond must be filed with the secretary of state. The bond must be in the amount of $10,000. It must be in favor of any person damaged by a violation of Chapter 392 and in favor of this state for the benefit of any person damaged by a violation of that chapter. Checked on the Texas Legislature statute site on November 9, 2026.",
+          "The requirement is Finance Code section 392.101. It is not Occupations Code Chapter 396.",
+        ],
+      },
+      {
+        heading: "What the Secretary of State says",
+        paragraphs: [
+          "The Secretary of State FAQ, checked November 9, 2026, states that third-party debt collectors and credit bureaus are not required to register. They are required to file a $10,000 surety bond with the secretary of state before engaging in debt collection. The FAQ states there is no filing fee. The surety company sets the premium. The office describes itself as the filing office for the bond and states that it does not regulate collection practices.",
+          "Form 2901, revised April 2026, says the bond and the form are submitted electronically through the SOS Portal. The form cites Finance Code section 392.101 and states the bond amount as ten thousand dollars.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does Texas require a state collection agency license?",
+        a: "No. Texas does not issue a statewide collection agency license. A third-party debt collector or credit bureau files a $10,000 surety bond with the Texas Secretary of State under Finance Code section 392.101. The Secretary of State states that these businesses are not required to register. Checked November 9, 2026.",
+      },
+      {
+        q: "What surety bond does Finance Code section 392.101 require?",
+        a: "A surety bond of $10,000 issued by a surety company authorized to do business in Texas. A copy of the bond must be filed with the secretary of state. The bond is in favor of any person damaged by a violation of Finance Code Chapter 392 and in favor of the state for the benefit of any person damaged by a violation of that chapter.",
+      },
+      {
+        q: "Is there a filing fee for the Texas debt collector bond?",
+        a: "The Secretary of State FAQ states there is no filing fee for the bond. The surety company sets the premium. Checked November 9, 2026.",
+      },
+      {
+        q: "Where is the Texas third-party debt collector bond filed?",
+        a: "File a copy of the bond with the Texas Secretary of State. Form 2901, revised April 2026, says to submit the bond and the form electronically through the SOS Portal.",
+      },
+      {
+        q: "Does section 392.101 cover credit bureaus and attorneys?",
+        a: "Section 392.101 applies to a third-party debt collector or a credit bureau. Section 392.001(7) leaves out an attorney collecting a debt as an attorney on behalf of and in the name of a client, unless the attorney has nonattorney employees who regularly solicit debts for collection or regularly contact debtors to collect or adjust debts.",
+      },
+    ],
+    steps: [
+      {
+        name: "Read the statute and the Secretary of State FAQ",
+        text: "Open Finance Code section 392.101 and the Secretary of State third-party debt collector FAQ. Both were checked on November 9, 2026.",
+      },
+      {
+        name: "Obtain the surety bond",
+        text: "Obtain a $10,000 surety bond from a surety company authorized to do business in Texas. The surety company sets the premium.",
+      },
+      {
+        name: "File the bond with the Secretary of State",
+        text: "File a copy of the bond and Form 2901 electronically through the SOS Portal. The Secretary of State FAQ states there is no filing fee.",
+      },
+      {
+        name: "Keep other Texas licenses separate",
+        text: "This bond is not an Office of Consumer Credit Commissioner, Department of Savings and Mortgage Lending, or Department of Banking license. Buying debt, making loans, or transmitting money can still require one of those authorities.",
+      },
+    ],
+  },
 };
 
 const SEO_KEYS = [
@@ -773,6 +866,7 @@ const SEO_KEYS = [
   "tennessee/lending",
   "ohio/money-transmitters",
   "montana/money-transmitters",
+  "texas/collection",
 ] as const;
 
 function assertRefreshCopy(key: string, item: VerifiedRequirement) {

@@ -319,6 +319,7 @@ function collectionBuckets() {
     "pennsylvania",
     "south-carolina",
     "south-dakota",
+    "texas",
     "vermont",
     "virginia",
   ];
