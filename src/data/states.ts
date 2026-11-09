@@ -481,7 +481,7 @@ export const states: StateRecord[] = [
       { name: "Texas Department of Savings and Mortgage Lending", url: "https://www.sml.texas.gov/", role: "Mortgage company and MLO licensing" },
       { name: "Texas Office of Consumer Credit Commissioner", url: "https://occc.texas.gov/", role: "Consumer and some commercial lending licenses" },
       { name: "Texas Department of Banking", url: "https://www.dob.texas.gov/", role: "Money transmitter licensing" },
-      { name: "Texas Secretary of State", url: "https://www.sos.texas.gov/", role: "Third-party debt collector bond/registration under Occupations Code Chapter 396" },
+      { name: "Texas Secretary of State", url: "https://www.sos.texas.gov/statdoc/faqs2900.shtml", role: "Files the third-party debt collector surety bond under Finance Code section 392.101. No statewide collection agency license" },
     ],
     notes: "Texas is a four-desk state for these verticals: SML (mortgage), OCCC (lending), Department of Banking (money transmission), and the Secretary of State (collector bonding).",
   },
