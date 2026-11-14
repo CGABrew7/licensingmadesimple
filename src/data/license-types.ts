@@ -19,6 +19,10 @@ export interface LicenseType {
   federalOverlay: string;
   filingHint: string;
   cornerstoneUrl: string;
+  title?: string;
+  description?: string;
+  h1?: string;
+  whoLead?: string;
 }
 
 export const licenseTypes: LicenseType[] = [
@@ -51,6 +55,12 @@ export const licenseTypes: LicenseType[] = [
       "TILA / Regulation Z, ECOA, FCRA, and CFPB supervision sit on top of the state license. A state license does not create a federal charter.",
     filingHint: "Usually NMLS MU1 with the state banking, DFI, or consumer-credit agency.",
     cornerstoneUrl: "https://cornerstonelicensing.com/consumer-lending-licensing",
+    title: "Consumer Finance License by State",
+    description:
+      "Consumer finance license by state for consumer loans. Other names here: small loan, supervised lender, installment lender, or California Financing Law.",
+    h1: "Consumer Finance License by State",
+    whoLead:
+      "A consumer finance license is the usual state license when a company makes loans for personal, family, or household purposes and the product, rate, or amount crosses that state's trigger.",
   },
   {
     slug: "money-transmitters",

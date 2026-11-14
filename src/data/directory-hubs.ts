@@ -827,10 +827,11 @@ function buildLendingIntro(): LendingIntro {
   const type = getLicenseType("lending")!;
   const page: LendingIntro = {
     slug: "lending",
-    title: "Consumer and commercial lending licenses by state",
+    title: type.title ?? "Consumer and commercial lending licenses by state",
     description:
+      type.description ??
       "Which state license a consumer or commercial lender needs, and which agency takes the filing. File where the borrower lives. Open the state page for any cited fee.",
-    h1: "Consumer and commercial lending licenses by state",
+    h1: type.h1 ?? "Consumer and commercial lending licenses by state",
     lede:
       "A company that makes consumer loans generally needs a state consumer-lending license in each state where the borrower lives, when the product, rate, or amount crosses that state's trigger. There is no national consumer lending license. Most states take the company application on NMLS. The state still issues the license. Banks and credit unions lending under a charter are usually exempt from the non-depository license. Commercial-purpose loans sit outside many consumer statutes. The NMLS guide explains the filing system. The multi-state licensing guide is how you list every borrower state.",
     ledeLinks: [
@@ -848,6 +849,7 @@ function buildLendingIntro(): LendingIntro {
         id: "who-needs",
         heading: "Who needs a consumer lending license",
         paragraphs: [
+          ...(type.whoLead ? [{ text: type.whoLead }] : []),
           { text: type.whoNeeds },
           {
             text: "Map the product before you file. The same installment loan can be a consumer-finance license in one state and a sales-finance license in the next. California uses a California Financing Law license. Florida splits a Chapter 516 consumer finance license from Chapter 520 sales finance. New York uses a licensed-lender authority for some loans. Texas consumer loans generally file with the Office of Consumer Credit Commissioner. Tennessee uses an industrial loan and thrift registration and a separate flexible credit license. Those are different authorities. Open the state page before you treat one name as the license everywhere.",

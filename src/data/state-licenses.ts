@@ -14,6 +14,10 @@ export interface StateLicenseFact {
   path: string;
   notes: string[];
   sources: { label: string; url: string }[];
+  title?: string;
+  description?: string;
+  h1?: string;
+  lead?: string;
 }
 
 interface FactInput {
@@ -26,6 +30,10 @@ interface FactInput {
   path: string;
   notes?: string[];
   extraSources?: { label: string; url: string }[];
+  title?: string;
+  description?: string;
+  h1?: string;
+  lead?: string;
 }
 
 const NMLS = { label: "NMLS Resource Center", url: "https://mortgage.nationwidelicensingsystem.org/" };
@@ -44,6 +52,10 @@ function fact(input: FactInput): StateLicenseFact {
     path: input.path,
     notes: input.notes ?? [],
     sources: [NMLS_CONTACTS, ...(input.extraSources ?? [])],
+    title: input.title,
+    description: input.description,
+    h1: input.h1,
+    lead: input.lead,
   };
 }
 
@@ -601,6 +613,10 @@ const lending: Record<string, StateLicenseFact> = {
     whoNeeds: "Companies that make consumer or commercial loans in California generally need a CFL license from DFPI unless a statutory exemption applies. Brokers who only arrange CFL loans have a related CFL broker authority. Residential mortgage lending can instead (or also) require a CRMLA license. Those are different DFPI authorities.",
     path: "Request the CFL license on NMLS. Do not treat a DRE real-estate broker license as a CFL substitute for finance-lender activity.",
     extraSources: [{ label: "DFPI California Financing Law", url: "https://dfpi.ca.gov/california-financing-law/" }],
+    title: "California Financing Law (CFL) License",
+    description:
+      "California Financing Law (CFL) license for companies that make consumer or commercial loans. File through NMLS with DFPI.",
+    h1: "California Financing Law (CFL) License",
   }),
   colorado: lendingFact("colorado", "Supervised lender / consumer-credit license", "Colorado Attorney General, Uniform Consumer Credit Code", "https://coag.gov/", "nmls-or-state", "Colorado’s consumer-credit licenses are administered with the UCCC program, not the Division of Real Estate mortgage desk."),
   connecticut: lendingFact("connecticut", "Small-loan or sales-finance license (confirm category)", "Connecticut Department of Banking", "https://portal.ct.gov/dob", "nmls", "Use the DOB Consumer Credit Division NMLS checklist to pick small-loan versus sales-finance versus other authorities."),
@@ -612,9 +628,14 @@ const lending: Record<string, StateLicenseFact> = {
     agencyName: "Florida Office of Financial Regulation",
     agencyUrl: "https://flofr.gov/",
     filing: "nmls-or-state",
-    whoNeeds: "Florida is a rate-and-product trigger state. A Consumer Finance License under Chapter 516 is generally required to make consumer loans of $25,000 or less at more than 18 percent interest. Retail installment and sales-finance products fall under Chapter 520 instead. Banks and credit unions lending under a charter are typically exempt.",
+    whoNeeds: "Florida is a rate-and-product trigger state. Banks and credit unions lending under a charter are typically exempt.",
     path: "Map each product to Chapter 516 or Chapter 520, then file with OFR. The 18 percent / $25,000 line is in the Florida Consumer Finance Act. Confirm the current statute text before you rely on an exemption.",
     extraSources: [{ label: "Florida Statutes Chapter 516", url: "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0516/0516.html" }],
+    title: "Florida Consumer Finance License, Chapter 516",
+    description:
+      "Florida Consumer Finance License, Chapter 516: loans of $25,000 or less at more than 18 percent interest. File with the Office of Financial Regulation.",
+    h1: "Florida Consumer Finance License",
+    lead: "The consumer lender filing on this page is the Consumer Finance License under Chapter 516. It is generally required to make consumer loans of $25,000 or less at more than 18 percent interest. Retail installment and sales finance sit under Chapter 520. File with the Florida Office of Financial Regulation.",
   }),
   georgia: lendingFact("georgia", "Industrial loan or installment-lender license (confirm category)", "Georgia Department of Banking and Finance", "https://dbf.georgia.gov/", "nmls", "Georgia’s Industrial Loan Act and other DBF authorities are product-specific. File the category that matches the loan, not a generic “lender” label."),
   hawaii: lendingFact("hawaii", "Non-depository financial-services loan license", "Hawaii Division of Financial Institutions", "https://cca.hawaii.gov/dfi/", "nmls-or-state", "File with DFI inside DCCA."),
