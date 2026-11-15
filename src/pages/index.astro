@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import LicenseWizard from '../components/LicenseWizard.jsx';
 import CaliforniaSample from '../components/CaliforniaSample.astro';
-import { states } from '../lib/directory';
+import { states, getStateLicense } from '../lib/directory';
+import '../styles/home.css';
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -19,6 +20,55 @@ const faqs = [
   { q: "What about multiple states?", a: "There is no national license for these verticals. File in each state where the customer, borrower, or debtor lives. The <a href='/states'>state directory</a> names the agency for each core license." },
   { q: "Who actually files my application?", a: "Filings arranged through this site are prepared and submitted by <a href='https://cornerstonelicensing.com' target='_blank' rel='noopener'>Cornerstone Licensing</a>. This site’s job is who needs the license and where to file it. Filing counts and approval rates are not reprinted here." }
 ];
+
+/*
+ * Hero board. The 51 tiles are plain links to the state pages. On wide
+ * pointer screens they sit in a tile map and the panel beside them reads
+ * out the license name and agency each state page already lists for the
+ * four core licenses. Nothing here is new data: it is read from the
+ * directory, the same source the state pages use.
+ */
+const boardTypes = [
+  { slug: 'collection', label: 'Collection' },
+  { slug: 'lending', label: 'Lending' },
+  { slug: 'money-transmitters', label: 'Money transmission' },
+  { slug: 'mortgage', label: 'Mortgage' },
+] as const;
+
+// Column and row of each tile in the 12 by 8 tile map.
+const tilePos: Record<string, [number, number]> = {
+  AK: [1, 1], ME: [12, 1],
+  WI: [7, 2], VT: [11, 2], NH: [12, 2],
+  WA: [2, 3], ID: [3, 3], MT: [4, 3], ND: [5, 3], MN: [6, 3], IL: [7, 3], MI: [8, 3], NY: [10, 3], MA: [11, 3],
+  OR: [2, 4], NV: [3, 4], WY: [4, 4], SD: [5, 4], IA: [6, 4], IN: [7, 4], OH: [8, 4], PA: [9, 4], NJ: [10, 4], CT: [11, 4], RI: [12, 4],
+  CA: [2, 5], UT: [3, 5], CO: [4, 5], NE: [5, 5], MO: [6, 5], KY: [7, 5], WV: [8, 5], VA: [9, 5], MD: [10, 5], DE: [11, 5],
+  AZ: [3, 6], NM: [4, 6], KS: [5, 6], AR: [6, 6], TN: [7, 6], NC: [8, 6], SC: [9, 6], DC: [10, 6],
+  OK: [5, 7], LA: [6, 7], MS: [7, 7], AL: [8, 7], GA: [9, 7],
+  HI: [1, 8], TX: [5, 8], FL: [10, 8],
+};
+
+const board = states.map((state) => {
+  const pos = tilePos[state.abbr];
+  if (!pos) throw new Error(`Missing tile position for ${state.abbr}`);
+  const facts = boardTypes.map((type) => {
+    const fact = getStateLicense(state.slug, type.slug);
+    if (!fact) throw new Error(`Missing ${state.slug} ${type.slug}`);
+    return [fact.licenseName, fact.agencyName];
+  });
+  return { slug: state.slug, name: state.name, abbr: state.abbr, pos, facts };
+});
+
+const boardStart = board.find((entry) => entry.slug === 'california');
+if (!boardStart) throw new Error('Missing California');
+
+// The same tile map, drawn small for the "map" panel further down the page.
+const miniMapPath = board
+  .map((entry) => `M${(entry.pos[0] - 1) * 12} ${(entry.pos[1] - 1) * 12}h10v10h-10z`)
+  .join('');
+
+const boardJson = JSON.stringify(
+  Object.fromEntries(board.map((entry) => [entry.slug, [entry.name, entry.facts]]))
+).replace(/</g, '\\u003c');
 ---
 
 <Layout
@@ -26,164 +76,302 @@ const faqs = [
   description="See which license you need and which agency issues it for collection, lending, money transmission, and mortgage work in all 50 states and DC."
   jsonLd={websiteJsonLd}
 >
-  <div class="home">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="lms-kicker hero-kicker">State licensing for financial services</p>
-          <h1>Who needs which license, and where to file it.</h1>
-          <p class="hero-sub">Answer a few questions for a personalized licensing roadmap across collection, consumer lending, money transmission, and mortgage company work. Experts can handle the filing when you want a desk.</p>
-          <p class="hero-sub"><strong>Best for:</strong> financial services companies that need the license type and the issuing agency for collection, lending, money transmission, or mortgage work.</p>
-          <div class="hero-actions">
-            <a href="/#wizard" class="hero-cta">Get Your Roadmap<span aria-hidden="true"> →</span></a>
-            <a class="text-link" href="/directory">Browse the Directory</a>
+  <div class="home hp">
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        if (!('IntersectionObserver' in window)) return;
+        root.classList.add('hp-js');
+        document.addEventListener('DOMContentLoaded', function () {
+          try {
+            var seen = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                seen.unobserve(entry.target);
+              });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+            document.querySelectorAll('.hp [data-rise]').forEach(function (el) { seen.observe(el); });
+          } catch (err) {
+            root.classList.remove('hp-js');
+          }
+        });
+      })();
+    </script>
+
+    <section class="hp-hero">
+      <div class="hp-wrap">
+        <h1 class="hp-h1">Who needs which license, and where to file it.</h1>
+        <div class="hp-hero-row">
+          <p class="hp-lead hp-hero-lead">Answer a few questions for a personalized licensing roadmap across collection, consumer lending, money transmission, and mortgage company work.</p>
+          <div class="hp-hero-aside">
+            <p>Experts can handle the filing when you want a desk.</p>
+            <p><strong>Best for:</strong> financial services companies that need the license type and the issuing agency for collection, lending, money transmission, or mortgage work.</p>
+          </div>
+          <div class="hp-actions">
+            <a href="/#wizard" class="hp-btn">Get Your Roadmap<span class="hp-arrow" aria-hidden="true"> →</span></a>
+            <a class="hp-link" href="/directory">Browse the Directory</a>
           </div>
         </div>
-        <nav class="state-teaser" aria-label="Browse states">
-          {states.map((state) => (
-            <a href={`/states/${state.slug}`}>{state.abbr}</a>
-          ))}
-        </nav>
       </div>
-    </section>
 
-    <section class="proof-strip" aria-label="Directory coverage">
-      <div class="container">
-        <ul class="proof-list">
-          <li><a href="/states">50 states and DC</a></li>
-          <li><a href="/directory">Four core licenses</a></li>
-          <li><a href="/directory/collection">Collection</a></li>
-          <li><a href="/directory/lending">Lending</a></li>
-          <li><a href="/directory/money-transmitters">Money transmission</a></li>
-          <li><a href="/directory/mortgage">Mortgage</a></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="dir-layout">
-          <div class="dir-copy">
-            <p class="lms-kicker">Directory</p>
-            <h2>Which license do I need, and who issues it?</h2>
-            <p>It depends on the work and the state. Collection, lending, money transmission, and mortgage work each have their own license, and each state names the agency that issues it. Some states do not license every activity. Each entry here lists the license name and the agency that issues it. Pick a license type to see the California entry.</p>
-            <a class="text-link" href="/states/california">Open the California page <span aria-hidden="true">→</span></a>
+      <div class="hp-dark hp-board-field">
+        <div class="hp-wrap">
+          <div class="hp-board" data-ui data-board>
+            <div class="hp-board-head">
+              <p class="hp-board-title">State licensing for financial services</p>
+              <p class="hp-board-hint">Select a state to open its page.</p>
+            </div>
+            <nav class="hp-map" aria-label="Browse states">
+              {board.map((entry, index) => (
+                <a
+                  href={`/states/${entry.slug}`}
+                  data-state={entry.slug}
+                  class:list={[entry.slug === boardStart.slug && 'is-on']}
+                  style={`--c:${entry.pos[0]};--r:${entry.pos[1]};--i:${index}`}
+                >{entry.abbr}<span class="sr-only"> {entry.name}</span></a>
+              ))}
+            </nav>
+            <div class="hp-reading" data-reading>
+              <p class="hp-reading-name" data-reading-name>{boardStart.name}</p>
+              <dl class="hp-reading-rows">
+                {boardTypes.map((type, index) => (
+                  <div>
+                    <dt>{type.label}</dt>
+                    <dd>
+                      <strong data-reading-license>{boardStart.facts[index][0]}</strong>
+                      <span data-reading-agency>{boardStart.facts[index][1]}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <ul class="hp-proof-list" role="list" aria-label="Directory coverage">
+              <li><a href="/states">50 states and DC</a></li>
+              <li><a href="/directory">Four core licenses</a></li>
+              <li><a href="/directory/collection">Collection</a></li>
+              <li><a href="/directory/lending">Lending</a></li>
+              <li><a href="/directory/money-transmitters">Money transmission</a></li>
+              <li><a href="/directory/mortgage">Mortgage</a></li>
+            </ul>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hp-section hp-dir">
+      <div class="hp-wrap hp-dir-grid">
+        <h2 class="hp-h2" data-rise>Which license do I need, and who issues it?</h2>
+        <div class="hp-dir-copy" data-rise style="--d:1">
+          <p>It depends on the work and the state. Collection, lending, money transmission, and mortgage work each have their own license, and each state names the agency that issues it. Some states do not license every activity. Each entry here lists the license name and the agency that issues it. Pick a license type to see the California entry.</p>
+          <a class="hp-link" href="/states/california">Open the California page<span class="hp-arrow" aria-hidden="true"> →</span></a>
+        </div>
+        <div class="hp-stage" data-ui data-rise style="--d:2">
           <CaliforniaSample />
         </div>
+      </div>
+    </section>
 
-        <h3 class="home-subhead">The four core licenses</h3>
-        <div class="card-grid lms-core-grid">
-          <a class="card lms-dir-card" href="/directory/collection">
-            <h3>State licensing rules for debt collectors</h3>
-            <p>Which states require a collection agency license, including the Colorado and Wyoming applications, and which board or department takes the filing.</p>
-            <span class="lms-card-link">Open the collection page</span>
-          </a>
-          <a class="card lms-dir-card" href="/directory/lending">
-            <h3>Consumer &amp; commercial lending</h3>
-            <p>Which agency licenses consumer-finance and related lender activity, and how the typical NMLS path works.</p>
-            <span class="lms-card-link">Open lending directory</span>
-          </a>
-          <a class="card lms-dir-card" href="/directory/money-transmitters">
-            <h3>Money transmitter license requirements by state</h3>
-            <p>Who needs a money transmitter license, which states require one, and which agency files it. All 50 states and DC.</p>
-            <span class="lms-card-link">Open the national MTL page</span>
-          </a>
-          <a class="card lms-dir-card" href="/directory/mortgage">
-            <h3>Mortgage company and broker license requirements by state</h3>
-            <p>Company, broker, servicer, and MLO filings. NMLS is the system. The state issues the license.</p>
-            <span class="lms-card-link">Open the mortgage page</span>
-          </a>
+    <section class="hp-section hp-core">
+      <div class="hp-wrap hp-split">
+        <h2 class="hp-h2 hp-split-head" data-rise>The four core licenses</h2>
+        <div class="hp-split-body">
+          <ul class="hp-core-list" role="list">
+            <li data-rise>
+              <a class="hp-core-row" href="/directory/collection">
+                <h3>State licensing rules for debt collectors</h3>
+                <p>Which states require a collection agency license, including the Colorado and Wyoming applications, and which board or department takes the filing.</p>
+                <span class="hp-core-go">Open the collection page<span class="hp-arrow" aria-hidden="true"> →</span></span>
+              </a>
+            </li>
+            <li data-rise style="--d:1">
+              <a class="hp-core-row" href="/directory/lending">
+                <h3>Consumer &amp; commercial lending</h3>
+                <p>Which agency licenses consumer-finance and related lender activity, and how the typical NMLS path works.</p>
+                <span class="hp-core-go">Open lending directory<span class="hp-arrow" aria-hidden="true"> →</span></span>
+              </a>
+            </li>
+            <li data-rise style="--d:2">
+              <a class="hp-core-row" href="/directory/money-transmitters">
+                <h3>Money transmitter license requirements by state</h3>
+                <p>Who needs a money transmitter license, which states require one, and which agency files it. All 50 states and DC.</p>
+                <span class="hp-core-go">Open the national MTL page<span class="hp-arrow" aria-hidden="true"> →</span></span>
+              </a>
+            </li>
+            <li data-rise style="--d:3">
+              <a class="hp-core-row" href="/directory/mortgage">
+                <h3>Mortgage company and broker license requirements by state</h3>
+                <p>Company, broker, servicer, and MLO filings. NMLS is the system. The state issues the license.</p>
+                <span class="hp-core-go">Open the mortgage page<span class="hp-arrow" aria-hidden="true"> →</span></span>
+              </a>
+            </li>
+          </ul>
+          <p class="hp-more" data-rise>
+            <a href="/directory/money-transmitters">Money transmitter license requirements by state</a>
+            <a href="/directory/collection">State licensing rules for debt collectors</a>
+            <a href="/directory/mortgage">Mortgage company and broker license requirements by state</a>
+            <a href="/states">Browse all 50 states and DC</a>
+            <a href="/guides/nmls">What NMLS is</a>
+          </p>
         </div>
-        <p class="section-links">
-          <a href="/directory/money-transmitters">Money transmitter license requirements by state</a>
-          <span aria-hidden="true">·</span>
-          <a href="/directory/collection">State licensing rules for debt collectors</a>
-          <span aria-hidden="true">·</span>
-          <a href="/directory/mortgage">Mortgage company and broker license requirements by state</a>
-          <span aria-hidden="true">·</span>
-          <a href="/states">Browse all 50 states and DC</a>
-          <span aria-hidden="true">·</span>
-          <a href="/guides/nmls">What NMLS is</a>
-        </p>
       </div>
     </section>
 
-    <section class="section section-tight" id="wizard-section">
-      <div class="container">
-        <p class="lms-kicker">Roadmap</p>
-        <h2 class="section-title" id="roadmap-title">Your licensing roadmap</h2>
-        <p class="section-sub">3 questions. The license type and the usual filing desk.</p>
-        <LicenseWizard client:load />
+    <section class="hp-roadmap" id="wizard-section" aria-labelledby="roadmap-title">
+      <div class="hp-wrap hp-roadmap-grid">
+        <div class="hp-roadmap-copy">
+          <h2 class="hp-h2" id="roadmap-title" data-rise>Your licensing roadmap</h2>
+          <p class="hp-lead" data-rise style="--d:1">3 questions. The license type and the usual filing desk.</p>
+        </div>
+        <div class="hp-roadmap-ui" data-ui data-rise style="--d:2">
+          <LicenseWizard client:load />
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">How the path works</h2>
-        <p class="section-sub">You keep running the business. The roadmap names the desk. Cornerstone can file.</p>
-        <div class="card-grid">
-          <div class="card step-card">
-            <span class="step-num">01</span>
+    <section class="hp-section hp-path">
+      <div class="hp-wrap">
+        <h2 class="hp-h2" data-rise>How the path works</h2>
+        <p class="hp-lead hp-path-lead" data-rise style="--d:1">You keep running the business. The roadmap names the desk. Cornerstone can file.</p>
+        <ol class="hp-steps" role="list">
+          <li data-rise>
             <h3>Tell us what you need</h3>
             <p>Use the roadmap wizard or the directory. We need your business type and state(s). The site names the agency; Cornerstone can file.</p>
-          </div>
-          <div class="card step-card">
-            <span class="step-num">02</span>
+          </li>
+          <li data-rise style="--d:1">
             <h3>The application is filed</h3>
             <p>Your specialist prepares the application, assembles documents, files with the agency or NMLS, and answers deficiency letters.</p>
-          </div>
-          <div class="card step-card">
-            <span class="step-num">03</span>
+          </li>
+          <li data-rise style="--d:2">
             <h3>You're licensed</h3>
             <p>We track your application through approval and deliver your license. Then we monitor renewal deadlines so it stays current.</p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <section class="section section-tight">
-      <div class="container" style="max-width: 760px;">
-        <h2 class="section-title">Who's behind this</h2>
-        <p class="behind-lead">
-          The directory is published with <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>, the firm that files. The map is public. The application is Cornerstone’s when you ask them to prepare it.
-        </p>
-        <div class="card-grid lms-core-grid">
-          <div class="card">
+    <section class="hp-section hp-behind">
+      <div class="hp-wrap">
+        <div class="hp-behind-top">
+          <h2 class="hp-h2" data-rise>Who's behind this</h2>
+          <p class="hp-lead hp-behind-lead" data-rise style="--d:1">
+            The directory is published with <a href="https://cornerstonelicensing.com" target="_blank" rel="noopener">Cornerstone Licensing</a>, the firm that files. The map is public. The application is Cornerstone’s when you ask them to prepare it.
+          </p>
+          <p class="hp-behind-more" data-rise style="--d:2">
+            <a class="hp-link" href="/about">Why this directory exists<span class="hp-arrow" aria-hidden="true"> →</span></a>
+          </p>
+        </div>
+        <div class="hp-pair" data-rise>
+          <div class="hp-pair-map">
+            <svg class="hp-pair-art" viewBox="0 0 142 94" aria-hidden="true" focusable="false"><path d={miniMapPath} /></svg>
             <h3>The map</h3>
             <p>Official agencies in all 50 states and the District of Columbia for collection, lending, money transmission, and mortgage. Each page links the public source it was written from.</p>
           </div>
-          <div class="card">
+          <div class="hp-pair-filing">
             <h3>The filing</h3>
             <p>Applications arranged here are prepared and submitted by Cornerstone Licensing. One specialist stays on the file.</p>
           </div>
         </div>
-        <p class="section-links">
-          <a href="/about">Why this directory exists</a>
-        </p>
       </div>
     </section>
 
-    <section class="section section-tight">
-      <div class="container" style="max-width: 720px;">
-        <h2 class="section-title">Common Questions</h2>
-        <div class="faq-list">
-          {faqs.map(f => (
-            <details class="faq-item">
-              <summary class="faq-q">{f.q}<span class="faq-toggle">+</span></summary>
-              <div class="faq-a" set:html={f.a} />
+    <section class="hp-section hp-faq">
+      <div class="hp-wrap hp-split">
+        <h2 class="hp-h2 hp-split-head" data-rise>Common Questions</h2>
+        <div class="hp-split-body hp-faq-list">
+          {faqs.map((f, index) => (
+            <details class="hp-faq-item" data-rise style={`--d:${Math.min(index, 4)}`}>
+              <summary class="hp-faq-q">{f.q}<span class="hp-faq-toggle" aria-hidden="true">+</span></summary>
+              <div class="hp-faq-a" set:html={f.a} />
             </details>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="home-close">
-      <div class="container">
-        <h2>See the license and the desk.</h2>
-        <p>Three questions. Your license type and the usual place it is filed.</p>
-        <a class="hero-cta" href="/#wizard">Get Your Roadmap<span aria-hidden="true"> →</span></a>
+    <section class="hp-close">
+      <div class="hp-wrap hp-close-grid">
+        <h2 class="hp-close-line" data-rise>See the license and the desk.</h2>
+        <p class="hp-lead" data-rise style="--d:1">Three questions. Your license type and the usual place it is filed.</p>
+        <a class="hp-btn" href="/#wizard" data-rise style="--d:2">Get Your Roadmap<span class="hp-arrow" aria-hidden="true"> →</span></a>
       </div>
     </section>
+
+    <script type="application/json" id="hp-board-data" is:inline set:html={boardJson} />
+    <script is:inline>
+      (function () {
+        var board = document.querySelector('[data-board]');
+        var store = document.getElementById('hp-board-data');
+        if (!board || !store) return;
+        var data;
+        try { data = JSON.parse(store.textContent); } catch (err) { return; }
+        var reading = board.querySelector('[data-reading]');
+        var nameEl = board.querySelector('[data-reading-name]');
+        var licenseEls = board.querySelectorAll('[data-reading-license]');
+        var agencyEls = board.querySelectorAll('[data-reading-agency]');
+        var tiles = board.querySelectorAll('a[data-state]');
+        if (!reading || !nameEl) return;
+        var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var current = (board.querySelector('a.is-on') || {}).dataset;
+        current = current ? current.state : '';
+
+        function fill(slug) {
+          var entry = data[slug];
+          nameEl.textContent = entry[0];
+          for (var i = 0; i < licenseEls.length; i++) {
+            licenseEls[i].textContent = entry[1][i][0];
+            agencyEls[i].textContent = entry[1][i][1];
+          }
+        }
+
+        function shown() { return reading.offsetParent !== null; }
+
+        function show(slug) {
+          if (!data[slug] || slug === current || !shown()) return;
+          current = slug;
+          for (var i = 0; i < tiles.length; i++) {
+            tiles[i].classList.toggle('is-on', tiles[i].dataset.state === slug);
+          }
+          fill(slug);
+          if (!calm.matches && reading.animate) {
+            reading.animate(
+              [{ opacity: 0.25, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
+              { duration: 260, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)' }
+            );
+          }
+        }
+
+        // Hold the panel at the height of its longest entry so the page never shifts.
+        function reserve() {
+          if (!shown()) return;
+          reading.style.minHeight = '';
+          var tallest = 0;
+          for (var slug in data) {
+            fill(slug);
+            tallest = Math.max(tallest, reading.offsetHeight);
+          }
+          fill(current);
+          reading.style.minHeight = tallest + 'px';
+        }
+
+        board.addEventListener('pointerover', function (event) {
+          if (event.pointerType === 'touch') return;
+          var tile = event.target.closest && event.target.closest('a[data-state]');
+          if (tile) show(tile.dataset.state);
+        });
+        board.addEventListener('focusin', function (event) {
+          var tile = event.target.closest && event.target.closest('a[data-state]');
+          if (tile) show(tile.dataset.state);
+        });
+
+        var timer;
+        window.addEventListener('resize', function () {
+          clearTimeout(timer);
+          timer = setTimeout(reserve, 150);
+        });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserve);
+        else reserve();
+      })();
+    </script>
   </div>
 </Layout>
