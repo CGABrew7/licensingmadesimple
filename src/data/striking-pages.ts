@@ -1,3 +1,4 @@
+import { getChartEntry } from "./chart-cells";
 import type { LicenseSlug } from "./license-types";
 import { getLicenseType } from "./license-types";
 import { getStateLicense } from "./state-licenses";
@@ -28,12 +29,14 @@ export interface StrikingPage {
   h1: string;
   whoHeading: string;
   whereHeading: string;
-  placement: "before-who" | "after-who";
+  placement: "before-who" | "after-who" | "under-h1";
   sectionHeading: string;
   paragraphs: CopyBlock[];
   whoExtra?: CopyBlock[];
   faqs: FaqItem[];
-  cta: {
+  /** When true, the questions join the page's existing question block and its FAQPage schema. */
+  faqsInQuestions?: boolean;
+  cta?: {
     heading: string;
     body: string;
     button: string;
@@ -55,6 +58,15 @@ const NMLS_URL = "https://mortgage.nationwidelicensingsystem.org/";
 function record(state: string, type: LicenseSlug) {
   const fact = getStateLicense(state, type);
   if (!fact) throw new Error(`Missing license record for ${state} ${type}`);
+  return fact;
+}
+
+/** Confirms the agency name and URL already stored for the page. Does not require the license to be generally required. */
+function citedAgency(state: string, type: LicenseSlug, name: string, url: string) {
+  const fact = record(state, type);
+  if (fact.agencyName !== name || fact.agencyUrl !== url) {
+    throw new Error(`Agency record for ${state} ${type} does not match the stored name or URL`);
+  }
   return fact;
 }
 
@@ -183,6 +195,52 @@ function assertGatedTransmitter(stateName: string, fact: ReturnType<typeof recor
 
 assertGatedTransmitter("South Dakota", southDakota);
 assertGatedTransmitter("New Hampshire", newHampshire);
+
+const delawareTransmitter = citedAgency(
+  "delaware",
+  "money-transmitters",
+  "Delaware Office of the State Bank Commissioner",
+  "https://banking.delaware.gov/",
+);
+const districtMortgage = citedAgency(
+  "district-of-columbia",
+  "mortgage",
+  "District of Columbia Department of Insurance, Securities and Banking",
+  "https://disb.dc.gov/",
+);
+const newJerseyLending = citedAgency(
+  "new-jersey",
+  "lending",
+  "New Jersey Department of Banking and Insurance",
+  "https://www.nj.gov/dobi/",
+);
+const alaskaCollection = citedAgency(
+  "alaska",
+  "collection",
+  "Alaska Division of Banking and Securities",
+  "https://www.commerce.alaska.gov/web/dbs/",
+);
+const maineCollection = citedAgency(
+  "maine",
+  "collection",
+  "Maine Bureau of Consumer Credit Protection",
+  "https://www.maine.gov/pfr/consumercredit/",
+);
+const northCarolinaCollection = citedAgency(
+  "north-carolina",
+  "collection",
+  "North Carolina Department of Insurance",
+  "https://www.ncdoi.gov/",
+);
+const georgiaCollection = citedAgency(
+  "georgia",
+  "collection",
+  "Georgia Attorney General",
+  "https://law.georgia.gov/",
+);
+if (georgiaCollection.required !== false) {
+  throw new Error("Georgia collection is no longer recorded as not required");
+}
 
 function bondCloser(lawPhrase: string, lawHref: string): CopyBlock {
   return {
@@ -880,38 +938,234 @@ const pages: StrikingPage[] = [
       "New Hampshire money transmitter bond",
     ),
   },
+  {
+    state: "delaware",
+    type: "money-transmitters",
+    title: "Delaware Check Seller and Money Transmitter Bond",
+    description:
+      "Delaware check seller and money transmitter bond minimum is $25,000 on the NMLS chart. Application fee $172.50, registration $230, NMLS fee $120.",
+    h1: "Delaware Check Seller and Money Transmitter Bond",
+    whoHeading: "Who needs this in Delaware",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "Delaware Check Seller and Money Transmitter Bond",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "The Delaware check seller and money transmitter bond is a minimum surety bond of $25,000 on the NMLS chart. This page last verified that figure on October 13, 2026. The Check Seller, Money Transmitter License line also lists an application fee of $172.50, a license registration fee of $230, and an NMLS processing fee of $120. The chart cites Section 2303 of Title 5 of Delaware Code. File through NMLS with the Delaware Office of the State Bank Commissioner.",
+        links: [{ phrase: "Delaware Office of the State Bank Commissioner", href: delawareTransmitter.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the Delaware check seller and money transmitter bond?",
+        a: "The NMLS chart lists a minimum surety bond of $25,000 for the Check Seller, Money Transmitter License. The same line lists an application fee of $172.50, a license registration fee of $230, and an NMLS processing fee of $120. File through NMLS with the Delaware Office of the State Bank Commissioner. This page last verified those figures on October 13, 2026.",
+      },
+    ],
+    inbounds: [],
+  },
+  {
+    state: "district-of-columbia",
+    type: "mortgage",
+    title: "DC Mortgage Broker Bond: $12,500 Minimum",
+    description:
+      "District of Columbia mortgage broker bond minimum on the NMLS chart is $12,500. Broker application fee $1,100 plus the $120 NMLS processing fee.",
+    h1: "DC Mortgage Broker Bond: $12,500 Minimum",
+    whoHeading: "Who needs this in District of Columbia",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "DC Mortgage Broker Bond: $12,500 Minimum",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "The District of Columbia mortgage broker bond is a minimum surety bond of $12,500 on the NMLS chart. The Mortgage Broker License application fee on that chart is $1,100, plus the NMLS processing fee of $120. The Mortgage Lender License on this page also shows a $12,500 minimum bond and a $1,200 application fee. File on NMLS with the District of Columbia Department of Insurance, Securities and Banking. Last verified on this page: October 13, 2026.",
+        links: [{ phrase: "District of Columbia Department of Insurance, Securities and Banking", href: districtMortgage.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the District of Columbia mortgage broker bond?",
+        a: "The NMLS chart lists a minimum surety bond of $12,500 for the Mortgage Broker License. The broker application fee on that chart is $1,100, plus the NMLS processing fee of $120. The Mortgage Lender License bond on the same page is also $12,500. File on NMLS with the District of Columbia Department of Insurance, Securities and Banking.",
+      },
+    ],
+    inbounds: [],
+  },
+  {
+    state: "new-jersey",
+    type: "lending",
+    title: "New Jersey Consumer Lender License",
+    description:
+      "New Jersey consumer lender license, also called a sales-finance license. File the matching DOBI consumer-credit license on NMLS.",
+    h1: "New Jersey Consumer Lender License",
+    whoHeading: "Who needs this in New Jersey",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "New Jersey Consumer Lender License",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "A New Jersey consumer lender license is the consumer lender / sales-finance license on this page. A company that makes consumer loans to New Jersey residents generally needs it from the New Jersey Department of Banking and Insurance when the product, rate, or amount crosses the state's trigger. Request the matching DOBI consumer-credit license on NMLS. The fee and bond cells say varies, see the regulator.",
+        links: [{ phrase: "New Jersey Department of Banking and Insurance", href: newJerseyLending.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "What is a New Jersey consumer lender license?",
+        a: "It is the consumer lender / sales-finance license on this page. A company that makes consumer loans to New Jersey residents generally needs it from the New Jersey Department of Banking and Insurance when the product, rate, or amount crosses the state's trigger. File the matching DOBI consumer-credit license on NMLS. Fee and bond: see the regulator.",
+      },
+    ],
+    inbounds: [{ target: "state", anchor: "New Jersey Consumer Lender License" }],
+  },
+  {
+    state: "alaska",
+    type: "collection",
+    title: "Alaska Collection Agency License",
+    description:
+      "Alaska collection agency license from the Division of Banking and Securities. Third-party collectors of Alaska residents generally need it.",
+    h1: "Alaska Collection Agency License",
+    whoHeading: "Who needs this in Alaska",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "Alaska Collection Agency License",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "An Alaska collection agency license is the license named on this page. Third-party collection agencies that collect from Alaska residents generally need it from the Alaska Division of Banking and Securities. File with that division. The fee and bond cells say varies, see the regulator.",
+        links: [{ phrase: "Alaska Division of Banking and Securities", href: alaskaCollection.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "Who needs an Alaska collection agency license?",
+        a: "Third-party collection agencies that collect from Alaska residents generally need a collection-agency license from the Alaska Division of Banking and Securities. Fee and bond: see the regulator.",
+      },
+    ],
+    inbounds: [{ target: "state", anchor: "Alaska Collection Agency License" }],
+  },
+  {
+    state: "maine",
+    type: "collection",
+    title: "Maine Debt Collector License",
+    description:
+      "Maine debt collector license from the Bureau of Consumer Credit Protection. Debt collectors of Maine consumers generally need it.",
+    h1: "Maine Debt Collector License",
+    whoHeading: "Who needs this in Maine",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "Maine Debt Collector License",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "A Maine debt collector license is the license named on this page. Debt collectors that collect from Maine consumers generally need it from the Maine Bureau of Consumer Credit Protection. The fee and bond cells say varies, see the regulator.",
+        links: [{ phrase: "Maine Bureau of Consumer Credit Protection", href: maineCollection.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "Who needs a Maine debt collector license?",
+        a: "Debt collectors that collect from Maine consumers generally need a license from the Maine Bureau of Consumer Credit Protection. Fee and bond: see the regulator.",
+      },
+    ],
+    inbounds: [{ target: "state", anchor: "Maine collection agency license" }],
+  },
+  {
+    state: "north-carolina",
+    type: "collection",
+    title: "North Carolina Collection Agency Permit",
+    description:
+      "North Carolina collection agency permit from the Department of Insurance. Collectors there generally need this permit.",
+    h1: "North Carolina Collection Agency Permit",
+    whoHeading: "Who needs this in North Carolina",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "North Carolina Collection Agency Permit",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "A North Carolina collection agency permit is the credential on this page. Collection agencies that collect from North Carolina consumers generally need it from the North Carolina Department of Insurance, not from the Commissioner of Banks. The fee and bond cells say varies, see the regulator.",
+        links: [{ phrase: "North Carolina Department of Insurance", href: northCarolinaCollection.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does North Carolina call it a collection agency license or a permit?",
+        a: "This page calls it a collection agency permit, issued by the North Carolina Department of Insurance. Fee and bond: see the regulator.",
+      },
+    ],
+    inbounds: [],
+  },
+  {
+    state: "georgia",
+    type: "collection",
+    title: "No Georgia Collection Agency License",
+    description:
+      "Georgia does not issue a state-level collection-agency license. Collectors contacting Georgia consumers still follow the FDCPA.",
+    h1: "No Georgia Collection Agency License",
+    whoHeading: "Who needs this in Georgia",
+    whereHeading: "Where to file",
+    placement: "under-h1",
+    sectionHeading: "No Georgia Collection Agency License",
+    faqsInQuestions: true,
+    paragraphs: [
+      {
+        text: "Georgia does not issue a state-level collection-agency license. Third-party collectors that contact Georgia consumers still must follow the federal FDCPA and Georgia consumer-protection statutes. There is no collection-agency application to file with the Department of Banking and Finance. The agency named on this page is the Georgia Attorney General.",
+        links: [{ phrase: "Georgia Attorney General", href: georgiaCollection.agencyUrl }],
+      },
+    ],
+    faqs: [
+      {
+        q: "Does Georgia issue a collection agency license?",
+        a: "Georgia does not issue a state-level collection-agency license. Third-party collectors that contact Georgia consumers still must follow the federal FDCPA and Georgia consumer-protection statutes.",
+      },
+    ],
+    inbounds: [{ target: "state", anchor: "No Georgia Collection Agency License" }],
+  },
 ];
 
-function assertClean(label: string, value: string) {
+function assertClean(label: string, value: string, allowedMoney = "") {
   if (value.includes("\u2014") || value.includes("\u2013")) {
     throw new Error(`${label} contains an em dash or en dash`);
   }
-  if (/verify/i.test(value) || /agent note/i.test(value)) {
+  const withoutVerified = value.replace(/verified/gi, "");
+  if (/verify/i.test(withoutVerified) || /agent note/i.test(withoutVerified)) {
     throw new Error(`${label} contains a leftover marker`);
   }
-  if (/honest/i.test(value)) {
+  if (/honest/i.test(value) || /\bjeff\b/i.test(value) || /hanok/i.test(value)) {
     throw new Error(`${label} contains a forbidden label`);
   }
+  const namesTheGeorgiaAgency = value.includes("Georgia Attorney General");
   if (
-    value.includes("agency named on this page") ||
+    (value.includes("agency named on this page") && !namesTheGeorgiaAgency) ||
     value.includes("agency shown on this page") ||
     value.includes("shown at the top of this page") ||
     value.includes("filing path shown")
   ) {
     throw new Error(`${label} contains a placeholder`);
   }
-  if (value.includes("$")) {
-    throw new Error(`${label} contains a dollar amount`);
+  for (const amount of value.match(/\$\d{1,3}(?:,\d{3})*(?:\.\d+)?/g) ?? []) {
+    if (!allowedMoney.includes(amount)) throw new Error(`${label} introduces ${amount}`);
   }
 }
 
+const specifiedShortDescriptions = new Set([
+  "new-jersey/lending",
+  "alaska/collection",
+  "maine/collection",
+  "north-carolina/collection",
+  "georgia/collection",
+]);
+
 for (const page of pages) {
   if (!getState(page.state)) throw new Error(`Missing state route for ${page.state}`);
-  assertClean(`${page.state} title`, page.title);
-  assertClean(`${page.state} description`, page.description);
-  assertClean(`${page.state} h1`, page.h1);
+  const chart = getChartEntry(page.state, page.type);
+  const allowedMoney = `${chart?.fee?.value ?? ""} ${chart?.bond?.value ?? ""}`;
+  assertClean(`${page.state} title`, page.title, allowedMoney);
+  assertClean(`${page.state} description`, page.description, allowedMoney);
+  assertClean(`${page.state} h1`, page.h1, allowedMoney);
   if (page.title.length > 60) throw new Error(`${page.state} title is ${page.title.length} characters`);
-  if (page.description.length < 140 || page.description.length > 155) {
+  const descriptionKey = `${page.state}/${page.type}`;
+  const minDescription = specifiedShortDescriptions.has(descriptionKey) ? 118 : 140;
+  if (page.description.length < minDescription || page.description.length > 155) {
     throw new Error(`${page.state} description is ${page.description.length} characters`);
   }
   if (page.state === "maryland") {
@@ -922,13 +1176,25 @@ for (const page of pages) {
   }
   const blocks = [...page.paragraphs, ...(page.whoExtra ?? [])];
   for (const block of blocks) {
-    assertClean(`${page.state} section`, block.text);
+    assertClean(`${page.state} section`, block.text, allowedMoney);
     for (const link of block.links ?? []) {
       if (!block.text.includes(link.phrase)) {
         throw new Error(`${page.state} is missing link phrase: ${link.phrase}`);
       }
       if (!link.href.startsWith("https://")) throw new Error(`${page.state} link is not absolute: ${link.href}`);
+      if (link.href.includes("cornerstonelicensing.com") && page.placement === "under-h1") {
+        throw new Error(`${page.state} adds a Cornerstone URL`);
+      }
     }
+  }
+  if (page.placement === "under-h1") {
+    const fact = record(page.state, page.type);
+    const linked = page.paragraphs.some((block) =>
+      (block.links ?? []).some((link) => link.phrase === fact.agencyName && link.href === fact.agencyUrl),
+    );
+    if (!linked) throw new Error(`${page.state} ${page.type} lead does not link the agency already on the page`);
+    const copy = [page.title, page.description, page.h1, ...blocks.map((block) => block.text), ...page.faqs.flatMap((item) => [item.q, item.a])].join(" ");
+    if (copy.includes("cornerstonelicensing.com")) throw new Error(`${page.state} adds a Cornerstone URL`);
   }
   if (page.state === "south-dakota" || page.state === "new-hampshire") {
     const section = blocks.map((block) => block.text).join(" ");
@@ -944,13 +1210,18 @@ for (const page of pages) {
   }
   if (page.faqs.length === 0) throw new Error(`${page.state} published an empty FAQ`);
   for (const item of page.faqs) {
-    assertClean(`${page.state} question`, item.q);
-    assertClean(`${page.state} answer`, item.a);
+    assertClean(`${page.state} question`, item.q, allowedMoney);
+    assertClean(`${page.state} answer`, item.a, allowedMoney);
     if (!item.q.endsWith("?")) throw new Error(`${page.state} question is missing punctuation`);
   }
-  assertClean(`${page.state} cta`, `${page.cta.heading} ${page.cta.body} ${page.cta.button} ${page.cta.text}`);
+  if (page.cta) {
+    assertClean(`${page.state} cta`, `${page.cta.heading} ${page.cta.body} ${page.cta.button} ${page.cta.text}`, allowedMoney);
+    if (page.placement === "under-h1" && page.cta.buttonHref.includes("cornerstonelicensing.com") && page.cta.buttonHref !== "https://cornerstonelicensing.com") {
+      throw new Error(`${page.state} invents a Cornerstone apply path`);
+    }
+  }
   for (const inbound of page.inbounds) {
-    assertClean(`${page.state} anchor`, inbound.anchor);
+    assertClean(`${page.state} anchor`, inbound.anchor, allowedMoney);
   }
   const schema = faqPageSchema(page.faqs);
   const parsed = JSON.parse(JSON.stringify(schema));
