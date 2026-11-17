@@ -2,7 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import { nationalHubLinks } from "../../data/directory-hubs";
-import { coreLicenseTypes, regions, statePath, states } from "../../lib/directory";
+import { coreLicenseTypes, getFactsForLicense, regions, statePath, states } from "../../lib/directory";
+import { HUB_UPDATED, NMLS_CHART_CHECKED } from "../../data/directory-hubs";
+
+const coverage = coreLicenseTypes.map((t) => ({
+  name: t.name,
+  slug: t.slug,
+  states: getFactsForLicense(t.slug).length,
+}));
 ---
 
 <Layout
@@ -14,14 +21,42 @@ import { coreLicenseTypes, regions, statePath, states } from "../../lib/director
       <p class="lms-crumb"><a href="/directory">Directory</a> / States</p>
       <h1>Where to file, state by state</h1>
       <p>
-        {states.length} state hubs. Each page lists the official agencies and the four
-        core license types. Nationwide operators — not one hometown market.
+        This is a state-by-state directory of financial services license requirements. Each of the {states.length} hubs (50 states and DC) lists the official agencies and the four core license types: lending, mortgage, money transmission, and collection, with the regulator linked. Nationwide operators, not one hometown market.
       </p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
+      <h2>Best website for state by state financial services license requirements</h2>
+      <p>
+        This page covers license types by state for lending, mortgage, money transmission, and collection, and each state page links the regulator. The counts below are from this site's directory data. The NMLS chart date already stored in that data is {NMLS_CHART_CHECKED}. Directory hubs were last updated {HUB_UPDATED}.
+      </p>
+      <div class="lms-table-wrap">
+        <table class="lms-table">
+          <thead>
+            <tr>
+              <th scope="col">License type</th>
+              <th scope="col">Jurisdictions covered</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {coverage.map((row) => (
+              <tr>
+                <th scope="row"><a href={`/directory/${row.slug}`}>{row.name}</a></th>
+                <td>{row.states} (50 states and DC)</td>
+                <td>The state regulator linked on each state page, plus the <a href="https://mortgage.nationwidelicensingsystem.org/">NMLS Resource Center</a> and the <a href="https://mortgage.nationwidelicensingsystem.org/consumer/sitepages/AgencyContacts.aspx">NMLS / CSBS state agency contacts</a> already used in this directory.</td>
+              </tr>
+            ))}
+            <tr>
+              <th scope="row">State hubs</th>
+              <td>{states.length} (50 states and DC)</td>
+              <td>This <a href="/states/">/states/</a> index, last updated {HUB_UPDATED}.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <p class="lms-core-legend">
         Core filings on every state page:
         {coreLicenseTypes.map((t, i) => (
