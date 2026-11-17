@@ -51,10 +51,11 @@ const page = buildLicensePage(state, type, fact);
 const quality = comboQuality(state, type);
 const otherTypes = coreLicenseTypes.filter((t) => t.slug !== type.slug);
 const otherStates = states.filter((s) => s.slug !== state.slug);
-const strikingFaq = striking ? faqPageSchema(striking.faqs) : undefined;
+const questionFaqs = striking?.faqsInQuestions ? [...page.faqs, ...striking.faqs] : page.faqs;
+const strikingFaq = striking && !striking.faqsInQuestions ? faqPageSchema(striking.faqs) : undefined;
 const jsonLd = [
   breadcrumbSchema(state, type),
-  faqSchema(page.faqs),
+  faqSchema(questionFaqs),
   ...(strikingFaq ? [strikingFaq] : []),
   howToSchema(page.howToName, page.steps),
 ];
@@ -88,6 +89,9 @@ const rows: { label: string; cell: CitedCell }[] = [
       </nav>
       <p class="lms-kicker">{state.abbr} · {type.vertical}</p>
       <h1>{striking?.h1 ?? (page.h1 || fact.h1 || `${type.name} in ${state.name}`)}</h1>
+      {striking?.placement === "under-h1" && striking.paragraphs.map((block) => (
+        <p class="answer-lead"><LinkedText text={block.text} links={block.links ?? []} /></p>
+      ))}
       {fact.lead && <p>{fact.lead}</p>}
       <p>{fact.licenseName}</p>
       {nationalHub && (
@@ -229,7 +233,7 @@ const rows: { label: string; cell: CitedCell }[] = [
 
         <h2>Questions</h2>
         <div class="faq-list">
-          {page.faqs.map((faq) => (
+          {questionFaqs.map((faq) => (
             <details class="faq-item">
               <summary class="faq-q">{faq.q}<span class="faq-toggle">+</span></summary>
               <div class="faq-a"><p>{faq.a}</p></div>
@@ -244,7 +248,7 @@ const rows: { label: string; cell: CitedCell }[] = [
           ))}
         </ul>
 
-        {striking && (
+        {striking && !striking.faqsInQuestions && (
           <div class="lms-faq" id="license-faq">
             <h2>FAQ</h2>
             {striking.faqs.map((item) => (
@@ -306,7 +310,7 @@ const rows: { label: string; cell: CitedCell }[] = [
 
   <section class="section">
     <div class="container" style="max-width:720px;">
-      {striking ? (
+      {striking?.cta ? (
         <FileWithCornerstone
           heading={striking.cta.heading}
           body={striking.cta.body}
