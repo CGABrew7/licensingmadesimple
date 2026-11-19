@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/desk.css";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
 import LinkedText from "../../components/LinkedText.astro";
@@ -36,6 +37,7 @@ const statuteHistory = stateStatuteHistory(state.slug);
   description={`Official ${state.name} agencies for collection, lending, money-transmitter, and mortgage licenses, plus a page for each filing path.`}
   robots={quality.indexable ? undefined : "noindex, follow"}
 >
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/states">States</a> / {state.name}</p>
@@ -129,9 +131,10 @@ const statuteHistory = stateStatuteHistory(state.slug);
   </section>
 
   <section class="section section-alt">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <FileWithCornerstone topic={`a ${state.name} filing`} />
       <DirectoryDisclaimer />
     </div>
   </section>
+  </div>
 </Layout>

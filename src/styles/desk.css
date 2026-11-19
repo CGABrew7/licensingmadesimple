@@ -1088,3 +1088,38 @@ body:has(.hp) .footer a:focus-visible {
 @media (prefers-reduced-motion: no-preference) {
   .hp .faq-item[open] .faq-a { animation: hp-rise 0.35s var(--h-ease) both; }
 }
+
+.hp .card > a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp .card > a:hover { color: var(--h-accent); }
+.hp .statute-history h2 {
+  font-size: var(--t-lead);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--h-ink);
+}
+.hp .statute-history p,
+.hp .statute-history li {
+  font-size: var(--t-body);
+  color: var(--h-ink);
+  line-height: 1.55;
+}
+.hp .statute-history-note,
+.hp .statute-history-note a {
+  font-size: var(--t-small);
+  color: var(--h-soft);
+}
+.hp .statute-history ul a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--h-ink);
+}
+.hp .statute-history ul a:hover { color: var(--h-accent); }
