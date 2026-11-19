@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import '../../styles/desk.css';
 import AuthorBox from '../../components/AuthorBox.astro';
 import Byline from '../../components/Byline.astro';
 import { articleSchema, guideDates } from '../../lib/editorial';
@@ -16,6 +17,7 @@ const jsonLd = articleSchema({
 ---
 
 <Layout title="What Happens If You Skip Licensing — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <h1>What Happens If You Skip It</h1>
@@ -25,7 +27,7 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width: 720px;">
+    <div class="container article">
       <h2>Fines</h2>
       <p>Most jurisdictions can fine a business that operates without a required license. Some statutes treat each day as a separate violation. This site does not quote fine amounts — read the statute or the agency’s enforcement page for the jurisdiction you are in.</p>
 
@@ -43,10 +45,6 @@ const jsonLd = articleSchema({
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>
 
-<style>
-  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
-</style>

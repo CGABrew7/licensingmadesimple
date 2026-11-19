@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import '../../styles/desk.css';
 import AuthorBox from '../../components/AuthorBox.astro';
 import Byline from '../../components/Byline.astro';
 import { articleSchema, guideDates } from '../../lib/editorial';
@@ -16,6 +17,7 @@ const jsonLd = articleSchema({
 ---
 
 <Layout title="Getting Your First Business License — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <h1>Getting Your First Business License</h1>
@@ -25,7 +27,7 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width: 720px;">
+    <div class="container article">
       <h2>Do you need one?</h2>
       <p>Most cities and counties require a general business license to operate. Some industries also need a state license. Financial services, healthcare, construction, and food service almost always have a state desk on top of the local one. Operating without a required license can mean fines, a cease-and-desist, or unenforceable contracts.</p>
 
@@ -54,11 +56,6 @@ const jsonLd = articleSchema({
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>
 
-<style>
-  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article p, .article li { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
-  .article ul { margin: 0 0 14px 20px; }
-</style>

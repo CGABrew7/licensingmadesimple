@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/desk.css";
 import AuthorBox from "../../components/AuthorBox.astro";
 import Byline from "../../components/Byline.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
@@ -13,6 +14,7 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
   title="License directory: who needs what, where to file"
   description="Collection, lending, money transmitter, and mortgage licenses in the 50 states and DC: who typically needs each one and which agency takes the filing."
 >
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-kicker">Filing directory</p>
@@ -28,19 +30,21 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
     <div class="container">
       <h2 class="section-title">Core licenses</h2>
       <p class="section-sub">The work this site exists to explain. Each type has a national overview and a page for every state.</p>
-      <div class="card-grid lms-core-grid">
+      <ul class="hp-core-list" role="list">
         {coreLicenseTypes.map((t) => {
           const hub = getDirectoryHub(t.slug);
           return (
-            <a class="card lms-dir-card" href={licensePath(t.slug)}>
-              <p class="lms-kicker">{t.vertical}</p>
-              <h3>{hub?.h1 ?? t.name}</h3>
-              <p>{hub?.description ?? t.filingHint}</p>
-              <span class="lms-card-link">Open {t.shortName} directory →</span>
-            </a>
+            <li>
+              <a class="hp-core-row" href={licensePath(t.slug)}>
+                <p class="lms-kicker">{t.vertical}</p>
+                <h3>{hub?.h1 ?? t.name}</h3>
+                <p>{hub?.description ?? t.filingHint}</p>
+                <span class="lms-card-link hp-core-go">Open {t.shortName} directory →</span>
+              </a>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   </section>
 
@@ -48,7 +52,7 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
     <div class="container">
       <h2 class="section-title">Browse by state</h2>
       <p class="section-sub">{states.length} state hubs. Each one lists the agencies and the four core filings.</p>
-      <p style="text-align:center;margin-bottom:24px;">
+      <p>
         <a href="/states" class="btn-quiet">Open the state index</a>
       </p>
       <p class="lms-inline-states">
@@ -76,10 +80,11 @@ import { adjacentLicenseTypes, coreLicenseTypes, licensePath, states } from "../
   </section>
 
   <section class="section section-alt">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <FileWithCornerstone topic="the application" />
       <DirectoryDisclaimer />
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>

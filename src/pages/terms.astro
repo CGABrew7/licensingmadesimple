@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/desk.css';
 ---
 
 <Layout title="Terms | LicensingMadeSimple" description="Terms for using LicensingMadeSimple.">
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <h1>Terms</h1>
@@ -11,7 +13,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width: 720px;">
+    <div class="container article">
       <h2>Use of this site</h2>
       <p>The content on LicensingMadeSimple is general information. It is not professional, legal, financial, tax or medical advice. Check anything important with a qualified professional before you act on it.</p>
 
@@ -31,10 +33,5 @@ import Layout from '../layouts/Layout.astro';
       <p>Email <a href="mailto:privacy@licensingmadesimple.com">privacy@licensingmadesimple.com</a>.</p>
     </div>
   </section>
+  </div>
 </Layout>
-
-<style>
-  .article h2 { font-size: 1.15rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
-</style>

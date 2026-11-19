@@ -12,6 +12,24 @@ import { getFactsForLicense, getFactsForState, getStateLicense, type StateLicens
 export const SITE_URL = "https://licensingmadesimple.com";
 export const CORNERSTONE_URL = "https://cornerstonelicensing.com";
 
+const UTM_SOURCE = "licensingmadesimple";
+const UTM_MEDIUM = "referral";
+
+/** Append referral tags to an existing Cornerstone URL. Other hosts are returned unchanged. */
+export function cornerstoneReferral(url: string, campaign: string): string {
+  let host = "";
+  try {
+    host = new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+  if (host !== "cornerstonelicensing.com") return url;
+  if (/[?&]utm_source=/.test(url)) return url;
+  const join = url.includes("?") ? "&" : "?";
+  const tags = `utm_source=${UTM_SOURCE}&utm_medium=${UTM_MEDIUM}&utm_campaign=${encodeURIComponent(campaign)}`;
+  return `${url}${join}${tags}`;
+}
+
 export { regions, states, getState, licenseTypes, coreLicenseTypes, adjacentLicenseTypes, getLicenseType, getStateLicense, getFactsForLicense, getFactsForState };
 export type { StateRecord, LicenseType, LicenseSlug, StateLicenseFact };
 

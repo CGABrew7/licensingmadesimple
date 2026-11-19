@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/desk.css";
 import AuthorBox from "../../components/AuthorBox.astro";
 import Byline from "../../components/Byline.astro";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
@@ -57,6 +58,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
 ---
 
 <Layout title={title} description={description} jsonLd={jsonLd}>
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / {type.name}</p>
@@ -187,7 +189,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
 
   {hub && (
     <section class="section" id="faq">
-      <div class="container" style="max-width:720px;">
+      <div class="container">
         <h2 class="section-title">Questions</h2>
         <div class="faq-list">
           {hub.faqs.map((faq) => (
@@ -248,7 +250,7 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
 
   {lending && (
     <section class="section" id="faq">
-      <div class="container" style="max-width:720px;">
+      <div class="container">
         <h2 class="section-title">Questions</h2>
         <div class="faq-list">
           {lending.faqs.map((faq) => (
@@ -281,17 +283,16 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
   )}
 
   <section class="section">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <FileWithCornerstone topic={`a ${type.shortName} filing`} />
-      <p style="margin-top:16px;">
+      <p class="section-links">
         <a href={type.cornerstoneUrl} target="_blank" rel="noopener">Cornerstone’s {type.name.toLowerCase()} desk</a>
-        {" · "}
         <a href="/guides/nmls">How NMLS filings work</a>
-        {" · "}
         <a href="/states">All states</a>
       </p>
       <DirectoryDisclaimer />
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>

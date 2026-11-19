@@ -1,5 +1,5 @@
 ---
-import { CORNERSTONE_URL } from "../lib/directory";
+import { CORNERSTONE_URL, cornerstoneReferral } from "../lib/directory";
 
 interface Props {
   topic?: string;
@@ -20,6 +20,9 @@ const {
   textLabel,
   textHref,
 } = Astro.props;
+
+const buttonTarget = cornerstoneReferral(buttonHref ?? CORNERSTONE_URL, "filing-cta");
+const textTarget = textHref ? cornerstoneReferral(textHref, "filing-cta") : undefined;
 ---
 
 <aside class="lms-cta" id="filing-cta">
@@ -38,9 +41,9 @@ const {
     </p>
   )}
   <div class="lms-cta-actions">
-    <a class="lms-cta-btn" href={buttonHref ?? CORNERSTONE_URL} target="_blank" rel="noopener">{buttonLabel ?? "Talk with Cornerstone"}</a>
-    {textLabel && textHref && (
-      <a class="lms-cta-text" href={textHref} target="_blank" rel="noopener">{textLabel}</a>
+    <a class="lms-cta-btn" href={buttonTarget} target="_blank" rel="noopener">{buttonLabel ?? "Talk with Cornerstone"}</a>
+    {textLabel && textTarget && (
+      <a class="lms-cta-text" href={textTarget} target="_blank" rel="noopener">{textLabel}</a>
     )}
   </div>
 </aside>

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/desk.css";
 import DirectoryDisclaimer from "../../components/DirectoryDisclaimer.astro";
 import { nationalHubLinks } from "../../data/directory-hubs";
 import { coreLicenseTypes, getFactsForLicense, regions, statePath, states } from "../../lib/directory";
@@ -16,6 +17,7 @@ const coverage = coreLicenseTypes.map((t) => ({
   title="State licensing desks: 50 states and DC"
   description="Every U.S. state hub: which agencies license collection, lending, money transmission, and mortgage activity, and where the filing goes."
 >
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/directory">Directory</a> / States</p>
@@ -70,6 +72,11 @@ const coverage = coreLicenseTypes.map((t) => ({
         ))}.
       </p>
 
+    </div>
+  </section>
+
+  <section class="hp-dark">
+    <div class="container">
       {regions.map((region) => (
         <div class="lms-region">
           <h2>{region}</h2>
@@ -89,8 +96,9 @@ const coverage = coreLicenseTypes.map((t) => ({
   </section>
 
   <section class="section section-alt">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <DirectoryDisclaimer />
     </div>
   </section>
+  </div>
 </Layout>

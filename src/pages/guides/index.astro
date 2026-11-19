@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import '../../styles/desk.css';
 import AuthorBox from '../../components/AuthorBox.astro';
 import Byline from '../../components/Byline.astro';
 import { articleSchema, guideDates } from '../../lib/editorial';
@@ -24,6 +25,7 @@ const guides = [
 ---
 
 <Layout title="Guides — LicensingMadeSimple" description={description} jsonLd={jsonLd}>
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <h1>Licensing Guides</h1>
@@ -33,14 +35,19 @@ const guides = [
   </section>
 
   <section class="section">
-    <div class="container" style="max-width: 720px;">
-      {guides.map(g => (
-        <a href={`/guides/${g.slug}`} style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:16px;text-decoration:none;color:var(--text);transition:box-shadow 0.2s;">
-          <h3 style="font-size:1.1rem;margin-bottom:6px;">{g.title}</h3>
-          <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">{g.desc}</p>
-        </a>
-      ))}
+    <div class="container">
+      <ul class="hp-core-list" role="list">
+        {guides.map(g => (
+          <li>
+            <a class="hp-core-row" href={`/guides/${g.slug}`}>
+              <h3>{g.title}</h3>
+              <p>{g.desc}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>
