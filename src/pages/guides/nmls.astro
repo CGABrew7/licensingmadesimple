@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import "../../styles/desk.css";
 import AuthorBox from "../../components/AuthorBox.astro";
 import Byline from "../../components/Byline.astro";
 import FileWithCornerstone from "../../components/FileWithCornerstone.astro";
@@ -23,6 +24,7 @@ const jsonLd = articleSchema({
   description={description}
   jsonLd={jsonLd}
 >
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/guides">Guides</a> / NMLS</p>
@@ -33,7 +35,7 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width:720px;">
+    <div class="container article">
       <h2>What it is</h2>
       <p>
         The Nationwide Multistate Licensing System (NMLS) is a web system run for state
@@ -104,15 +106,11 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section section-alt">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <FileWithCornerstone topic="an NMLS application" />
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>
 
-<style>
-  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
-</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import '../../styles/desk.css';
 import AuthorBox from '../../components/AuthorBox.astro';
 import Byline from '../../components/Byline.astro';
 import FileWithCornerstone from '../../components/FileWithCornerstone.astro';
@@ -17,6 +18,7 @@ const jsonLd = articleSchema({
 ---
 
 <Layout title="Which Business License Do I Need | LicensingMadeSimple" description={description} jsonLd={jsonLd}>
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <p class="lms-crumb"><a href="/guides">Guides</a> / Which license</p>
@@ -27,7 +29,7 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section">
-    <div class="container article" style="max-width: 720px;">
+    <div class="container article">
       <p>You need a city or county general business license plus any state industry license that matches your activity. Which ones apply depends on where you operate and what the business actually does.</p>
       <p>No single form covers every business. A shop, a lender, a collector, and a money transmitter do not share one checklist. This guide does not choose your activity for you. It points you to the tool that fits the question you have now.</p>
       <p>LicensingMadeSimple, Licensing Navigator, LicenseStore, FastLicence, and Cornerstone Licensing sit in the same owner network. The list below is ordered by job.</p>
@@ -106,17 +108,11 @@ const jsonLd = articleSchema({
   </section>
 
   <section class="section section-alt">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       <FileWithCornerstone topic="a regulated application" />
       <AuthorBox />
     </div>
   </section>
+  </div>
 </Layout>
 
-<style>
-  .article h2 { font-size: 1.2rem; margin-top: 32px; margin-bottom: 10px; }
-  .article h2:first-child { margin-top: 0; }
-  .article h3 { font-size: 1.05rem; margin-top: 22px; margin-bottom: 8px; }
-  .article p, .article li { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 14px; }
-  .article ul { margin: 0 0 14px 20px; }
-</style>

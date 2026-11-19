@@ -777,3 +777,39 @@ body:has(.hp) .footer a:focus-visible {
   margin: 0 0 14px 1.2em;
   padding: 0;
 }
+
+.hp .article h3 {
+  font-size: var(--t-body);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--h-ink);
+}
+.hp .author-box {
+  background: var(--h-paper);
+  border: 0;
+  border-radius: var(--h-r);
+  box-shadow: none;
+  padding: clamp(18px, 2.6vw, 32px);
+}
+.hp .author-box p {
+  color: var(--h-ink);
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+.hp .author-box .author-box-name { color: var(--h-ink); }
+.hp .author-box a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--h-ink);
+}
+.hp .author-box a:hover { color: var(--h-accent); }
+.hp .lms-link-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp .lms-link-list a:hover { color: var(--h-accent); }
