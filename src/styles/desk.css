@@ -1123,3 +1123,52 @@ body:has(.hp) .footer a:focus-visible {
   color: var(--h-ink);
 }
 .hp .statute-history ul a:hover { color: var(--h-accent); }
+
+.hp .lms-factbar { gap: 4px; }
+.hp .lms-factbar > div {
+  background: var(--h-wash);
+  border: 0;
+  border-radius: 3px;
+  padding: 14px 16px;
+  box-shadow: none;
+}
+.hp .req-title {
+  text-align: left;
+  font-size: var(--t-h2);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+.hp .req-lead {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--h-ink);
+}
+.hp .req-block ~ .lms-prose { margin-top: clamp(28px, 4vw, 56px); }
+.hp .neighbor-list a {
+  background: var(--h-wash);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  text-decoration: none;
+}
+.hp .neighbor-list a:hover,
+.hp .neighbor-list a:focus-visible {
+  background: var(--h-stage);
+  text-decoration: none;
+}
+.hp .section-alt .neighbor-list a { background: var(--h-paper); }
+.hp .section-alt .neighbor-list a:hover,
+.hp .section-alt .neighbor-list a:focus-visible { background: var(--h-wash); }
+.hp .howto-steps strong { color: var(--h-ink); font-weight: 600; }
+.hp .lms-faq h3 {
+  font-size: var(--t-body);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--h-ink);
+}
+.hp .lms-faq p {
+  font-size: var(--t-body);
+  color: var(--h-ink);
+  line-height: 1.55;
+}

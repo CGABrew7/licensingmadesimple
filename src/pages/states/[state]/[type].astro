@@ -1,5 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import "../../../styles/desk.css";
 import DirectoryDisclaimer from "../../../components/DirectoryDisclaimer.astro";
 import FileWithCornerstone from "../../../components/FileWithCornerstone.astro";
 import LinkedText from "../../../components/LinkedText.astro";
@@ -77,6 +78,7 @@ const rows: { label: string; cell: CitedCell }[] = [
   jsonLd={jsonLd}
   robots={quality.indexable ? undefined : "noindex, follow"}
 >
+  <div class="hp">
   <section class="page-hero">
     <div class="container">
       <nav class="lms-crumb" aria-label="Breadcrumb">
@@ -92,7 +94,7 @@ const rows: { label: string; cell: CitedCell }[] = [
       {striking?.placement === "under-h1" && striking.paragraphs.map((block) => (
         <p class="answer-lead"><LinkedText text={block.text} links={block.links ?? []} /></p>
       ))}
-      {fact.lead && <p>{fact.lead}</p>}
+      {fact.lead && <p class="lede">{fact.lead}</p>}
       <p>{fact.licenseName}</p>
       {nationalHub && (
         <p class="hub-up">
@@ -175,7 +177,7 @@ const rows: { label: string; cell: CitedCell }[] = [
 
       {statuteHistory && <StatuteHistory history={statuteHistory} />}
 
-      <div class="lms-prose" style="margin-top:36px;">
+      <div class="lms-prose">
         {striking?.placement === "before-who" && (
           <StrikingSection heading={striking.sectionHeading} paragraphs={striking.paragraphs} />
         )}
@@ -309,7 +311,7 @@ const rows: { label: string; cell: CitedCell }[] = [
   </section>
 
   <section class="section">
-    <div class="container" style="max-width:720px;">
+    <div class="container">
       {striking?.cta ? (
         <FileWithCornerstone
           heading={striking.cta.heading}
@@ -328,4 +330,5 @@ const rows: { label: string; cell: CitedCell }[] = [
       <DirectoryDisclaimer />
     </div>
   </section>
+  </div>
 </Layout>
