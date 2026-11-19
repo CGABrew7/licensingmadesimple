@@ -658,3 +658,101 @@ body:has(.hp) .footer a:focus-visible {
 }
 
 .hp .section .hp-faq-list { max-width: 44em; }
+
+.hp .story {
+  max-width: 44em;
+  text-align: left;
+}
+.hp .story-open {
+  font-size: var(--t-lead);
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  font-weight: 500;
+  color: var(--h-ink);
+}
+.hp .story h2 {
+  font-size: var(--t-lead);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--h-ink);
+}
+.hp .story p {
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--h-ink);
+}
+.hp .story-steps {
+  gap: 0;
+  margin: 8px 0 28px;
+}
+.hp .story-steps li {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: space-between;
+  gap: clamp(20px, 3vw, 56px);
+  padding: clamp(22px, 3vw, 40px);
+  background: var(--h-stage);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--h-ink);
+}
+.hp .story-steps li:nth-child(2) { background: var(--h-stage-2); }
+.hp .story-steps li:nth-child(3) {
+  background: var(--h-dark);
+  color: var(--h-on-dark);
+}
+.hp .story-steps span {
+  font-family: var(--sans);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: inherit;
+}
+.hp .story-steps strong { color: inherit; font-weight: 600; }
+.hp .story-steps div {
+  color: inherit;
+  font-size: var(--t-body);
+  line-height: 1.55;
+}
+.hp .hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  background: var(--h-accent);
+  color: var(--h-on-dark);
+  border-radius: var(--h-r);
+  font-size: var(--t-body);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  transition: background-color 0.2s var(--h-ease), transform 0.2s var(--h-ease);
+}
+.hp .hero-cta:hover {
+  background: var(--h-accent-press);
+  color: var(--h-on-dark);
+  text-decoration: none;
+}
+.hp .hero-cta:active { transform: translateY(1px); }
+.hp .hero-cta:focus-visible { outline: 2px solid var(--h-ink); outline-offset: 3px; }
+
+.hp .article p {
+  font-size: var(--t-body);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--h-ink);
+}
+
+@media (min-width: 900px) {
+  .hp .story-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+  .hp .story-steps li:nth-child(2) { margin-top: 56px; }
+  .hp .story-steps li:nth-child(3) { margin-top: 112px; }
+}

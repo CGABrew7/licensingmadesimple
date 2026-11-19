@@ -1,22 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/desk.css';
 ---
 
 <Layout title="Contact | LicensingMadeSimple" description="Ask which license you need and which agency takes the filing.">
-  <section class="page-hero">
-    <div class="container">
-      <h1>Contact Us</h1>
-      <p>Ask which license you need and which agency takes the filing.</p>
-    </div>
-  </section>
+  <div class="hp">
+    <section class="page-hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>Ask which license you need and which agency takes the filing.</p>
+      </div>
+    </section>
 
-  <section class="section">
-    <div class="container article" style="max-width: 720px;">
-      <p>Email us at <a href="mailto:privacy@licensingmadesimple.com">privacy@licensingmadesimple.com</a>.</p>
-    </div>
-  </section>
+    <section class="section">
+      <div class="container article">
+        <p>Email us at <a href="mailto:privacy@licensingmadesimple.com">privacy@licensingmadesimple.com</a>.</p>
+      </div>
+    </section>
+  </div>
 </Layout>
-
-<style>
-  .article p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
-</style>
