@@ -1013,3 +1013,78 @@ body:has(.hp) .footer a:focus-visible {
   text-underline-offset: 4px;
 }
 .hp .lms-cta-text:hover { color: var(--h-accent); }
+
+.hp .lms-prose {
+  text-align: left;
+  max-width: 44em;
+  margin-left: 0;
+  margin-right: 0;
+}
+.hp .lms-prose h2,
+.hp .lms-subhead {
+  font-size: var(--t-lead);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--h-ink);
+}
+.hp .lms-prose p,
+.hp .lms-prose li {
+  font-size: var(--t-body);
+  color: var(--h-ink);
+  line-height: 1.55;
+}
+.hp .faq-list {
+  display: grid;
+  gap: 4px;
+}
+.hp .faq-item {
+  background: var(--h-paper);
+  border: 0;
+  border-radius: var(--h-r);
+  margin: 0;
+  box-shadow: none;
+  transition: background-color 0.2s var(--h-ease);
+}
+.hp .faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 54px;
+  padding: 14px 18px;
+  border-radius: var(--h-r);
+  font-size: var(--t-body);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--h-ink);
+  list-style: none;
+}
+.hp .faq-q::-webkit-details-marker { display: none; }
+.hp .faq-q:hover { background: transparent; }
+.hp .faq-item:not([open]):hover { background: var(--h-wash); }
+.hp .faq-toggle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--h-ink);
+  transition: transform 0.3s var(--h-ease);
+}
+.hp .faq-item[open] .faq-toggle { transform: rotate(45deg); }
+.hp .faq-a {
+  padding: 0 18px 24px;
+  max-width: 44em;
+  font-size: var(--t-body);
+  color: var(--h-ink);
+  line-height: 1.55;
+}
+.hp .faq-a a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hp .faq-a a:hover { color: var(--h-accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .hp .faq-item[open] .faq-a { animation: hp-rise 0.35s var(--h-ease) both; }
+}
