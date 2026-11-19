@@ -656,3 +656,5 @@ body:has(.hp) .footer a:focus-visible {
   .hp .page-hero h1 + p,
   .hp .page-hero .lede { animation: hp-rise 0.8s var(--h-ease) 0.08s both; }
 }
+
+.hp .section .hp-faq-list { max-width: 44em; }
