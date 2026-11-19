@@ -170,9 +170,15 @@ export default function LicenseWizard() {
             </p>
 
             <div className="wr-actions">
-              <a className="btn btn-primary" href="/#wizard">
-                Open live roadmap <span aria-hidden="true">→</span>
+              <a
+                className="lms-cta-btn"
+                href="https://cornerstonelicensing.com?utm_source=licensingmadesimple&utm_medium=referral&utm_campaign=wizard"
+                target="_blank"
+                rel="noopener"
+              >
+                Have Cornerstone file it
               </a>
+              <a className="btn-quiet" href={selectedLicense.directory}>Open live roadmap</a>
               <a className="btn-quiet" href="/directory">Browse directory</a>
             </div>
             <div className="wr-nav">
