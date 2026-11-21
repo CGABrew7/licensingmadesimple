@@ -1,0 +1,24 @@
+name: IndexNow ping
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Wait for key and ping changed URLs
+        env:
+          INDEXNOW_HOST: licensingmadesimple.com
+          INDEXNOW_KEY: 713befe49d480a10b89c4ac3c4e1c64b
+          INDEXNOW_KIND: astro
+          INDEXNOW_SLASH: never
+        run: python3 .github/scripts/indexnow_ping.py
