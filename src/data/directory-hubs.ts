@@ -805,6 +805,15 @@ export function getDirectoryHub(slug: string): DirectoryHub | undefined {
   return hubs[slug];
 }
 
+export interface LendingAnswerRow {
+  stateName: string;
+  href: string;
+  license: string;
+  regulator: string;
+  regulatorUrl: string;
+  nmls: "Yes" | "No";
+}
+
 export interface LendingIntro {
   slug: "lending";
   title: string;
@@ -813,6 +822,9 @@ export interface LendingIntro {
   lede: string;
   ledeLinks: TextLink[];
   jumps: { href: string; label: string }[];
+  answerHeading: string;
+  answerRows: LendingAnswerRow[];
+  answerNotes: HubBlock[];
   sections: { id?: string; heading: string; paragraphs: HubBlock[] }[];
   tableLead: string;
   faqs: HubFaq[];
@@ -833,16 +845,118 @@ function buildLendingIntro(): LendingIntro {
       "Which state license a consumer or commercial lender needs, and which agency takes the filing. File where the borrower lives. Open the state page for any cited fee.",
     h1: type.h1 ?? "Consumer and commercial lending licenses by state",
     lede:
-      "A company that makes consumer loans generally needs a state consumer-lending license in each state where the borrower lives, when the product, rate, or amount crosses that state's trigger. There is no national consumer lending license. Most states take the company application on NMLS. The state still issues the license. Banks and credit unions lending under a charter are usually exempt from the non-depository license. Commercial-purpose loans sit outside many consumer statutes. The NMLS guide explains the filing system. The multi-state licensing guide is how you list every borrower state.",
+      "An online company needs the consumer-loan license of each state where the borrower lives. For 10 large states, the table gives the license name, the regulator that issues it, and whether the company files on NMLS. There is no national consumer lending license. The NMLS guide explains the filing system. The multi-state licensing guide is how you list every borrower state.",
     ledeLinks: [
       { phrase: "NMLS guide", href: "/guides/nmls" },
       { phrase: "multi-state licensing guide", href: "/guides/multi-state" },
     ],
     jumps: [
+      { href: "#online-loans", label: "10 large states" },
       { href: "#who-needs", label: "Who needs a license" },
       { href: "#where", label: "Where to file" },
       { href: "#states", label: "All states" },
       { href: "#faq", label: "FAQ" },
+    ],
+    answerHeading: "Online consumer loans in 10 large states",
+    answerRows: [
+      {
+        stateName: "California",
+        href: "/states/california/lending",
+        license: "California Financing Law license",
+        regulator: "California Department of Financial Protection and Innovation",
+        regulatorUrl: "https://dfpi.ca.gov/regulated-industries/california-financing-law/",
+        nmls: "Yes",
+      },
+      {
+        stateName: "Texas",
+        href: "/states/texas/lending",
+        license: "Regulated Lender license",
+        regulator: "Texas Office of Consumer Credit Commissioner",
+        regulatorUrl: "https://occc.texas.gov/industry/regulated-lenders/licensing-forms/",
+        nmls: "Yes",
+      },
+      {
+        stateName: "Florida",
+        href: "/states/florida/lending",
+        license: "Consumer Finance Company license",
+        regulator: "Florida Office of Financial Regulation",
+        regulatorUrl: "https://flofr.gov/",
+        nmls: "No",
+      },
+      {
+        stateName: "New York",
+        href: "/states/new-york/lending",
+        license: "Licensed Lender license",
+        regulator: "New York State Department of Financial Services",
+        regulatorUrl: "https://www.dfs.ny.gov/apps_and_licensing/licensed_lenders",
+        nmls: "Yes",
+      },
+      {
+        stateName: "Pennsylvania",
+        href: "/states/pennsylvania/lending",
+        license: "Consumer discount company license. The department describes the applicant as a business corporation.",
+        regulator: "Pennsylvania Department of Banking and Securities",
+        regulatorUrl: "https://www.pa.gov/agencies/dobs/non-bank-licensees",
+        nmls: "No",
+      },
+      {
+        stateName: "Illinois",
+        href: "/states/illinois/lending",
+        license: "Consumer Installment Loan license",
+        regulator: "Illinois Department of Financial and Professional Regulation",
+        regulatorUrl: "https://idfpr.illinois.gov/dfi/ccd/ccd-main.html",
+        nmls: "Yes",
+      },
+      {
+        stateName: "Ohio",
+        href: "/states/ohio/lending",
+        license: "Consumer Installment Loan Act license. General Loan Law, Small Loan Act, and Short-Term Loan Act are separate licenses on NMLS.",
+        regulator: "Ohio Division of Financial Institutions",
+        regulatorUrl: "https://com.ohio.gov/divisions-and-programs/financial-institutions/consumer-finance/guides-and-resources/nmls",
+        nmls: "Yes",
+      },
+      {
+        stateName: "Georgia",
+        href: "/states/georgia/lending",
+        license: "Installment lender license for consumer loans of $3,000 or less. Consumer loans over $3,000 are outside this license.",
+        regulator: "Georgia Department of Banking and Finance",
+        regulatorUrl: "https://dbf.georgia.gov/installment-lenders-finance-companies-small-loan-companies",
+        nmls: "Yes",
+      },
+      {
+        stateName: "North Carolina",
+        href: "/states/north-carolina/lending",
+        license: "Consumer finance license",
+        regulator: "North Carolina Office of the Commissioner of Banks",
+        regulatorUrl: "https://nccob.nc.gov/financial-institutions/consumer-finance",
+        nmls: "No",
+      },
+      {
+        stateName: "Michigan",
+        href: "/states/michigan/lending",
+        license: "Regulatory loan license",
+        regulator: "Michigan Department of Insurance and Financial Services",
+        regulatorUrl: "https://www.michigan.gov/difs/industry/licensing-cf/reg-loan",
+        nmls: "Yes",
+      },
+    ],
+    answerNotes: [
+      {
+        text: "Florida files the Consumer Finance Company license in the Office REAL system, not on NMLS. Pennsylvania files the consumer discount company license in the DoBS Portal, not on NMLS. North Carolina files the consumer finance license on the NCCOB online application, not on NMLS. Chapter 520 sales finance is a separate Florida Office of Financial Regulation license, and this table does not give it an NMLS answer.",
+        links: [
+          { phrase: "Office REAL system", href: "https://flrules.elaws.us/fac/69v-160.036" },
+          { phrase: "DoBS Portal", href: "https://www.pa.gov/agencies/dobs/non-bank-licensees" },
+          { phrase: "NCCOB online application", href: "https://nccob.nc.gov/financial-institutions/consumer-finance/consumer-finance-new-application" },
+          { phrase: "Florida Office of Financial Regulation", href: "https://flofr.gov/" },
+        ],
+      },
+      {
+        text: "A bank-partner model changes a row when the bank, not the online company, is the lender and that state's statute exempts the bank. Florida Statutes section 516.02 says the Consumer Finance Act does not apply to a person who does business under a law of Florida or of the United States relating to banks, savings banks, trust companies, building and loan associations, credit unions, or industrial loan and investment companies. The North Carolina Consumer Finance Act lists banks among the businesses exempt from that license. Marketing or servicing the loan does not take the place of that exemption.",
+        links: [
+          { phrase: "Florida Statutes section 516.02", href: "https://www.flsenate.gov/Laws/Statutes/2025/0516.02" },
+          { phrase: "North Carolina Consumer Finance Act", href: "https://nccob.nc.gov/financial-institutions/consumer-finance/frequently-asked-questions" },
+        ],
+      },
     ],
     sections: [
       {
@@ -888,6 +1002,10 @@ function buildLendingIntro(): LendingIntro {
       "All 50 states and DC. Required means a statewide license of this type is the usual rule. It does not mean every loan product is in scope. Fee, bond, and timeline figures stay on the state page.",
     faqs: [
       {
+        q: "We're launching consumer loans online in 10 states. Which licenses do we need and who issues them?",
+        a: "You need the company license of each state where the borrower lives. In these 10 large states: California, a California Financing Law license from the California Department of Financial Protection and Innovation, filed on NMLS. Texas, a Regulated Lender license from the Texas Office of Consumer Credit Commissioner, filed on NMLS. Florida, a Consumer Finance Company license from the Florida Office of Financial Regulation, not filed on NMLS. New York, a Licensed Lender license from the New York State Department of Financial Services, filed on NMLS. Pennsylvania, a consumer discount company license from the Pennsylvania Department of Banking and Securities, not filed on NMLS. The department describes that applicant as a business corporation. Illinois, a Consumer Installment Loan license from the Illinois Department of Financial and Professional Regulation, filed on NMLS. Ohio, a Consumer Installment Loan Act license from the Ohio Division of Financial Institutions, filed on NMLS. General Loan Law, Small Loan Act, and Short-Term Loan Act are separate Ohio licenses on NMLS. Georgia, an installment lender license from the Georgia Department of Banking and Finance for consumer loans of $3,000 or less, filed on NMLS. Consumer loans over $3,000 are outside that license. North Carolina, a consumer finance license from the North Carolina Office of the Commissioner of Banks, not filed on NMLS. Michigan, a regulatory loan license from the Michigan Department of Insurance and Financial Services, filed on NMLS. A bank-partner model changes a row when the bank, not the online company, is the lender and that state's statute exempts the bank. Florida Statutes section 516.02 says the Consumer Finance Act does not apply to a person who does business under a law of Florida or of the United States relating to banks, savings banks, trust companies, building and loan associations, credit unions, or industrial loan and investment companies. The North Carolina Consumer Finance Act lists banks among the businesses exempt from that license. Marketing or servicing the loan does not take the place of that exemption.",
+      },
+      {
         q: "Which states require a consumer lending license?",
         a: "This directory records a statewide consumer-lending license as generally required in all 50 states and the District of Columbia. The license name and the trigger change by state. File where the borrower lives. Open the state row for the agency. Fee and bond figures stay on the state page.",
       },
@@ -912,7 +1030,7 @@ function buildLendingIntro(): LendingIntro {
         a: "No. NMLS is where the company file and control persons are submitted. The state still issues the license. Use the state agency checklist after the company record is open.",
       },
     ],
-    updated: "2026-11-07",
+    updated: "2026-11-23",
   };
   assertPlain("lending title", page.title, false);
   assertPlain("lending description", page.description, false);
@@ -932,7 +1050,7 @@ function buildLendingIntro(): LendingIntro {
   }
   if (page.faqs.length < 4) throw new Error("lending FAQ is short");
   for (const faq of page.faqs) {
-    assertPlain("lending faq", `${faq.q} ${faq.a}`, false);
+    assertPlain("lending faq", `${faq.q} ${faq.a}`, true);
     if (!faq.q.endsWith("?")) throw new Error("lending question is missing punctuation");
   }
   const guideHrefs = page.sections.flatMap((section) => section.paragraphs.flatMap((block) => block.links ?? [])).map((link) => link.href);
@@ -941,7 +1059,49 @@ function buildLendingIntro(): LendingIntro {
     if (!inLede && !guideHrefs.includes(href)) throw new Error(`lending page is missing ${href}`);
   }
   if (/cornerstone/i.test(JSON.stringify(page))) throw new Error("lending intro mentions Cornerstone");
-  if (page.updated !== "2026-11-07") throw new Error("lending intro date is not November 7, 2026");
+  if (page.updated !== "2026-11-23") throw new Error("lending intro date is not November 23, 2026");
+  assertPlain("lending answer heading", page.answerHeading, false);
+  if (page.answerRows.length !== 10) throw new Error("lending answer table is not 10 states");
+  const expectedStates = [
+    "California",
+    "Texas",
+    "Florida",
+    "New York",
+    "Pennsylvania",
+    "Illinois",
+    "Ohio",
+    "Georgia",
+    "North Carolina",
+    "Michigan",
+  ];
+  page.answerRows.forEach((row, index) => {
+    if (row.stateName !== expectedStates[index]) throw new Error(`lending answer row ${index} is ${row.stateName}`);
+    assertPlain(`lending ${row.stateName}`, `${row.license} ${row.regulator} ${row.nmls}`, row.stateName === "Georgia");
+    if (row.nmls !== "Yes" && row.nmls !== "No") throw new Error(`${row.stateName} NMLS cell is not yes or no`);
+    if (!row.regulatorUrl.startsWith("https://")) throw new Error(`${row.stateName} regulator link is not https`);
+    if (!row.href.startsWith("/states/")) throw new Error(`${row.stateName} row does not link a state page`);
+    if (row.license.trim().length < 8) throw new Error(`${row.stateName} license name is empty`);
+  });
+  const georgia = page.answerRows.find((row) => row.stateName === "Georgia");
+  if (!georgia?.license.includes("consumer loans of $3,000 or less")) {
+    throw new Error("Georgia license cell is missing the department's $3,000 scope");
+  }
+  if (!georgia.license.includes("Consumer loans over $3,000")) {
+    throw new Error("Georgia license cell is missing the over $3,000 limit");
+  }
+  for (const block of page.answerNotes) assertLinks("lending answer note", block);
+  const prompt = "We're launching consumer loans online in 10 states. Which licenses do we need and who issues them?";
+  const promptFaq = page.faqs.find((faq) => faq.q === prompt);
+  if (!promptFaq) throw new Error("lending prompt FAQ missing");
+  if (!promptFaq.a.includes("consumer loans of $3,000 or less") || !promptFaq.a.includes("Consumer loans over $3,000")) {
+    throw new Error("lending prompt FAQ drops the Georgia loan-size limit");
+  }
+  for (const faq of page.faqs) {
+    const blob = `${faq.q} ${faq.a}`;
+    for (const amount of blob.match(/\$[\d,]+(?:\.\d+)?/g) ?? []) {
+      if (amount !== "$3,000") throw new Error(`lending faq has unverified amount ${amount}`);
+    }
+  }
   return page;
 }
 

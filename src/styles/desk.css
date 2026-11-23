@@ -1020,6 +1020,11 @@ body:has(.hp) .footer a:focus-visible {
   margin-left: 0;
   margin-right: 0;
 }
+.hp :is(#online-loans, #who-needs, #where, #states, #faq) { scroll-margin-top: 80px; }
+.hp .page-hero .answer-table { margin-top: 22px; max-width: none; }
+.hp .page-hero .answer-table .lms-subhead { margin: 0 0 12px; }
+.hp .answer-notes { margin-top: 18px; }
+.hp .page-hero .answer-notes p { max-width: 40em; margin: 12px 0 0; }
 .hp .lms-prose h2,
 .hp .lms-subhead {
   font-size: var(--t-lead);
