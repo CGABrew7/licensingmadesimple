@@ -77,6 +77,36 @@ const tableLeadLinks = hub?.slug === "money-transmitters"
       ) : lending ? (
         <>
           <p class="lede"><LinkedText text={lending.lede} links={lending.ledeLinks} /></p>
+          <div class="answer-table" id="online-loans">
+            <h2 class="lms-subhead">{lending.answerHeading}</h2>
+            <div class="lms-table-wrap">
+              <table class="lms-table">
+                <thead>
+                  <tr>
+                    <th scope="col">State</th>
+                    <th scope="col">License for online consumer loans</th>
+                    <th scope="col">Regulator</th>
+                    <th scope="col">Filed on NMLS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lending.answerRows.map((row) => (
+                    <tr>
+                      <th scope="row"><a href={row.href}>{row.stateName}</a></th>
+                      <td>{row.license}</td>
+                      <td><a href={row.regulatorUrl} target="_blank" rel="noopener">{row.regulator}</a></td>
+                      <td>{row.nmls}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div class="lms-prose answer-notes">
+              {lending.answerNotes.map((note) => (
+                <p><LinkedText text={note.text} links={note.links ?? []} /></p>
+              ))}
+            </div>
+          </div>
           <Byline modified={lending.updated} />
           <div class="section-links hub-jumps">
             {lending.jumps.map((jump) => (
